@@ -1,2 +1,0 @@
-# HugBot
-Created with CodeSandbox
