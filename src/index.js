@@ -1,16 +1,16 @@
-const Discord = require("discord.js");
-const config = require("./config.json");
-const client = new Discord.Client();
+console.log("Beginning...");
+console.log(process);
+process.stdout = {};
+process.stderr = {};
 
-client.on("ready", () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-});
+const storage = require("./storage.js");
 
-client.on("message", msg => {
-  if (msg.content === "ping") {
-    msg.reply("pong");
-  }
-});
-
-client.login(config.token);
-console.log("Did things.");
+storage
+  .load()
+  .then(() => {
+    const bot = require("./bot.js");
+    bot(storage);
+  })
+  .catch(reason => {
+    console.log("Failed to load storage: " + reason);
+  });

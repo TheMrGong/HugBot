@@ -1,0 +1,18 @@
+{
+  "bot-hugs": [
+    "Uhh, {user}, you can have a hug.. as mucha s that's worth from a bot",
+    "..Okay? HUG {user}!",
+    "*stares intently* .. (hug)",
+    "*stares at lack of arms* \n...\n what do you want me to do?",
+    "Thank you very much, {user}, HUG!",
+    "You may have a hug, {user}. [hug]",
+    "The best hug of all the hugs has been granted to {user}!",
+    "You get a hug, I get a hug, it's a win win! Thanks for the hug {user}!",
+    "💙 Thank you {user}!",
+    "You're the best, {user}, thanks for the hug! 💙",
+    "*stares **very** intensly at lack of arms* ... Uhh, {user}?",
+    "You're awesome {user}! \n*happy bot noises*"
+  ],
+  "hug-other": ["{hugger} has hugged {hugged}!!"],
+  "hug-self": ["You strongly hug yourself, increasing your happiness"]
+}
