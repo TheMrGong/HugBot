@@ -1,3 +1,10 @@
 {
-  "token": "NDU4MDM1NjQ1Mzk1MjM4OTM2.D1hA0Q.HciJegmyEf_CFBouVN-yuKxoXyg"
+  "token": "NDU4MDM1NjQ1Mzk1MjM4OTM2.D1hA0Q.HciJegmyEf_CFBouVN-yuKxoXyg",
+  "mysql": {
+    "host": "localhost",
+    "port": 3306,
+    "database": "hugs",
+    "username": "root",
+    "password": ""
+  }
 }
