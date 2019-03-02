@@ -1,45 +1,76 @@
-console.log("Loading storage...");
-const sqlite3 = require("sqlite3");
-console.log("Sql required.");
-const hugStore = {};
+const mysql = require("mysql")
+const config = require("./config.json");
+
+const DATABASE_NAME = "hug_stats"
+
+const CREATE_TABLE = `CREATE TABLE IF NOT EXISTS ${DATABASE_NAME} ` +
+  "(guildId BIGINT NOT NULL, userId BIGINT NOT NULL, hugsSent BIGINT NOT NULL, hugsReceived BIGINT NOT NULL, PRIMARY KEY(guildId, userId));"
+const GET_HUG_STATS = `SELECT hugsSent, hugsReceived FROM ${DATABASE_NAME} WHERE guildId = ? AND userId = ?`
+const UPDATE_OR_CREATE = `INSERT INTO ${DATABASE_NAME} (guildId, userId, hugsSent, hugsReceived) VALUES(?, ?, ?, ?) ON DUPLICATE KEY UPDATE hugsSent = VALUES(hugsSent), hugsReceived = VALUES(hugsReceived)`
+const INCREMENT_STATISTIC = (statistic) => `UPDATE ${DATABASE_NAME} SET ${statistic} = ${statistic} + 1 WHERE guildId = ? AND userId = ?`
 
 module.exports = {
   async load() {
     const storage = this;
-    console.log("Running load...");
     return new Promise((resolve, reject) => {
-      console.log("Defining DB");
-      storage.db = new sqlite3.Database(":memory:", err => {
-        if (err) {
-          console.error(err.message);
-          return reject(err.message);
-        }
-        console.log("Connected to the in-memory SQlite database.");
-        storage.db.run(
-          "CREATE TABLE IF NOT EXISTS hug_stats " +
-            "(guildId BIGINT NOT NULL, userId BIGINT NOT NULL, hugsSent BIGINT NOT NULL, hugsReceived BIGINT NOT NULL, PRIMARY KEY(guildId, userId));",
-          [],
-          err => {
-            console.log("got error: " + err);
-          }
-        );
-        resolve(true);
+      storage.db = mysql.createPool({
+        connectionLimit: 10,
+        host: config.mysql.host,
+        user: config.mysql.username,
+        password: config.mysql.password,
+        database: config.mysql.database,
+        port: config.mysql.port
       });
+      storage.db.query(CREATE_TABLE, [], (err, results) => {
+        if (err) return console.log(err)
+      })
+
+      resolve(this)
     });
   },
-  incrementHugsSent(guildId, userId) {
-    this.getUserInfoOrCreate(guildId, userId).hugsSent++;
+  async _incrementStatistic(statistic, guildId, userId) {
+    const user = await this.getUserInfoOrCreate(guildId, userId)
+
+    return new Promise((resolve, reject) => {
+      this.db.query(INCREMENT_STATISTIC(statistic), [guildId, userId], (err, results) => {
+        if (err) resolve(false)
+        else resolve(true)
+      })
+    })
+
   },
-  incrementHugsReceived(guildId, userId) {
-    this.getUserInfoOrCreate(guildId, userId).hugsReceived++;
+  async incrementHugsSent(guildId, userId) {
+    await this._incrementStatistic("hugsSent", guildId, userId)
   },
-  logHugEvent(guildId, huggerId, huggedId) {
-    this.incrementHugsReceived(guildId, huggedId);
-    this.incrementHugsSent(guildId, huggerId);
+  async incrementHugsReceived(guildId, userId) {
+    await this._incrementStatistic("hugsReceived", guildId, userId)
   },
-  getUserInfo(guildId, userId) {
-    const guildStorage = hugStore[guildId];
-    if (guildStorage) return guildStorage[userId];
+  async logHugEvent(guildId, huggerId, huggedId) {
+    guildId = parseInt(guildId)
+    huggerId = parseInt(huggerId)
+    huggedId = parseInt(huggedId)
+
+    await this.incrementHugsReceived(guildId, huggedId);
+    await this.incrementHugsSent(guildId, huggerId);
+
+  },
+  async getUserInfo(guildId, userId) {
+    guildId = parseInt(guildId)
+    userId = parseInt(userId)
+
+    return new Promise((resolve, reject) => {
+      this.db.query(GET_HUG_STATS, [guildId, userId], (err, results) => {
+        if (err) return reject(err)
+        if (results.length == 0) return resolve()
+        const row = results[0]
+
+        const user = this.createDefaultUser()
+        user.hugsSent = row.hugsSent
+        user.hugsReceived = row.hugsReceived
+
+        resolve(user)
+      })
+    })
   },
   // non-sql
   createDefaultUser() {
@@ -48,33 +79,38 @@ module.exports = {
       hugsReceived: 0
     };
   },
-  getUserInfoOrCreate(guildId, userId) {
-    let guildStorage = hugStore[guildId];
-    if (!guildStorage) {
-      guildStorage = {};
-      hugStore[guildId] = guildStorage;
-    }
+  async getUserInfoOrCreate(guildId, userId) {
+    guildId = parseInt(guildId)
+    userId = parseInt(userId)
 
-    let userInfo = guildStorage[userId];
-    if (!userInfo) {
-      userInfo = this.createDefaultUser();
-      guildStorage[userId] = userInfo;
-    }
-
-    return userInfo;
+    const existingUser = await this.getUserInfo(guildId, userId)
+    if (!existingUser)
+      return new Promise((resolve, reject) => {
+        this.db.query(UPDATE_OR_CREATE, [guildId, userId, 0, 0], (err) => {
+          if (err) {
+            console.log("error creating new: " + err)
+            return reject(err)
+          }
+          resolve(this.createDefaultUser())
+        })
+      })
+    return existingUser
   },
   async getTotalHugsSent(guildId, userId) {
-    return new Promise((resolve, reject) => {
-      const userInfo = this.getUserInfo(guildId, userId);
-      if (userInfo) return resolve(userInfo.hugsSent);
-      resolve(0);
-    });
+    guildId = parseInt(guildId)
+    userId = parseInt(userId)
+
+    const userInfo = await this.getUserInfo(guildId, userId);
+    if (userInfo) return userInfo.hugsSent
+    return 0
   },
   async getTotalHugsReceived(guildId, userId) {
-    return new Promise((resolve, reject) => {
-      const userInfo = this.getUserInfo(guildId, userId);
-      if (userInfo) return resolve(userInfo.hugsReceived);
-      resolve(0);
-    });
+    guildId = parseInt(guildId)
+    userId = parseInt(userId)
+
+    const userInfo = await this.getUserInfo(guildId, userId)
+    if (userInfo) return userInfo.hugsReceived
+    return 0
   }
-};
+}
+

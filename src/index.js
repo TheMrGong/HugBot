@@ -1,5 +1,3 @@
-console.log("Beginning...");
-console.log(process);
 process.stdout = {};
 process.stderr = {};
 

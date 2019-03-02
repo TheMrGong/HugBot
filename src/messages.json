@@ -1,6 +1,6 @@
 {
   "bot-hugs": [
-    "Uhh, {user}, you can have a hug.. as mucha s that's worth from a bot",
+    "Uhh, {user}, you can have a hug.. as much as that's worth from a bot",
     "..Okay? HUG {user}!",
     "*stares intently* .. (hug)",
     "*stares at lack of arms* \n...\n what do you want me to do?",
@@ -13,6 +13,39 @@
     "*stares **very** intensly at lack of arms* ... Uhh, {user}?",
     "You're awesome {user}! \n*happy bot noises*"
   ],
-  "hug-other": ["{hugger} has hugged {hugged}!!"],
-  "hug-self": ["You strongly hug yourself, increasing your happiness"]
+  "hug-other": [
+    "{hugger} has hugged {hugged}!!",
+    "{hugger} gives {hugged} a strong hug!",
+    "{hugged}, you just got the best hug from {hugger}!!",
+    "{hugger} HUGS {hugged}!!!",
+    "HUGS FOR {hugged}! Thank {hugger}!",
+    "{hugged}, hug! You may thank {hugger} 💙!"
+  ],
+  "hug-self": [
+    "You strongly hug yourself, increasing your happiness",
+    "No, I'm hugging you, {user}.\n*hug*",
+    "Self-hug! [hug]!",
+    "No judgements, I don't mind you hugging yourself."
+  ],
+  "hug-fail": [
+    "{user}, your hug failed! Who are you hugging?",
+    "They go for the hug aaaand...\n*looks around nervously*\n... uhh, who are you hugging?",
+    "Ehh... I can't find that person, {user}.. :c",
+    "I dunno who you're hugging, {user}"
+  ],
+  "hug-stats-nofind": [
+    "Uhh, I couldn't find {finding}"
+  ],
+  "hug-stats-self-never": [
+    "Nobody has ever hugged you nor have you ever hugged anyone :C Sorry {user}"
+  ],
+  "hug-stats-never-hugged": [
+    "Wow.. {user}, nobody has ever hugged nor have {found} ever hugged anyone else.. You should hug them."
+  ],
+  "hug-stats-self-received": [
+    "{user}, you've received a total of {hugs}"
+  ],
+  "hug-stats-other-received": [
+    "{user}, {found} has received a total of {hugs}"
+  ]
 }
