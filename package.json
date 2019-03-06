@@ -4,7 +4,7 @@
   "description": "Simple Node Sandbox",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js localhost 8080"
+    "start": "nodemon src/index.js"
   },
   "dependencies": {
     "discord.js": "11.4.2",
