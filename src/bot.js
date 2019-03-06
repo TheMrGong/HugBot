@@ -1,10 +1,16 @@
 const Discord = require("discord.js");
 const config = require("./config.json");
-const messages = require("./messages.json");
+const lang = require("./lang.js")
+const tacklehugApi = require("./tacklehug.js")
+
+// ADD pats
+
+const DELETE_AFTER = 1000 * 10
 
 let storage;
 
 const client = new Discord.Client();
+const tackleHug = tacklehugApi(client)
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -14,16 +20,19 @@ client.on("ready", () => {
 });
 
 client.on("message", event => {
-  if (event.author.bot && event.embeds.length > 0 && event.embeds[0].description.toLowerCase().includes("?hug")) {
+  if (event.author.bot && event.embeds[0] && event.embeds[0].description && (event.embeds[0].description.toLowerCase().includes("?hug") || event.embeds[0].description.toLowerCase().includes("?tacklehug"))) {
     event.delete()
     return
   }
-  if (event.author.bot || !event.content.toLowerCase().startsWith("?"))
+  if (event.author.bot)
     return;
 
+  if (!event.content.toLowerCase().startsWith("?")) {
+    return processHugsInMessage(event)
+  }
 
   const spaces = event.content.split(" ");
-  const cmd = spaces[0].toLowerCase().substring(1, spaces[0].length)
+  const cmd = spaces[0].toLowerCase().substring(1, spaces[0].length).replace(/[^\w]/gm, "")
   const args = [];
   for (let k in spaces) {
     if (k > 0) args.push(spaces[k]);
@@ -32,74 +41,76 @@ client.on("message", event => {
     hugCommand(event, args)
   else if (cmd == "hugs")
     hugStatsCommand(event, args)
+  else if (cmd == "tacklehug" || cmd == "hugtackle")
+    tackleHugCommand(event, args)
 });
 
-function hugCommand(event, args) {
-  if (args.length == 0) {
-    hugTheBot(event);
-  } else {
+function processHugsInMessage(event) {
+  const mentioned = event.mentions.members.first()
 
-    const targetting = args.join(" ");
-    const user = event.mentions.users.first();
+  const lower = event.content.toLowerCase()
+  const regex = /(?: ?<@!\d+> ?)?\bhug\b(?: ?<@!\d+> ?)?/gm
 
-    if (user) {
-      hugUser(event, user);
-    } else {
-      event.guild.fetchMembers(targetting, 1).then(() => {
-        let member = findUserBy(
-          event,
-          targetting,
-          member => member.displayName
-        );
-        if (!member)
-          member = findUserBy(
-            event,
-            targetting,
-            member => member.user.username
-          );
-
-        if (member) hugUser(event, member.user);
-        else
-          event.channel.send(
-            getMessageFor("hug-fail", "user", event.author.toString(), "hugging", targetting)
-          );
-      });
-    }
-  }
+  if (regex.exec(lower) !== null && mentioned)
+    hugUser(event, mentioned.user)
 }
 
-function hugStatsCommand(event, args) {
+async function findMemberInEvent(event, args) {
+  const mentioned = event.mentions.members.first();
+
+  if (mentioned) return mentioned
+  const targetting = args.join(" ");
+  await event.guild.fetchMembers(targetting, 1)
+
+  let member = findUserBy(
+    event,
+    targetting,
+    member => member.displayName
+  );
+  if (!member)
+    member = findUserBy(
+      event,
+      targetting,
+      member => member.user.username
+    );
+
+  if (member) return member
+}
+
+async function tackleHugCommand(event, args) {
+  if (args.length == 0) return event.channel.send(lang("hug-tackle.unspecified", "user", event.author.toString()))
+
+  const member = await findMemberInEvent(event, args)
+  const tackling = args.join(" ")
+
+  if (!member) return event.channel.send(lang("hug-tackle.not-found", "user", event.author.toString(), "tackling", tackling))
+  if (member.id == event.author.id) return event.channel.send(lang("hug-tackle.self", "user", event.author.toString()))
+
+  event.delete()
+  tackleHug.beginTackleHug(event, member)
+}
+
+async function hugCommand(event, args) {
+  if (args.length == 0) return hugTheBot(event)
+  const member = await findMemberInEvent(event, args)
+  if (member) hugUser(event, member.user)
+  else event.channel.send(
+    lang("hug-fail", "user", event.author.toString(), "hugging", targetting)
+  );
+}
+
+async function hugStatsCommand(event, args) {
   event.delete()
   if (args.length == 0) {
     showHugStatsFor(event, event.member);
   } else {
 
-    const targetting = args.join(" ");
-    const member = event.mentions.members.first();
-
-    if (member) {
-      showHugStatsFor(event, member);
-    } else {
-      event.guild.fetchMembers(targetting, 1).then(() => {
-        let member = findUserBy(
-          event,
-          targetting,
-          member => member.displayName
-        );
-        if (!member)
-          member = findUserBy(
-            event,
-            targetting,
-            member => member.user.username
-          );
-
-        if (member) showHugStatsFor(event, member);
-        else
-          event.channel.send(
-            getMessageFor("hug-stats-nofind", "user", event.author.toString(), "finding", targetting)
-          );
-      });
-    }
+    const member = await findMemberInEvent(event, args)
+    if (member)
+      showHugStatsFor(event, member)
+    else event.channel.send(
+      lang("hug-stats-nofind", "user", event.author.toString(), "finding", targetting)
+    );
   }
 }
 
@@ -107,30 +118,15 @@ async function showHugStatsFor(event, member) {
   const stats = await storage.getUserInfo(event.guild.id, member.id)
   const self = event.author.id === member.id
   if (!stats) {
-    return event.channel.send(getMessageFor(self ? "hug-stats-self-never" : "hug-stats-never-hugged", "user", event.author.toString(), "found", member.displayName))
+    return event.channel.send(lang(self ? "hug-stats-self-never" : "hug-stats-never-hugged", "user", event.author.toString(), "found", member.displayName))
+      .then(message => message.delete(DELETE_AFTER))
   }
   const hugs = stats.hugsReceived + " hug" + (stats.hugsReceived == 1 ? "" : "s")
   if (self) {
-    event.channel.send(getMessageFor("hug-stats-self-received", "user", event.author.toString(), "hugs", hugs))
-  } else event.channel.send(getMessageFor("hug-stats-other-received", "user", event.author.toString(), "hugs", hugs, "found", member.displayName))
-}
-
-function getMessageFor(key, params) {
-  const availableMessages = messages[key];
-  if (!availableMessages || availableMessages.length === 0)
-    return "{i dunno about " + key + "}";
-  let replace =
-    availableMessages[Math.floor(Math.random() * availableMessages.length)];
-  for (let k in arguments) {
-    if (k === 0) continue;
-    if ((k - 1) % 2 === 0) {
-      const key = arguments[k];
-      const value = arguments[parseInt(k) + 1];
-      if (!value) continue; // no value for the key
-      replace = replace.replace(`{${key}}`, value);
-    }
-  }
-  return replace;
+    event.channel.send(lang("hug-stats-self-received", "user", event.author.toString(), "hugs", hugs))
+      .then(message => message.delete(DELETE_AFTER))
+  } else event.channel.send(lang("hug-stats-other-received", "user", event.author.toString(), "hugs", hugs, "found", member.displayName))
+    .then(message => message.delete(DELETE_AFTER))
 }
 
 function findUserBy(event, finding, transform) {
@@ -145,7 +141,7 @@ function findUserBy(event, finding, transform) {
 }
 
 function hugTheBot(event) {
-  const replyingWith = getMessageFor(
+  const replyingWith = lang(
     "bot-hugs",
     "user",
     event.author.toString()
@@ -162,7 +158,7 @@ function hugUser(event, user) {
   if (event.author.id === user.id) {
     event.delete()
     event.channel.send(
-      getMessageFor("hug-self", "user", event.author.toString())
+      lang("hug-self", "user", event.author.toString())
     );
     return;
   } else if (user.id === client.user.id) return hugTheBot(event);
@@ -171,12 +167,12 @@ function hugUser(event, user) {
 
   if (event.mentions.users.array().length > 0) {
     event.channel.send(
-      getMessageFor("hug-other", "hugger", event.author.toString(), "hugged", user.toString())
+      lang("hug-other", "hugger", event.author.toString(), "hugged", user.toString())
     );
   } else {
     event.guild.fetchMember(user).then(member => {
       event.channel.send(
-        getMessageFor("hug-other", "hugger", event.author.toString(), "hugged", `\`\`${member.displayName}\`\``)
+        lang("hug-other", "hugger", event.author.toString(), "hugged", `\`\`${member.displayName}\`\``)
       );
     })
   }
