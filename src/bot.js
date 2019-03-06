@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const config = require("./config/config.json");
-const lang = require("./lang.js")
+const lang = require("./lang/lang.js")
 const tacklehugApi = require("./tacklehug.js")
 
 // ADD pats
