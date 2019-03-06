@@ -6,5 +6,6 @@
     "database": "hugs",
     "username": "root",
     "password": ""
-  }
+  },
+  "prefix": "?"
 }
