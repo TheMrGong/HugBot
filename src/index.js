@@ -5,7 +5,6 @@ if (!process.stout) {
 }
 
 const storage = require("./storage.js");
-const translate = require("./lang.js")
 
 storage
   .load()
