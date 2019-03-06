@@ -1,0 +1,11 @@
+{
+  "token": "NTUyODg0ODMwMjY2OTgyNDEy.D2GBrg.Jm64z9_bGqVANUeT9UKmAme-h1c",
+  "mysql": {
+    "host": "db4free.netalhost",
+    "port": 3306,
+    "database": "hugshugshugshugs",
+    "username": "hugshugshugshugs",
+    "password": "hugshugshugshugs"
+  },
+  "prefix": "."
+}

@@ -20,14 +20,14 @@ client.on("ready", () => {
 });
 
 client.on("message", event => {
-  if (event.author.bot && event.embeds[0] && event.embeds[0].description && (event.embeds[0].description.toLowerCase().includes("?hug") || event.embeds[0].description.toLowerCase().includes("?tacklehug"))) {
+  if (event.author.bot && event.embeds[0] && event.embeds[0].description && (event.embeds[0].description.toLowerCase().includes(config.prefix + "hug") || event.embeds[0].description.toLowerCase().includes(config.prefix + "tacklehug"))) {
     event.delete()
     return
   }
   if (event.author.bot)
     return;
 
-  if (!event.content.toLowerCase().startsWith("?")) {
+  if (!event.content.toLowerCase().startsWith(config.prefix)) {
     return processHugsInMessage(event)
   }
 
