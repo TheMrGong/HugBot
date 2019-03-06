@@ -1,4 +1,4 @@
-const lang = require("./lang.js")
+const lang = require("./lang/lang.js")
 
 let tacklehugs = []
 let client;
