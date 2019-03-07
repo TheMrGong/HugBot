@@ -17,8 +17,8 @@ storage
   });
 
 process.on('uncaughtException', function (err) {
-  console.error((new Date).toUTCString() + ' uncaughtException:', err.message)
-  console.error(err.stack)
   console.log(err)
+  console.log(err.message)
+  console.error((new Date).toUTCString() + ' uncaughtException:', err.message)
   process.exit(1)
 })
