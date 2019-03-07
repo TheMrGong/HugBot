@@ -12,20 +12,24 @@ const INCREMENT_STATISTIC = (statistic) => `UPDATE ${DATABASE_NAME} SET ${statis
 module.exports = {
   async load() {
     const storage = this;
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve) => {
       storage.db = mysql.createPool({
         connectionLimit: 10,
         host: config.mysql.host,
         user: config.mysql.username,
         password: config.mysql.password,
         database: config.mysql.database,
-        port: config.mysql.port
+        port: config.mysql.port,
+        acquireTimeout: 1000 * 30
       });
-      storage.db.query(CREATE_TABLE, [], (err, results) => {
-        if (err) return console.log(err)
-      })
+      const created = await new Promise(resolve => storage.db.query(CREATE_TABLE, [], (err, results) => {
+        if (err) {
+          console.log(err)
+          resolve(false)
+        } else resolve(true)
+      }))
 
-      resolve(this)
+      resolve(created)
     });
   },
   async _incrementStatistic(statistic, guildId, userId) {

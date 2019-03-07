@@ -8,7 +8,8 @@ const storage = require("./storage.js");
 
 storage
   .load()
-  .then(() => {
+  .then(created => {
+    if(!created) return console.log("Failed to setup database.")
     const bot = require("./bot.js");
     bot(storage);
   })
