@@ -43,5 +43,7 @@ async function modifyEnergy(guildId, userId, amount, increasing) {
 }
 
 module.exports = {
-    ready
+    ready,
+    getEnergy,
+    modifyEnergy
 }
