@@ -14,7 +14,21 @@ const db = mysql.createPool({
 
 const query = require("./sqlwrapper.js")(db)
 
+/**
+ * 
+ * @param {string} specification - SQL statement
+ */
+async function setupDatabase(specification) {
+    return new Promise(resolve => db.query(specification, [], (err) => {
+        if (err) {
+            console.log(err)
+            resolve(false)
+        } else resolve(true)
+    }));
+}
+
 module.exports = {
     db,
-    query
+    query,
+    setupDatabase
 }

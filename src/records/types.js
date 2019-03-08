@@ -2,6 +2,7 @@
  * @typedef {Object} HugAction
  * @property {string} id - Action name in the database
  * @property {number} energy - Amount of energy required to perform the action
+ * @property {boolean} [extraData] - Requires extra data in a seperate database
  */
 
 /**
@@ -14,7 +15,8 @@ export const Action = {
     },
     TACKLE_HUG: {
         id: "tacklehug",
-        energy: 10
+        energy: 10,
+        extraData: true
     },
     PAT: {
         id: "pat",

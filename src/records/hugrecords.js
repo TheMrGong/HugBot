@@ -1,6 +1,7 @@
 //@ts-check
-const mysql = require("mysql")
-const config = require("../config/config.js");
+const { db, query, setupDatabase } = require("../util/sql.js")
+const tacklehugRecords = require("./tacklehugrecords")
+const { Action } = require("./types")
 
 const TABLE_NAME = "hug_records"
 
@@ -22,21 +23,15 @@ const INSERT_RECORD = `INSERT INTO ${TABLE_NAME} (
   action
 )
 VALUES(?, ?, ?, ?, ?)`
-const { db, query } = require("../util/sql.js")
 
-const databaseCreated = new Promise(resolve => db.query(CREATE_TABLE, [], (err) => {
-    if (err) {
-        console.log(err)
-        resolve(false)
-    } else resolve(true)
-}));
+const ready = Promise.all([setupDatabase(CREATE_TABLE), tacklehugRecords.databaseCreated])
 
 /**
- * 
  * @param {number} guildId 
  * @param {number} senderId 
  * @param {number} affectedId 
  * @param {import("./types").Action} action
+ * @returns {Promise<any>} The result of the insert
  */
 async function insertRecord(guildId, senderId, affectedId, action) {
     try {
@@ -46,7 +41,41 @@ async function insertRecord(guildId, senderId, affectedId, action) {
     }
 }
 
+/**
+ * @param {number} guildId 
+ * @param {number} senderId 
+ * @param {number} affectedId 
+ * @param {import("./types").Action} action
+ * @returns {Promise<any>} The result of the insert
+ */
+async function logAction(guildId, senderId, affectedId, action) {
+    try {
+        if(action.extraData) throw "Cannot log this action directly, requires extra data."
+        return await insertRecord(guildId, senderId, affectedId, action)
+    } catch (e) {
+        throw e
+    }
+}
+
+/**
+ * @param {number} guildId - guild id this occurred in
+ * @param {number} tackler - discord id of tackler
+ * @param {number} tackled - discord id of tackled
+ * @param {import("./types").TackleResult} tackleResult 
+ * @param {number} timeLeft - time taken for someone to click Accept or Dodge. -1 if they took too long
+ * @returns {Promise<any>} The result of the insert
+ */
+async function logTackleHug(guildId, tackler, tackled, tackleResult, timeLeft) {
+    try {
+        const result = await insertRecord(guildId, tackler, tackled, Action.TACKLE_HUG)
+        return await tacklehugRecords.insertTackleHugInfo(result.insertId, tackleResult, timeLeft)
+    } catch (e) {
+        throw e
+    }
+}
+
 module.exports = {
-    databaseCreated,
-    insertRecord
+    ready,
+    logAction,
+    logTackleHug
 }
