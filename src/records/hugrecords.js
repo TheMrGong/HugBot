@@ -24,14 +24,6 @@ const INSERT_RECORD = `INSERT INTO ${TABLE_NAME} (
 VALUES(?, ?, ?, ?, ?)`
 const { db, query } = require("../util/sql.js")
 
-/**
- * @enum {string}
- */
-const Action = {
-    HUG: "hug",
-    TACKLE_HUG: "tacklehug"
-}
-
 const databaseCreated = new Promise(resolve => db.query(CREATE_TABLE, [], (err) => {
     if (err) {
         console.log(err)
@@ -44,11 +36,11 @@ const databaseCreated = new Promise(resolve => db.query(CREATE_TABLE, [], (err) 
  * @param {number} guildId 
  * @param {number} senderId 
  * @param {number} affectedId 
- * @param {Action} action
+ * @param {import("./types").Action} action
  */
 async function insertRecord(guildId, senderId, affectedId, action) {
     try {
-        return await query(INSERT_RECORD, [guildId, senderId, affectedId, new Date().getTime(), action])
+        return await query(INSERT_RECORD, [guildId, senderId, affectedId, new Date().getTime(), action.id])
     } catch (e) {
         throw e
     }
@@ -56,6 +48,5 @@ async function insertRecord(guildId, senderId, affectedId, action) {
 
 module.exports = {
     databaseCreated,
-    insertRecord,
-    Action
+    insertRecord
 }
