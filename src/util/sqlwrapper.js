@@ -1,4 +1,5 @@
 //@ts-check
+
 /**
  * @param {import("mysql").Pool} db
  * @returns {function(string, array): Promise<any>}

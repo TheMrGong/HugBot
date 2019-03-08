@@ -1,9 +1,4 @@
 //@ts-check
-const mysql = require("mysql")
-const config = require("../config/config.js");
-const hugrecords = require("./hugrecords"),
-    Action = hugrecords.Action
-
 const TABLE_NAME = "tacklehug_records"
 
 const CREATE_TABLE = `CREATE TABLE IF NOT EXISTS ${TABLE_NAME} (
@@ -16,30 +11,19 @@ const CREATE_TABLE = `CREATE TABLE IF NOT EXISTS ${TABLE_NAME} (
 
 const INSERT_TACKLE_DATA = `INSERT INTO ${TABLE_NAME} (record, tackleResult, timeLeft) VALUES(?, ?, ?)`
 
-const { db, query } = require("../util/sql")
+const { query, setupDatabase } = require("../util/sql")
 
-const databaseCreated = new Promise(resolve => db.query(CREATE_TABLE, [], (err) => {
-    if (err) {
-        console.log(err)
-        resolve(false)
-    } else resolve(true)
-}));
+const databaseCreated = setupDatabase(CREATE_TABLE)
 
 /**
- * 
- * @param {number} guildId - guild id this occurred in
- * @param {number} tackler - discord id of tackler
- * @param {number} tackled - discord id of tackled
+ * @param {number} recordId - id to record in hug_records
  * @param {import("./types").TackleResult} tackleResult 
  * @param {number} timeLeft - time taken for the result to happen
+ * @returns {Promise<any>} The result of the insert
  */
-async function logTackleHug(guildId, tackler, tackled, tackleResult, timeLeft) {
+async function insertTackleHugInfo(recordId, tackleResult, timeLeft) {
     try {
-        const result = await hugrecords.insertRecord(guildId, tackler, tackled, Action.TACKLE_HUG)
-        console.log("got initial result ")
-        console.log(result)
-        return await query(INSERT_TACKLE_DATA, [result.insertId, tackleResult, timeLeft])
-
+        return await query(INSERT_TACKLE_DATA, [recordId, tackleResult, timeLeft])
     } catch (e) {
         throw e
     }
@@ -47,5 +31,5 @@ async function logTackleHug(guildId, tackler, tackled, tackleResult, timeLeft) {
 
 module.exports = {
     databaseCreated,
-    logTackleHug
+    insertTackleHugInfo
 }
