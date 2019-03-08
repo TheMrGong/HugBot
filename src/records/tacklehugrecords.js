@@ -26,20 +26,11 @@ const databaseCreated = new Promise(resolve => db.query(CREATE_TABLE, [], (err) 
 }));
 
 /**
- * @enum {number}
- */
-const TackleResult = {
-    DODGED: 1,
-    ACCEPTED: 2,
-    TOO_LONG: 3
-}
-
-/**
  * 
  * @param {number} guildId - guild id this occurred in
  * @param {number} tackler - discord id of tackler
  * @param {number} tackled - discord id of tackled
- * @param {TackleResult} tackleResult 
+ * @param {import("./types").TackleResult} tackleResult 
  * @param {number} timeLeft - time taken for the result to happen
  */
 async function logTackleHug(guildId, tackler, tackled, tackleResult, timeLeft) {
@@ -56,6 +47,5 @@ async function logTackleHug(guildId, tackler, tackled, tackleResult, timeLeft) {
 
 module.exports = {
     databaseCreated,
-    logTackleHug,
-    TackleResult
+    logTackleHug
 }
