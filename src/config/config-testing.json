@@ -1,11 +1,11 @@
 {
   "token": "NTUyODg0ODMwMjY2OTgyNDEy.D2GBrg.Jm64z9_bGqVANUeT9UKmAme-h1c",
   "mysql": {
-    "host": "85.10.205.173",
+    "host": "remotemysql.com",
     "port": 3306,
-    "database": "hughughughug",
-    "username": "hughughughug",
-    "password": "hughughughug"
+    "database": "s4SRD3rn4S",
+    "username": "s4SRD3rn4S",
+    "password": "HebizV2BfH"
   },
   "prefix": "."
 }
