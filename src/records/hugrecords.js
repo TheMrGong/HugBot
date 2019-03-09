@@ -4,7 +4,6 @@
  * @typedef {Object} HugAction
  * @property {string} id - Action name in the database
  * @property {number} energy - Amount of energy required to perform the action
- * @property {boolean} [extraData] - Requires extra data in a seperate database
  */
 
 const { query, setupDatabase } = require("../util/sql.js")
@@ -20,8 +19,7 @@ const Action = {
     },
     TACKLE_HUG: {
         id: "tacklehug",
-        energy: 10,
-        extraData: true
+        energy: 10
     },
     PAT: {
         id: "pat",
@@ -85,7 +83,6 @@ async function insertRecord(guildId, senderId, affectedId, action) {
  */
 async function logAction(guildId, senderId, affectedId, action) {
     try {
-        if (action.extraData) throw "Cannot log this action directly, requires extra data."
         return await insertRecord(parseInt(guildId), parseInt(senderId), parseInt(affectedId), action)
     } catch (e) {
         throw e
@@ -109,27 +106,9 @@ async function getTotalActions(guildId, checkingId, sent, action) {
     }
 }
 
-/**
- * @param {string} guildId - guild id this occurred in
- * @param {string} tackler - discord id of tackler
- * @param {string} tackled - discord id of tackled
- * @param {tacklehugRecords.Tackles} tackleResult 
- * @param {number} timeLeft - time taken for someone to click Accept or Dodge. -1 if they took too long
- * @returns {Promise<any>} The result of the insert
- */
-async function logTackleHug(guildId, tackler, tackled, tackleResult, timeLeft) {
-    try {
-        const result = await insertRecord(parseInt(guildId), parseInt(tackler), parseInt(tackled), Action.TACKLE_HUG)
-        return await tacklehugRecords.insertTackleHugInfo(result.insertId, tackleResult, timeLeft)
-    } catch (e) {
-        throw e
-    }
-}
-
 module.exports = {
     ready,
     logAction,
-    logTackleHug,
     getTotalActions,
     Action
 }

@@ -6,6 +6,11 @@ const PREFIX = "cmd.tacklehug."
 const langAPI = require("../../lang/lang.js"),
     lang = langAPI.prefixed(PREFIX)
 
+const hugrecords = require("../../records/hugrecords"),
+    Action = hugrecords.Action
+const tacklehugRecords = require("../../records/tacklehugrecords"),
+    TackleResult = tacklehugRecords.TackleResult
+
 /**
  * @enum {number}
  */
@@ -42,6 +47,7 @@ const TACKLING_KEY = "tackling."
  * @property {boolean} shouldRemove
  * @property {function(): void} delete
  * @property {function(): void} updateMessage
+ * @property {number} insertId
  */
 
 /**
@@ -65,8 +71,10 @@ setInterval(() => {
         const tacklehug = tacklehugs[k]
         if (!tacklehug.shouldRemove) tacklehug.updateMessage()
     }
-    tacklehugs = tacklehugs.filter(data => {
+    tacklehugs = tacklehugs.filter(async data => {
         if (data.shouldRemove) {
+            if (data.state == HUG_STATE.TOO_LONG)
+                tacklehugRecords.insertTackleHugInfo(data.insertId, TackleResult.TOO_LONG, -1)
             if (DELETING) data.delete()
             return false
         }
@@ -98,19 +106,26 @@ module.exports = {
      * @param {Discord.Client} client
      */
     setup(client) {
-        client.on("messageReactionAdd", (reaction, user) => {
+        client.on("messageReactionAdd", async (reaction, user) => {
             if (user.bot) return
             const tackledData = findTackledData(user.id)
             if (!tackledData) return
 
             if (tackledData.state == HUG_STATE.WAITING) {
+
+                async function insertData(tackleResult) {
+                    await tacklehugRecords.insertTackleHugInfo(tackledData.insertId, tackleResult, tackledData.solidified)
+                }
                 if (reaction.emoji.name == D_EMOTE) {
                     tackledData.state = HUG_STATE.DODGED
                     tackledData.solidified = tackledData.timeLeft
+                    await insertData(TackleResult.DODGED)
+
                     tackledData.updateMessage()
                 } else if (reaction.emoji.name == A_EMOTE) {
                     tackledData.state = HUG_STATE.ACCEPTED
                     tackledData.solidified = tackledData.timeLeft
+                    await insertData(TackleResult.ACCEPTED)
                     tackledData.updateMessage()
 
                 }
@@ -149,9 +164,17 @@ function generateMessage(tackler, tackled, state, timeLeft, countdownIndex = -1)
  * @param {Discord.GuildMember} tackling 
  */
 async function beginTackleHandling(event, tackling) {
+    const result = await hugrecords.logAction(event.guild.id, event.member.id, tackling.id, Action.TACKLE_HUG)
+    if (!result) {
+        event.channel.send("Ahh, wasn't able to track that tackle.. ;-;")
+        return
+    }
+
     const theMessageData = generateMessage(event.member.displayName, tackling.displayName, HUG_STATE.WAITING, TIME_TO_DODGE / 1000)
     const message = await event.channel.send(theMessageData.toString())
     if (!(message instanceof Discord.Message)) return
+
+
 
     try {
         await message.react(A_EMOTE)
@@ -170,6 +193,8 @@ async function beginTackleHandling(event, tackling) {
         countdownIndex: theMessageData instanceof langAPI.TranslateResult ? theMessageData.usedIndex : 0,
         updating: false,
         doneUpdating: false,
+        /**@type {number} */
+        insertId: result.insertId,
         get timeLeft() {
             return Math.round((this.begin + TIME_TO_DODGE - new Date().getTime()) / 1000)
         },
