@@ -2,8 +2,9 @@
 const Discord = require("discord.js")
 const findMemberInEvent = require("../util")
 const lang = require("../../lang/lang.js")
-const storage = require("../../storage")
 const config = require("../../config/config.js");
+const hugrecords = require("../../records/hugrecords"),
+    Action = hugrecords.Action
 
 /**
  * 
@@ -19,8 +20,7 @@ function hugTheBot(event) {
         event.member.displayName + " hugged me! Replying with " + replyingWith
     );
     event.channel.send(replyingWith)
-
-    storage.logHugEvent(event.guild.id, event.author.id, event.client.user.id);
+    hugrecords.logAction(event.guild.id, event.author.id, event.client.user.id, Action.HUG)
 }
 
 /**
@@ -30,14 +30,15 @@ function hugTheBot(event) {
  */
 function hugUser(event, user) {
     if (event.author.id === user.id) {
-        event.delete()
+        if (event.deletable) event.delete()
         event.channel.send(
             lang("hug-self", "user", event.author.toString())
         );
         return;
     } else if (user.id === event.client.user.id) return hugTheBot(event);
-    event.delete()
-    storage.logHugEvent(event.guild.id, event.author.id, user.id)
+    if (event.deletable) event.delete()
+
+    hugrecords.logAction(event.guild.id, event.author.id, user.id, Action.HUG)
 
     if (event.mentions.users.array().length > 0) {
         event.channel.send(
