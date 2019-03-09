@@ -2,7 +2,8 @@
 const Discord = require("discord.js")
 const findMemberInEvent = require("../util")
 const lang = require("../../lang/lang.js")
-const storage = require("../../storage")
+const hugrecords = require("../../records/hugrecords"),
+    Action = hugrecords.Action
 
 const DELETE_AFTER = 1000 * 10
 
@@ -12,14 +13,14 @@ const DELETE_AFTER = 1000 * 10
  * @param {Discord.GuildMember} member 
  */
 async function showHugStatsFor(event, member) {
-    const stats = await storage.getUserInfo(event.guild.id, member.id)
+    const hugsReceived = await hugrecords.getTotalActions(event.guild.id, member.id, false, Action.HUG)
     const self = event.author.id === member.id
-    if (!stats) {
+    if (hugsReceived == 0) {
         const message = await event.channel.send(lang(self ? "hug-stats-self-never" : "hug-stats-never-hugged", "user", event.author.toString(), "found", member.displayName))
         if (message instanceof Discord.Message && message.deletable) message.delete(DELETE_AFTER)
         return
     }
-    const hugs = stats.hugsReceived + " hug" + (stats.hugsReceived == 1 ? "" : "s")
+    const hugs = hugsReceived + " hug" + (hugsReceived == 1 ? "" : "s")
 
     /**@type {Discord.Message|Discord.Message[]} */
     let message;

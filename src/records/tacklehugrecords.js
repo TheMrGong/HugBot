@@ -1,8 +1,6 @@
 //@ts-check
 
-/**
- * @typedef {number} TackleResult
- */
+
 const TABLE_NAME = "tacklehug_records"
 
 const CREATE_TABLE = `CREATE TABLE IF NOT EXISTS ${TABLE_NAME} (
@@ -12,6 +10,18 @@ const CREATE_TABLE = `CREATE TABLE IF NOT EXISTS ${TABLE_NAME} (
     timeLeft BIGINT NOT NULL,
     PRIMARY KEY (id)
 );`
+/**
+ * @typedef {number} Tackles
+ */
+
+/**
+ * @enum {Tackles}
+ */
+const TackleResult = {
+    DODGED: 1,
+    ACCEPTED: 2,
+    TOO_LONG: 3
+}
 
 const INSERT_TACKLE_DATA = `INSERT INTO ${TABLE_NAME} (record, tackleResult, timeLeft) VALUES(?, ?, ?)`
 
@@ -35,5 +45,6 @@ async function insertTackleHugInfo(recordId, tackleResult, timeLeft) {
 
 module.exports = {
     databaseCreated,
-    insertTackleHugInfo
+    insertTackleHugInfo,
+    TackleResult
 }

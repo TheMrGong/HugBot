@@ -89,12 +89,12 @@ module.exports.setup = (client) => {
         const spaces = event.content.split(" ");
         const cmd = spaces[0].toLowerCase().substring(1, spaces[0].length).replace(/[^\w]/gm, "")
         const args = [];
-        for (let k in spaces.keys()) {
+        for (let k in spaces) {
             if (parseInt(k) > 0) args.push(spaces[k]);
         }
         const command = findCommand(cmd)
         if (command) command.call(event, args)
     });
 
-    registerCommands(client, "hugcmd", "hugstatscmd", "tacklehugcmd")
+    registerCommands(client, "hugcmd", "hugstatscmd", "tacklehugcmd", "test")
 }
