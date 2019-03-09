@@ -2,14 +2,15 @@
 
 const storage = require("./storage.js");
 const hugrecords = require("./records/hugrecords")
-const tacklehugs = require("./records/tacklehugrecords")
+const energyapi = require("./energy/energyapi")
 
 async function begin() {
   try {
-    await hugrecords.databaseCreated
-    await tacklehugs.databaseCreated
-    const results = await tacklehugs.logTackleHug(0, 1, 2, tacklehugs.TackleResult.ACCEPTED, 5000)
-    console.log(results)
+    await Promise.all([hugrecords.ready, energyapi.ready])
+    const added = await energyapi.addEnergy(1, 0, 1)
+    const energy = await energyapi.getEnergy(1, 0)
+    console.log("Energy: " + energy.energy + " removed - " + energy.lastRemoved)
+    await energyapi.removeEnergy(1, 0, 1)
   } catch (e) {
     console.log(e)
     return

@@ -1,4 +1,8 @@
 //@ts-check
+
+/**
+ * @typedef {number} TackleResult
+ */
 const TABLE_NAME = "tacklehug_records"
 
 const CREATE_TABLE = `CREATE TABLE IF NOT EXISTS ${TABLE_NAME} (
@@ -17,7 +21,7 @@ const databaseCreated = setupDatabase(CREATE_TABLE)
 
 /**
  * @param {number} recordId - id to record in hug_records
- * @param {import("./types").TackleResult} tackleResult 
+ * @param {TackleResult} tackleResult 
  * @param {number} timeLeft - time taken for the result to happen
  * @returns {Promise<any>} The result of the insert
  */
