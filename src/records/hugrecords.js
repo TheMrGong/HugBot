@@ -28,6 +28,14 @@ const Action = {
     GLOMP: {
         id: "glomp",
         energy: 5
+    },
+    HIGH_FIVE: {
+        id: "highfive",
+        energy: 2
+    },
+    FIST_BUMP: {
+        id: "fistbump",
+        energy: 1
     }
 }
 
