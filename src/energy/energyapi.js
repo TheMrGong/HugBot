@@ -3,14 +3,16 @@ const db = require("./energydb")
 const NodeCache = require("node-cache")
 const Energy = require("./types")
 
+const MAX_ENERGY = 30
+
 const cache = new NodeCache({
     stdTTL: 60
 })
 
 /**
  * 
- * @param {number} guildId 
- * @param {number} userId 
+ * @param {string} guildId 
+ * @param {string} userId 
  * @returns {string}
  */
 function cacheKey(guildId, userId) {
@@ -30,27 +32,29 @@ function updateCache(key, apply) {
 }
 
 /**
- * @param {number} guildId 
- * @param {number} userId 
+ * @param {string} guildId 
+ * @param {string} userId 
  * @param {number} [energy]
  * @returns {Promise<any>} mysql result packet
  */
 async function addEnergy(guildId, userId, energy = 1) {
     if (energy == 0) return
-    updateCache(cacheKey(guildId, userId), cache => cache.energy + energy)
+    const currentEnergy = await getEnergyData(guildId, userId)
+    if (currentEnergy.energy + energy < 0 || currentEnergy.energy > MAX_ENERGY) return
+
+    updateCache(cacheKey(guildId, userId), cache => cache.energy = cache.energy + energy)
     let increasing = true
     if (energy < 0) {
         energy = energy * -1
         increasing = false
     }
-
     return await db.modifyEnergy(guildId, userId, energy, increasing)
 }
 
 /**
  * 
- * @param {number} guildId 
- * @param {number} userId 
+ * @param {string} guildId 
+ * @param {string} userId 
  * @param {number} [energy]
  */
 async function removeEnergy(guildId, userId, energy = 1) {
@@ -59,11 +63,24 @@ async function removeEnergy(guildId, userId, energy = 1) {
 }
 
 /**
- * @param {number} guildId 
- * @param {number} userId 
+ * @param {string} guildId 
+ * @param {string} userId 
+ * @param {number} energy 
+ * @returns {Promise<boolean>} Whether the energy could be used
+ */
+async function useEnergy(guildId, userId, energy) {
+    const energyData = await getEnergyData(guildId, userId)
+    if (energyData.energy - energy <= 0) return false
+    await removeEnergy(guildId, userId, energy)
+    return true
+}
+
+/**
+ * @param {string} guildId 
+ * @param {string} userId 
  * @returns {Promise<Energy>}
  */
-async function getEnergy(guildId, userId) {
+async function getEnergyData(guildId, userId) {
     const cached = cache.get(cacheKey(guildId, userId))
     if (typeof cached == "object") return cached
     const energy = await db.getEnergy(guildId, userId)
@@ -76,5 +93,8 @@ module.exports = {
     ready: db.ready,
     addEnergy,
     removeEnergy,
-    getEnergy
+    getEnergyData,
+    useEnergy,
+    updateCache,
+    cacheKey
 }

@@ -11,6 +11,9 @@ const hugrecords = require("../../records/hugrecords"),
 const tacklehugRecords = require("../../records/tacklehugrecords"),
     TackleResult = tacklehugRecords.TackleResult
 
+//TODO dodge fail
+const energyapi = require("../../energy/energyapi")
+
 /**
  * @enum {number}
  */
@@ -99,6 +102,11 @@ module.exports = {
         if (member.id == event.author.id) return event.channel.send(lang("self", "user", event.author.toString()))
 
         if (event.deletable) event.delete()
+        const energyUsed = await energyapi.useEnergy(event.guild.id, event.author.id, Action.TACKLE_HUG.energy)
+        if (!energyUsed)
+            return event.channel.send(
+                lang("not-enough-energy", "user", event.author.toString(), "attempt", member.displayName)
+            )
         beginTackleHug(event, member)
     },
 

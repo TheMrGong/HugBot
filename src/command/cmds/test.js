@@ -1,7 +1,7 @@
 //@ts-check
 const Discord = require("discord.js")
 const hugrecords = require("../../records/hugrecords")
-
+const energydb = require("../../energy/energydb")
 
 module.exports = {
     cmd: "test",
@@ -11,7 +11,8 @@ module.exports = {
      * @param {Array<string>} args 
      */
     async call(event, args) {
-        hugrecords.getTotalActions("0", "1", true, hugrecords.Action.TACKLE_HUG)
+        const things = await energydb.getToDecrement(0)
+        energydb.decrementAll(things)
     }
 
 }

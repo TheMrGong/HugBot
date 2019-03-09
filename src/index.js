@@ -1,4 +1,5 @@
 //@ts-check
+// TODO preferences
 
 const hugrecords = require("./records/hugrecords")
 const energyapi = require("./energy/energyapi")
