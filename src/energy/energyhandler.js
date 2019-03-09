@@ -5,7 +5,7 @@ const Discord = require("discord.js")
 const energyapi = require("./energyapi")
 const energydb = require("./energydb")
 
-const DECREMENT_EVERY = 1000 * 60
+const DECREMENT_EVERY = 1000 * 60 * 5
 
 /**
  * @param {Discord.Client} client 

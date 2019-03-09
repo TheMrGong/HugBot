@@ -13,8 +13,8 @@ const DELETE_AFTER = 1000 * 30
  * @param {Discord.GuildMember} member 
  */
 async function showEnergy(event, member) {
-    const energy = Math.floor((await energyapi.getEnergyData(event.guild.id, member.id)).energy)
     if (event.deletable) event.delete()
+    const energy = Math.floor((await energyapi.getEnergyData(event.guild.id, member.id)).energy)
     // getting energy of self
     /**@type {Discord.Message|Discord.Message[]} */
     let message;

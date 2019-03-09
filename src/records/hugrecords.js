@@ -36,6 +36,10 @@ const Action = {
     FIST_BUMP: {
         id: "fistbump",
         energy: 1
+    },
+    POKE: {
+        id: "poke",
+        energy: 1 // maybe it detects the message above as the person you're poking
     }
 }
 
