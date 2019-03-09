@@ -1,7 +1,10 @@
 //@ts-check
 const Discord = require("discord.js")
 const findMemberInEvent = require("../util")
-const lang = require("../../lang/lang.js")
+
+const PREFIX = "cmd.tacklehug."
+const langAPI = require("../../lang/lang.js"),
+    lang = langAPI.prefixed(PREFIX)
 
 /**
  * @enum {number}
@@ -23,7 +26,7 @@ const TIME_TO_DODGE = 1000 * 10
 const MESSAGE_EXIST_FOR = 1000 * 13
 const DELETING = false
 
-const TACKLING_KEY = "hug-tackle.tackling."
+const TACKLING_KEY = "tackling."
 
 /**
  * @typedef {Object} TackleData
@@ -80,14 +83,13 @@ module.exports = {
      * @param {Array<string>} args
      */
     async call(event, args) {
-        console.log(args)
-        if (args.length == 0) return event.channel.send(lang("hug-tackle.unspecified", "user", event.author.toString()))
+        if (args.length == 0) return event.channel.send(lang("unspecified", "user", event.author.toString()))
 
         const member = await findMemberInEvent(event, args)
         const tackling = args.join(" ")
 
-        if (!member) return event.channel.send(lang("hug-tackle.not-found", "user", event.author.toString(), "tackling", tackling))
-        if (member.id == event.author.id) return event.channel.send(lang("hug-tackle.self", "user", event.author.toString()))
+        if (!member) return event.channel.send(lang("not-found", "user", event.author.toString(), "tackling", tackling))
+        if (member.id == event.author.id) return event.channel.send(lang("self", "user", event.author.toString()))
 
         event.delete()
         beginTackleHug(event, member)
@@ -125,13 +127,13 @@ module.exports = {
  * @param {HUG_STATE} state 
  * @param {number} timeLeft 
  * @param {number} [countdownIndex]
- * @returns {(string|lang.TranslateResult)}
+ * @returns {(string|langAPI.TranslateResult)}
  */
 function generateMessage(tackler, tackled, state, timeLeft, countdownIndex = -1) {
     const time = timeLeft + " second" + (timeLeft == 1 ? "" : "s")
     switch (state) {
         case HUG_STATE.WAITING:
-            return lang.withIndex(TACKLING_KEY + "time-left", "tackled", tackled, "tackler", tackler, "time", time, "$$index", countdownIndex)
+            return langAPI.withIndex(PREFIX + TACKLING_KEY + "time-left", "tackled", tackled, "tackler", tackler, "time", time, "$$index", countdownIndex)
         case HUG_STATE.DODGED:
             return lang(TACKLING_KEY + "dodged", "tackled", tackled, "tackler", tackler, "time", time)
         case HUG_STATE.ACCEPTED:
@@ -166,7 +168,7 @@ async function beginTackleHandling(event, tackling) {
         state: HUG_STATE.WAITING,
         begin: new Date().getTime(),
         solidified: 0,
-        countdownIndex: theMessageData instanceof lang.TranslateResult ? theMessageData.usedIndex : 0,
+        countdownIndex: theMessageData instanceof langAPI.TranslateResult ? theMessageData.usedIndex : 0,
         updating: false,
         doneUpdating: false,
         get timeLeft() {

@@ -1,88 +1,94 @@
 {
-  "bot-hugs": [
-    "Uhh, {user}, you can have a hug.. as much as that's worth from a bot",
-    "..Okay? HUG {user}!",
-    "*stares intently* .. (hug)",
-    "*stares at lack of arms* \n...\n what do you want me to do?",
-    "Thank you very much, {user}, HUG!",
-    "You may have a hug, {user}. [hug]",
-    "The best hug of all the hugs has been granted to {user}!",
-    "You get a hug, I get a hug, it's a win win! Thanks for the hug {user}!",
-    "💙 Thank you {user}!",
-    "You're the best, {user}, thanks for the hug! 💙",
-    "*stares **very** intensly at lack of arms* ... Uhh, {user}?",
-    "You're awesome {user}! \n*happy bot noises*"
-  ],
-  "hug-other": [
-    "{hugger} has hugged {hugged}!!",
-    "{hugger} gives {hugged} a strong hug!",
-    "{hugged}, you just got the best hug from {hugger}!!",
-    "{hugger} HUGS {hugged}!!!",
-    "HUGS FOR {hugged}! Thank {hugger}!",
-    "{hugged}, hug! You may thank {hugger} 💙!"
-  ],
-  "hug-self": [
-    "You strongly hug yourself, increasing your happiness",
-    "No, I'm hugging you, {user}.\n*hug*",
-    "Self-hug! [hug]!",
-    "No judgements, I don't mind you hugging yourself."
-  ],
-  "hug-fail": [
-    "{user}, your hug failed! Who are you hugging?",
-    "They go for the hug aaaand...\n*looks around nervously*\n... uhh, who are you hugging?",
-    "Ehh... I can't find that person, {user}.. :c",
-    "I dunno who you're hugging, {user}"
-  ],
-  "hug-stats-nofind": [
-    "Uhh, I couldn't find {finding}"
-  ],
-  "hug-stats-self-never": [
-    "Nobody has ever hugged you nor have you ever hugged anyone :C Sorry {user}"
-  ],
-  "hug-stats-never-hugged": [
-    "Wow.. {user}, nobody has ever hugged nor have {found} ever hugged anyone else.. You should hug them."
-  ],
-  "hug-stats-self-received": [
-    "{user}, you've received a total of {hugs}"
-  ],
-  "hug-stats-other-received": [
-    "{user}, {found} has received a total of {hugs}"
-  ],
-  "hug-tackle": {
-    "unspecified": [
-      "You kinda have to say _who_ you're tackle hugging.."
-    ],
-    "self": [
-      "Uhh, you can't tackle hug yourself... how does that even work??"
-    ],
-    "not-found": [
-      "You leap through the air... and fall flat on your face. I don't see anyone named {tackling}..."
-    ],
-    "tackling": {
-      "too-long": [
-        "``{tackled}`` takes too long to respond and gets slammed into the ground by ``{tackler}``'s hug!",
-        "SMASH! ``{tackler}`` slams into ``{tackled}`` for an awesome tackle hug. Hello!",
-        "A *very* enthusiastic ``{tackler}`` runs into ``{tackled}`` mid-air for a great tackle hug!",
-        "Unable to decide, ``{tackled}`` gets slammed into the ground by ``{tackler}``'s HUG! 💙",
-        "``{tackler}`` is just too quick! They run right into ``{tackled}``, giving them a great tackle hug!",
-        "*slammed into the ground*\n``{tackled}`` fails to dodge in time and gets the best hug from ``{tackler}``!"
+  "cmd": {
+    "hug": {
+      "fail": [
+        "{user}, your hug failed! Who are you hugging?",
+        "They go for the hug aaaand...\n*looks around nervously*\n... uhh, who are you hugging?",
+        "Ehh... I can't find that person, {user}.. :c",
+        "I dunno who you're hugging, {user}"
       ],
-      "time-left": [
-        "A leaping ``{tackler}`` comes outta nowhere, flying through the air towards ``{tackled}``\n{time} left to (A)ccept or (D)odge the tackle hug",
-        "``{tackler}`` __jumps__ into the air towards ``{tackled}!!``\n{time} left to (A)ccept or (D)odge the tackle hug!!",
-        "TACKLE HUG!! Quick, ``{tackled}``, you have {time} seconds left to (A)ccept of (D)odge ``{tackler}``'s hug!",
-        "``{tackler}`` leaps towards ``{tackled}``, a tackle hug on their mind. \n{time} left to (A)ccept or (D)odge!"
+      "hug-other": [
+        "{hugger} has hugged {hugged}!!",
+        "{hugger} gives {hugged} a strong hug!",
+        "{hugged}, you just got the best hug from {hugger}!!",
+        "{hugger} HUGS {hugged}!!!",
+        "HUGS FOR {hugged}! Thank {hugger}!",
+        "{hugged}, hug! You may thank {hugger} 💙!"
       ],
-      "dodged": [
-        "``{tackled}`` dodges with {time} left on the clock!",
-        "Oooooh, too bad ``{tackler}``! ``{tackled}`` dodged with {time} left on the clock!",
-        "Oh, that sucks ``{tackler}``, dodged with {time} on the clock. Shame on you ``{tackled}``"
+      "hug-self": [
+        "You strongly hug yourself, increasing your happiness",
+        "No, I'm hugging you, {user}.\n*hug*",
+        "Self-hug! [hug]!",
+        "No judgements, I don't mind you hugging yourself."
       ],
-      "accepted": [
-        "``{tackled}`` accepts ``{tackler}``'s **tackle** hug! The best hug that has ever hugged is now hugged!",
-        "Yaaay! ``{tackled}`` grabs ``{tackler}`` outta the air and gives them the best hug! 💙",
-        "``{tackler}``'s tackle hug is caught by ``{tackled}``, best hug EVER! 💙"
+      "bot-hugs": [
+        "Uhh, {user}, you can have a hug.. as much as that's worth from a bot",
+        "..Okay? HUG {user}!",
+        "*stares intently* .. (hug)",
+        "*stares at lack of arms* \n...\n what do you want me to do?",
+        "Thank you very much, {user}, HUG!",
+        "You may have a hug, {user}. [hug]",
+        "The best hug of all the hugs has been granted to {user}!",
+        "You get a hug, I get a hug, it's a win win! Thanks for the hug {user}!",
+        "💙 Thank you {user}!",
+        "You're the best, {user}, thanks for the hug! 💙",
+        "*stares **very** intensly at lack of arms* ... Uhh, {user}?",
+        "You're awesome {user}! \n*happy bot noises*"
       ]
+    },
+    "stats": {
+      "self-received": [
+        "{user}, you've received a total of {hugs}"
+      ],
+      "nofind": [
+        "Uhh, I couldn't find {finding}"
+      ],
+      "other-received": [
+        "{user}, {found} has received a total of {hugs}"
+      ],
+      "self-never": [
+        "Nobody has ever hugged you nor have you ever hugged anyone :C Sorry {user}"
+      ],
+      "never-hugged": [
+        "Wow.. {user}, nobody has ever hugged nor have {found} ever hugged anyone else.. You should hug them."
+      ]
+    },
+    "tacklehug": {
+      "unspecified": [
+        "You kinda have to say _who_ you're tackle hugging.."
+      ],
+      "self": [
+        "Uhh, you can't tackle hug yourself... how does that even work??"
+      ],
+      "not-found": [
+        "You leap through the air... and fall flat on your face. I don't see anyone named {tackling}..."
+      ],
+      "tackling": {
+        "too-long": [
+          "``{tackled}`` takes too long to respond and gets slammed into the ground by ``{tackler}``'s hug!",
+          "SMASH! ``{tackler}`` slams into ``{tackled}`` for an awesome tackle hug. Hello!",
+          "A *very* enthusiastic ``{tackler}`` runs into ``{tackled}`` mid-air for a great tackle hug!",
+          "Unable to decide, ``{tackled}`` gets slammed into the ground by ``{tackler}``'s HUG! 💙",
+          "``{tackler}`` is just too quick! They run right into ``{tackled}``, giving them a great tackle hug!",
+          "*slammed into the ground*\n``{tackled}`` fails to dodge in time and gets the best hug from ``{tackler}``!"
+        ],
+        "time-left": [
+          "A leaping ``{tackler}`` comes outta nowhere, flying through the air towards ``{tackled}``\n{time} left to (A)ccept or (D)odge the tackle hug",
+          "``{tackler}`` __jumps__ into the air towards ``{tackled}!!``\n{time} left to (A)ccept or (D)odge the tackle hug!!",
+          "TACKLE HUG!! Quick, ``{tackled}``, you have {time} seconds left to (A)ccept of (D)odge ``{tackler}``'s hug!",
+          "``{tackler}`` leaps towards ``{tackled}``, a tackle hug on their mind. \n{time} left to (A)ccept or (D)odge!"
+        ],
+        "dodged": [
+          "``{tackled}`` dodges with {time} left on the clock!",
+          "Oooooh, too bad ``{tackler}``! ``{tackled}`` dodged with {time} left on the clock!",
+          "Oh, that sucks ``{tackler}``, dodged with {time} on the clock. Shame on you ``{tackled}``"
+        ],
+        "accepted": [
+          "``{tackled}`` accepts ``{tackler}``'s **tackle** hug! The best hug that has ever hugged is now hugged!",
+          "Yaaay! ``{tackled}`` grabs ``{tackler}`` outta the air and gives them the best hug! 💙",
+          "``{tackler}``'s tackle hug is caught by ``{tackled}``, best hug EVER! 💙"
+        ]
+      }
     }
   }
 }

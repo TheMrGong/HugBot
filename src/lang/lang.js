@@ -64,4 +64,13 @@ module.exports = function () {
 }
 
 module.exports.withIndex = translateAndIndex
+module.exports.prefixed = (prefix) => {
+    return (...theArgs) => {
+        const newArgs = []
+        for (let k in theArgs) {
+            if (parseInt(k) > 0) newArgs.push(theArgs[k])
+        }
+        return translateAndIndex(prefix + theArgs[0], ...newArgs).text
+    }
+}
 module.exports.TranslateResult = TranslateResult
