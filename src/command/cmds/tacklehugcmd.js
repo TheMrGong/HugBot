@@ -44,7 +44,6 @@ const TACKLING_KEY = "tackling."
  * @property {function(): void} updateMessage
  */
 
-
 /**
  * @param {string} tacklerId 
  * @returns {boolean}
@@ -91,7 +90,7 @@ module.exports = {
         if (!member) return event.channel.send(lang("not-found", "user", event.author.toString(), "tackling", tackling))
         if (member.id == event.author.id) return event.channel.send(lang("self", "user", event.author.toString()))
 
-        event.delete()
+        if (event.deletable) event.delete()
         beginTackleHug(event, member)
     },
 
@@ -209,7 +208,7 @@ async function beginTackleHandling(event, tackling) {
  */
 async function beginTackleHug(event, tackling) {
     if (isCurrentlyTackling(event.author.id)) {
-        const message = await event.channel.send("Errrrrr, you're currently tackling someone right now...")
+        const message = await event.channel.send(lang("already-tackling"))
         if (!(message instanceof Discord.Message)) return
 
         if (message.deletable) message.delete(1000 * 5)

@@ -63,6 +63,9 @@
       "not-found": [
         "You leap through the air... and fall flat on your face. I don't see anyone named {tackling}..."
       ],
+      "already-tackling": [
+        "Errrrrr, you're currently tackling someone right now..."
+      ],
       "tackling": {
         "too-long": [
           "``{tackled}`` takes too long to respond and gets slammed into the ground by ``{tackler}``'s hug!",
