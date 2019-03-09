@@ -1,7 +1,9 @@
+//@ts-check
 const lang = require("./lang/lang.js")
+const Discord = require("discord.js")
 
+/**@type {Array<TackleData>} */
 let tacklehugs = []
-let client;
 
 const D_EMOTE = "🇩"
 const A_EMOTE = "🅰"
@@ -10,11 +12,9 @@ const TIME_TO_DODGE = 1000 * 10
 const MESSAGE_EXIST_FOR = 1000 * 13
 const DELETING = false
 
-/*
-A leaping Gong comes outta nowhere, flying through the air towards Game
-5 seconds left to (D)odge or (A)ccept the hug
-*/
-
+/**
+ * @enum {number}
+ */
 const HUG_STATE = {
     WAITING: 0,
     DODGED: 1,
@@ -24,13 +24,36 @@ const HUG_STATE = {
 
 const TACKLING_KEY = "hug-tackle.tackling."
 
+/**
+ * @typedef {Object} TackleData
+ * @property {string} tacklerId
+ * @property {string} tackledId
+ * @property {HUG_STATE} state
+ * @property {number} begin
+ * @property {number} solidified
+ * @property {number} countdownIndex
+ * @property {boolean} updating
+ * @property {boolean} doneUpdating
+ * @property {number} timeLeft
+ * @property {boolean} shouldRemove
+ * @property {function(): void} delete
+ * @property {function(): void} updateMessage
+ */
+
+/**
+ * 
+ * @param {string} tackler 
+ * @param {string} tackled 
+ * @param {HUG_STATE} state 
+ * @param {number} timeLeft 
+ * @param {number} [countdownIndex]
+ * @returns {(string|lang.TranslateResult)}
+ */
 function generateMessage(tackler, tackled, state, timeLeft, countdownIndex = -1) {
     const time = timeLeft + " second" + (timeLeft == 1 ? "" : "s")
     switch (state) {
         case HUG_STATE.WAITING:
-            const ret = lang.withIndex(TACKLING_KEY + "time-left", "tackled", tackled, "tackler", tackler, "time", time, "$$index", countdownIndex)
-            ret.timeIndex = true
-            return ret
+            return lang.withIndex(TACKLING_KEY + "time-left", "tackled", tackled, "tackler", tackler, "time", time, "$$index", countdownIndex)
         case HUG_STATE.DODGED:
             return lang(TACKLING_KEY + "dodged", "tackled", tackled, "tackler", tackler, "time", time)
         case HUG_STATE.ACCEPTED:
@@ -41,9 +64,16 @@ function generateMessage(tackler, tackled, state, timeLeft, countdownIndex = -1)
     return "wat?"
 }
 
+/**
+ * 
+ * @param {Discord.Message} event 
+ * @param {Discord.GuildMember} tackling 
+ */
 async function beginTackleHandling(event, tackling) {
     const theMessageData = generateMessage(event.member.displayName, tackling.displayName, HUG_STATE.WAITING, TIME_TO_DODGE / 1000)
     const message = await event.channel.send(theMessageData.toString())
+    if (!(message instanceof Discord.Message)) return
+
     try {
         await message.react(A_EMOTE)
         await message.react(D_EMOTE)
@@ -58,7 +88,7 @@ async function beginTackleHandling(event, tackling) {
         state: HUG_STATE.WAITING,
         begin: new Date().getTime(),
         solidified: 0,
-        countdownIndex: theMessageData.usedIndex,
+        countdownIndex: theMessageData instanceof lang.TranslateResult ? theMessageData.usedIndex : 0,
         updating: false,
         doneUpdating: false,
         get timeLeft() {
@@ -68,8 +98,7 @@ async function beginTackleHandling(event, tackling) {
             return (new Date().getTime() - this.begin > MESSAGE_EXIST_FOR)
         },
         delete() {
-            message.delete().then(() => { }).catch(err => {
-                console.log(err)
+            message.delete().catch(err => {
                 // shrug
             })
         },
@@ -93,10 +122,18 @@ async function beginTackleHandling(event, tackling) {
     tacklehugs.push(data)
 }
 
+/**
+ * @param {string} tacklerId 
+ * @returns {boolean}
+ */
 function isCurrentlyTackling(tacklerId) {
     return tacklehugs.filter(data => data.tacklerId == tacklerId && !data.shouldRemove).length > 0
 }
 
+/**
+ * @param {string} tackledId 
+ * @returns {TackleData}
+ */
 function findTackledData(tackledId) {
     return tacklehugs.filter(data => data.tackledId == tackledId)[0]
 }
@@ -104,24 +141,41 @@ function findTackledData(tackledId) {
 process.on('exit', function () {
     console.log('Process terminating.')
 });
-
-module.exports = (inputClient) => {
-    client = inputClient
-
-    setInterval(() => {
-        for (let k in tacklehugs) {
-            const tacklehug = tacklehugs[k]
-            if (!tacklehug.shouldRemove) tacklehug.updateMessage()
+setInterval(() => {
+    for (let k in tacklehugs) {
+        const tacklehug = tacklehugs[k]
+        if (!tacklehug.shouldRemove) tacklehug.updateMessage()
+    }
+    tacklehugs = tacklehugs.filter(data => {
+        if (data.shouldRemove) {
+            if (DELETING) data.delete()
+            return false
         }
-        tacklehugs = tacklehugs.filter(data => {
-            if (data.shouldRemove) {
-                if (DELETING) data.delete()
-                return false
-            }
-            return true
-        })
-    }, 2000)
+        return true
+    })
+}, 2000)
 
+/**
+ * 
+ * @param {Discord.Message} event 
+ * @param {Discord.GuildMember} tackling 
+ */
+async function beginTackleHug(event, tackling) {
+    if (isCurrentlyTackling(event.author.id)) {
+        const message = await event.channel.send("Errrrrr, you're currently tackling someone right now...")
+        if (!(message instanceof Discord.Message)) return
+
+        if (message.deletable) message.delete(1000 * 5)
+        return
+    }
+    beginTackleHandling(event, tackling)
+}
+
+/**
+ * 
+ * @param {Discord.Client} client 
+ */
+function setup(client) {
     client.on("messageReactionAdd", (reaction, user) => {
         if (user.bot) return
         const tackledData = findTackledData(user.id)
@@ -140,15 +194,9 @@ module.exports = (inputClient) => {
             }
         }
     })
+}
 
-    return {
-        async beginTackleHug(event, tackling) {
-            if (isCurrentlyTackling(event.author.id)) {
-                const message = await event.channel.send("Errrrrr, you're currently tackling someone right now...")
-                message.delete(1000 * 5)
-                return
-            }
-            beginTackleHandling(event, tackling)
-        }
-    }
+module.exports = {
+    beginTackleHug,
+    setup
 }
