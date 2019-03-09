@@ -1,7 +1,7 @@
 //@ts-check
 const Discord = require("discord.js")
 const findMemberInEvent = require("../util")
-const lang = require("../../lang/lang.js")
+const lang = require("../../lang/lang.js").prefixed("cmd.hug.")
 const config = require("../../config/config.js");
 const hugrecords = require("../../records/hugrecords"),
     Action = hugrecords.Action
@@ -82,7 +82,7 @@ module.exports = {
         const member = await findMemberInEvent(event, args)
         if (member) hugUser(event, member.user)
         else event.channel.send(
-            lang("hug-fail", "user", event.author.toString(), "hugging", targetting)
+            lang("fail", "user", event.author.toString(), "hugging", targetting)
         );
     },
     /**
