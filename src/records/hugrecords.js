@@ -68,9 +68,9 @@ const COUNT_RECORD = (sent) => `SELECT COUNT(*) AS total FROM ${TABLE_NAME} WHER
 const ready = Promise.all([setupDatabase(CREATE_TABLE), tacklehugRecords.databaseCreated])
 
 /**
- * @param {number} guildId 
- * @param {number} senderId 
- * @param {number} affectedId 
+ * @param {string} guildId 
+ * @param {string} senderId 
+ * @param {string} affectedId 
  * @param {HugAction} action
  * @returns {Promise<any>} The result of the insert
  */
@@ -91,7 +91,7 @@ async function insertRecord(guildId, senderId, affectedId, action) {
  */
 async function logAction(guildId, senderId, affectedId, action) {
     try {
-        return await insertRecord(parseInt(guildId), parseInt(senderId), parseInt(affectedId), action)
+        return await insertRecord(guildId, senderId, affectedId, action)
     } catch (e) {
         throw e
     }
@@ -106,7 +106,7 @@ async function logAction(guildId, senderId, affectedId, action) {
  */
 async function getTotalActions(guildId, checkingId, sent, action) {
     try {
-        const result = await query(COUNT_RECORD(sent), [parseInt(guildId), parseInt(checkingId), action.id])
+        const result = await query(COUNT_RECORD(sent), [guildId, checkingId, action.id])
         if (result.length == 0) return 0
         return result[0].total
     } catch (e) {

@@ -31,7 +31,7 @@ function translateAndIndex(key) {
     const string = typeof availableMessages == "string"
 
     if (!string && (!availableMessages || availableMessages.length === 0))
-        return "{i dunno about " + key + "}";
+        return new TranslateResult(0, "{i dunno about " + key + "}");
     let index = string ? 0 : Math.floor(Math.random() * availableMessages.length)
 
     for (let k in arguments) {

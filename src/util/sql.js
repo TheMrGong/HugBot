@@ -9,7 +9,9 @@ const db = mysql.createPool({
     password: config.mysql.password,
     database: config.mysql.database,
     port: config.mysql.port,
-    acquireTimeout: 1000 * 30
+    acquireTimeout: 1000 * 30,
+    bigNumberStrings: true,
+    supportBigNumbers: true
 });
 
 const query = require("./sqlwrapper.js")(db)

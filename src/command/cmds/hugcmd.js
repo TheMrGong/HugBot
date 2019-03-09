@@ -5,6 +5,7 @@ const lang = require("../../lang/lang.js").prefixed("cmd.hug.")
 const config = require("../../config/config.js");
 const hugrecords = require("../../records/hugrecords"),
     Action = hugrecords.Action
+const energyapi = require("../../energy/energyapi")
 
 /**
  * 
@@ -28,29 +29,32 @@ function hugTheBot(event) {
  * @param {Discord.Message} event 
  * @param {Discord.User} user 
  */
-function hugUser(event, user) {
-    if (event.author.id === user.id) {
+async function hugUser(event, user) {
+    const member = await event.guild.fetchMember(user)
+
+    const energyUsed = await energyapi.useEnergy(event.guild.id, event.author.id, Action.HUG.energy)
+    if (!energyUsed) {
+        if (event.deletable) event.delete()
+        return event.channel.send(
+            lang("not-enough-energy", "user", event.author.toString(), "attempt", member.displayName)
+        )
+    }
+    if (event.author.id === user.id) { // if they're hugging themselves
         if (event.deletable) event.delete()
         event.channel.send(
             lang("hug-self", "user", event.author.toString())
         );
         return;
+        // if they're hugging us
     } else if (user.id === event.client.user.id) return hugTheBot(event);
     if (event.deletable) event.delete()
 
+    // put in the database this happened
     hugrecords.logAction(event.guild.id, event.author.id, user.id, Action.HUG)
 
-    if (event.mentions.users.array().length > 0) {
-        event.channel.send(
-            lang("hug-other", "hugger", event.author.toString(), "hugged", user.toString())
-        );
-    } else {
-        event.guild.fetchMember(user).then(member => {
-            event.channel.send(
-                lang("hug-other", "hugger", event.author.toString(), "hugged", `\`\`${member.displayName}\`\``)
-            );
-        })
-    }
+    event.channel.send(
+        lang("hug-other", "hugger", event.author.toString(), "hugged", `\`\`${member.displayName}\`\``)
+    );
 
     console.log(event.member.displayName + " has hugged " + user.username);
 }
@@ -77,7 +81,7 @@ module.exports = {
      * @param {Array<string>} args 
      */
     async call(event, args) {
-        if (args.length == 0) return hugTheBot(event)
+        if (args.length == 0) return hugUser(event, event.client.user)
         const targetting = args.join(" ")
         const member = await findMemberInEvent(event, args)
         if (member) hugUser(event, member.user)
