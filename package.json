@@ -7,6 +7,7 @@
     "start": "nodemon src/index.js"
   },
   "dependencies": {
+    "@types/node": "^11.11.0",
     "discord.js": "11.4.2",
     "mysql": "^2.16.0",
     "node-cache": "^4.2.0",

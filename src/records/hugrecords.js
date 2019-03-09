@@ -1,7 +1,14 @@
 //@ts-check
+
+/**
+ * @typedef {import("./types").HugAction} HugAction
+ * @typedef {number} TackleResult
+ */
+
 const { db, query, setupDatabase } = require("../util/sql.js")
 const tacklehugRecords = require("./tacklehugrecords")
-const { Action } = require("./types")
+const types = require("./types")
+const Action = types.Action
 
 const TABLE_NAME = "hug_records"
 
@@ -30,7 +37,7 @@ const ready = Promise.all([setupDatabase(CREATE_TABLE), tacklehugRecords.databas
  * @param {number} guildId 
  * @param {number} senderId 
  * @param {number} affectedId 
- * @param {import("./types").Action} action
+ * @param {HugAction} action
  * @returns {Promise<any>} The result of the insert
  */
 async function insertRecord(guildId, senderId, affectedId, action) {
@@ -45,12 +52,12 @@ async function insertRecord(guildId, senderId, affectedId, action) {
  * @param {number} guildId 
  * @param {number} senderId 
  * @param {number} affectedId 
- * @param {import("./types").Action} action
+ * @param {HugAction} action
  * @returns {Promise<any>} The result of the insert
  */
 async function logAction(guildId, senderId, affectedId, action) {
     try {
-        if(action.extraData) throw "Cannot log this action directly, requires extra data."
+        if (action.extraData) throw "Cannot log this action directly, requires extra data."
         return await insertRecord(guildId, senderId, affectedId, action)
     } catch (e) {
         throw e
@@ -61,7 +68,7 @@ async function logAction(guildId, senderId, affectedId, action) {
  * @param {number} guildId - guild id this occurred in
  * @param {number} tackler - discord id of tackler
  * @param {number} tackled - discord id of tackled
- * @param {import("./types").TackleResult} tackleResult 
+ * @param {TackleResult} tackleResult 
  * @param {number} timeLeft - time taken for someone to click Accept or Dodge. -1 if they took too long
  * @returns {Promise<any>} The result of the insert
  */

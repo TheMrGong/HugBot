@@ -1,3 +1,4 @@
+
 /**
  * @typedef {Object} HugAction
  * @property {string} id - Action name in the database
@@ -8,7 +9,7 @@
 /**
  * @enum {HugAction}
  */
-export const Action = {
+const Action = {
     HUG: {
         id: "hug",
         energy: 3
@@ -31,7 +32,7 @@ export const Action = {
 /**
  * @enum {number}
  */
-export const TackleResult = {
+const TackleResult = {
     DODGED: 1,
     ACCEPTED: 2,
     TOO_LONG: 3
