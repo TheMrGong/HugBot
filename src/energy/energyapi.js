@@ -46,7 +46,7 @@ async function removeEnergy(guildId, userId, energy = 1) {
  */
 async function useEnergy(guildId, userId, energy) {
     const energyData = await getEnergyData(guildId, userId)
-    if (energyData.energy - energy <= 0) return false
+    if (energyData.energy - energy < 0) return false
     await removeEnergy(guildId, userId, energy)
     return true
 }
