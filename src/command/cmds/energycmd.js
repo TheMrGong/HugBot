@@ -8,6 +8,8 @@ const energyapi = require("../../energy/energyapi")
 
 const DELETE_AFTER = 1000 * 30
 
+
+
 /**
  * @param {Discord.Message} event 
  * @param {Discord.GuildMember} member 
@@ -18,6 +20,8 @@ async function showEnergy(event, member) {
     // getting energy of self
     /**@type {Discord.Message|Discord.Message[]} */
     let message;
+
+
     if (event.author.id == member.id) {
         if (energy == 0) message = await event.channel.send(lang("self.no-energy", "user", event.author.toString()))
         else message = await event.channel.send(lang("self.energy", "user", member.displayName, "energy", energy))

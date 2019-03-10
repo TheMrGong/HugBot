@@ -7,11 +7,28 @@ const hugrecords = require("../../records/hugrecords"),
     Action = hugrecords.Action
 const energyapi = require("../../energy/energyapi")
 
+const SPECIAL_HUGS = {
+    "263675970270003200": [
+        "This hug has the love of all those who love your stories *beware of spinal damage*",
+        "Hug bot hands you a note before the hug \"From the discorders, we love you man\""
+    ]
+}
+
 /**
  * 
  * @param {Discord.Message} event 
  */
 function hugTheBot(event) {
+
+    let specialHugs;
+    for (let userId in SPECIAL_HUGS) {
+        if (event.member.id == userId) specialHugs = SPECIAL_HUGS[userId]
+    }
+    if (specialHugs) {
+        event.channel.send(specialHugs[Math.floor(Math.random() * specialHugs.length)])
+        console.log("Using a special hug!")
+        return
+    }
     const replyingWith = lang(
         "bot-hugs",
         "user",
