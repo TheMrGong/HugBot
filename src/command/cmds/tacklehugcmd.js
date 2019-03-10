@@ -14,6 +14,8 @@ const tacklehugRecords = require("../../records/tacklehugrecords"),
 //TODO dodge fail
 const energyapi = require("../../energy/energyapi")
 
+// interception tackle hugs
+
 /**
  * @enum {number}
  */
@@ -66,7 +68,7 @@ function isCurrentlyTackling(tacklerId) {
  * @returns {TackleData}
  */
 function findTackledData(tackledId) {
-    return tacklehugs.filter(data => data.tackledId == tackledId)[0]
+    return tacklehugs.filter(data => data.tackledId == tackledId && !data.shouldRemove)[0]
 }
 
 setInterval(() => {
@@ -100,6 +102,7 @@ module.exports = {
 
         if (!member) return event.channel.send(lang("not-found", "user", event.author.toString(), "tackling", tackling))
         if (member.id == event.author.id) return event.channel.send(lang("self", "user", event.author.toString()))
+        if (member.id == event.client.user.id) return event.channel.send(lang("bot-tackle", "user", event.author.toString()))
 
         if (event.deletable) event.delete()
         const energyUsed = await energyapi.useEnergy(event.guild.id, event.author.id, Action.TACKLE_HUG.energy)
@@ -119,22 +122,28 @@ module.exports = {
             const tackledData = findTackledData(user.id)
             if (!tackledData) return
 
+            console.log("Got data, with state: " + tackledData.state)
+
             if (tackledData.state == HUG_STATE.WAITING) {
 
                 async function insertData(tackleResult) {
                     await tacklehugRecords.insertTackleHugInfo(tackledData.insertId, tackleResult, tackledData.solidified)
                 }
                 if (reaction.emoji.name == D_EMOTE) {
+                    console.log("Doing a dodge")
                     tackledData.state = HUG_STATE.DODGED
                     tackledData.solidified = tackledData.timeLeft
                     await insertData(TackleResult.DODGED)
 
                     tackledData.updateMessage()
+                    tackledData.begin = 0
                 } else if (reaction.emoji.name == A_EMOTE) {
+                    console.log("Doing an accept")
                     tackledData.state = HUG_STATE.ACCEPTED
                     tackledData.solidified = tackledData.timeLeft
                     await insertData(TackleResult.ACCEPTED)
                     tackledData.updateMessage()
+                    tackledData.begin = 0
 
                 }
             }
