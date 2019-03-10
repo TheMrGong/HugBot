@@ -76,7 +76,7 @@
       "not-enough-energy": [
         "{user} goes for a tackle hug, but it's more of a weak hop into the air... then a flop",
         "{user} unsuccessfully tries for a tackle hug, and does a face-plant",
-        "Going for a leap, ``{user}`` instead flops to the ground, failing their tackle hug"
+        "Going for a leap, {user} instead flops to the ground, failing their tackle hug"
       ],
       "bot-tackle": [
         "Hugbot embraces you in the softest hug imaginable",
@@ -116,7 +116,7 @@
       "fail": [
         "I dunno who that is, {user}",
         "{user}, I can't find that person, therefore.. *they don't have energy* ~spooky~",
-        "Ehh, that person isn't on this guild? You alright there, ``{user}``?"
+        "Ehh, that person isn't on this guild? You alright there, {user}?"
       ],
       "self": {
         "no-energy": [
@@ -124,15 +124,15 @@
         ],
         "energy": [
           "Alright, {user}, you have a total of *{energy} energy*!",
-          "Noice, you have {energy} energy, not too shabby, ``{user}``",
+          "Noice, you have {energy} energy, not too shabby, {user}",
           "That's not too bad, {user}. You have {energy} energy"
         ]
       },
       "bot": [
-        "I always have energy, ``{user}``! Look at me go! *weeeee!*",
+        "I always have energy, {user}! Look at me go! *weeeee!*",
         "Well, {user}, if you look behind me, you will see a cord. Connected to a socket. Lots of energyyy!",
-        "I have quite a bit of energy ``{user}``, considering, ya know, I'm a bot",
-        "Odd question to ask a bot, but I have a lot of energy, ``{user}``"
+        "I have quite a bit of energy {user}, considering, ya know, I'm a bot",
+        "Odd question to ask a bot, but I have a lot of energy, {user}"
       ],
       "other": {
         "no-energy": [

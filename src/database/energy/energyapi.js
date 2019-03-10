@@ -1,6 +1,11 @@
 //@ts-check
 const db = require("./energydb")
-const Energy = require("./types")
+
+/**
+ * @typedef {Object} Energy
+ * @property {number} energy - amount of energy
+ * @property {number} lastRemoved - last time energy was decreased
+ */
 
 const MAX_ENERGY = 30
 

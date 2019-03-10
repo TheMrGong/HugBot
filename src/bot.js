@@ -5,7 +5,7 @@ const config = require("./config");
 const client = new Discord.Client();
 const commandhandler = require("./command/commandhandler")
 
-const energyhandler = require("./energy/energyhandler")
+const energyhandler = require("./database/energy/energyhandler")
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);

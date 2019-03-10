@@ -6,13 +6,13 @@ const PREFIX = "cmd.tacklehug."
 const langAPI = require("../../lang/lang.js"),
     lang = langAPI.prefixed(PREFIX)
 
-const hugrecords = require("../../records/hugrecords"),
+const hugrecords = require("../../database/records/hugrecords"),
     Action = hugrecords.Action
-const tacklehugRecords = require("../../records/tacklehugrecords"),
+const tacklehugRecords = require("../../database/records/tacklehugrecords"),
     TackleResult = tacklehugRecords.TackleResult
 
 //TODO dodge fail
-const energyapi = require("../../energy/energyapi")
+const energyapi = require("../../database/energy/energyapi")
 
 // interception tackle hugs
 

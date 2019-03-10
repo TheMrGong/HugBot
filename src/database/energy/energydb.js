@@ -1,7 +1,7 @@
 //@ts-check
 const TABLE_NAME = "hug_energy"
 const { query } = require("../util/sql.js")
-const Energy = require("./types")
+const energyapi = require("./energyapi")
 
 const CREATE_TABLE = `CREATE TABLE IF NOT EXISTS ${TABLE_NAME} (
     guildId BIGINT NOT NULL,
@@ -30,14 +30,20 @@ const ready = query(CREATE_TABLE, [])
  * 
  * @param {string} guildId 
  * @param {string} userId 
- * @returns {Promise<Energy>} returns the amount of energy they have or 0 if not in the database
+ * @returns {Promise<energyapi.Energy>} returns the amount of energy they have or 0 if not in the database
  */
 async function getEnergy(guildId, userId) {
     const result = await query(GET_ENERGY, [guildId, userId])
 
-    if (result.length == 0) return new Energy(0, 0) // No energy found
+    if (result.length == 0) return {
+        energy: 0,
+        lastRemoved: 0
+    } // No energy found
     const data = result[0]
-    return new Energy(data.energy, data.lastDecrement)
+    return {
+        energy: data.energy,
+        lastRemoved: data.lastDecrement
+    }
 }
 
 /**

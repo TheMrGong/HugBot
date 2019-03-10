@@ -1,7 +1,7 @@
 //@ts-check
 const Discord = require("discord.js")
 const { findAllMembersInGuildMatching, findMemberInEvent } = require("../util")
-const hugrecords = require("../../records/hugrecords"),
+const hugrecords = require("../../database/records/hugrecords"),
     Action = hugrecords.Action
 const lang = require("../../lang/lang").prefixed("cmd.pat.")
 

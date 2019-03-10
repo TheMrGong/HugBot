@@ -1,8 +1,8 @@
 //@ts-check
 // TODO preferences
 
-const hugrecords = require("./records/hugrecords")
-const energyapi = require("./energy/energyapi")
+const hugrecords = require("./database/records/hugrecords")
+const energyapi = require("./database/energy/energyapi")
 const bot = require("./bot")
 
 async function begin() {

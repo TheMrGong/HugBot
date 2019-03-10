@@ -4,7 +4,7 @@ const Discord = require("discord.js")
 const { findMemberInEvent } = require("../util")
 const lang = require("../../lang/lang.js").prefixed("cmd.energy.")
 
-const energyapi = require("../../energy/energyapi")
+const energyapi = require("../../database/energy/energyapi")
 
 const DELETE_AFTER = 1000 * 30
 

@@ -2,7 +2,7 @@
 const Discord = require("discord.js")
 const { findMemberInEvent } = require("../util")
 const lang = require("../../lang/lang.js").prefixed("cmd.stats.")
-const hugrecords = require("../../records/hugrecords"),
+const hugrecords = require("../../database/records/hugrecords"),
     Action = hugrecords.Action
 
 const DELETE_AFTER = 1000 * 10
