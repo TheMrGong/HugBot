@@ -69,31 +69,31 @@ function findCommand(cmd) {
  * @param {Discord.Client} client
  */
 module.exports.setup = (client) => {
-    client.on("message", event => {
+    client.on("message", message => {
         const possibleText = []
         commands.forEach(cmd => possibleText.push(config.prefix + cmd.cmd))
-        if (event.author.bot
-            && event.embeds[0]
-            && event.embeds[0].description
-            && possibleText.filter(it => event.embeds[0].description.toLowerCase().includes(it)).length > 0) {
-            if (event.deletable) event.delete()
+        if (message.author.bot
+            && message.embeds[0]
+            && message.embeds[0].description
+            && possibleText.filter(it => message.embeds[0].description.toLowerCase().includes(it)).length > 0) {
+            if (message.deletable) message.delete()
             return
         }
-        if (event.author.bot)
+        if (message.author.bot)
             return;
 
-        if (!event.content.toLowerCase().startsWith(config.prefix)) {
+        if (!message.content.toLowerCase().startsWith(config.prefix)) {
             return
         }
 
-        const spaces = event.content.split(" ");
+        const spaces = message.content.split(" ");
         const cmd = spaces[0].toLowerCase().substring(1, spaces[0].length).replace(/[^\w]/gm, "")
         const args = [];
         for (let k in spaces) {
             if (parseInt(k) > 0) args.push(spaces[k]);
         }
         const command = findCommand(cmd)
-        if (command) command.call(event, args)
+        if (command) command.call(message, args)
     });
 
     registerCommands(client, "hugcmd", "hugstatscmd", "tacklehugcmd", "energycmd", "patcmd", "hughelpcmd")
