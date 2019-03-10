@@ -4,6 +4,7 @@
  * @typedef {Object} HugAction
  * @property {string} id - Action name in the database
  * @property {number} energy - Amount of energy required to perform the action
+ * @property {string} [group] - The group this action belongs to
  */
 
 const { query, setupDatabase } = require("../util/sql.js")
@@ -13,21 +14,24 @@ const tacklehugRecords = require("./tacklehugrecords")
  * @enum {HugAction}
  */
 const Action = {
-    HUG: {
+    HUG: { // actually working
         id: "hug",
-        energy: 3
+        energy: 3,
+        group: "hug"
     },
-    TACKLE_HUG: {
+    TACKLE_HUG: { // actually working
         id: "tacklehug",
-        energy: 10
+        energy: 10,
+        group: "hug"
     },
-    PAT: {
+    PAT: { // all below gonna be implemented soon(tm)
         id: "pat",
         energy: 1
     },
     GLOMP: {
         id: "glomp",
-        energy: 5
+        energy: 5,
+        group: "hug"
     },
     HIGH_FIVE: {
         id: "highfive",
@@ -67,7 +71,7 @@ VALUES(?, ?, ?, ?, ?)`
 /**
  * @param {boolean} sent Whether to count for amount sent or received
  */
-const COUNT_RECORD = (sent) => `SELECT COUNT(*) AS total FROM ${TABLE_NAME} WHERE guildId = ? AND ${sent ? "senderId" : "affectedId"} = ? AND action=?;`
+const COUNT_RECORD = (sent) => `SELECT COUNT(*) AS total FROM ${TABLE_NAME} WHERE guildId = ? AND ${sent ? "senderId" : "affectedId"} = ? AND action IN (?);`
 
 const ready = Promise.all([setupDatabase(CREATE_TABLE), tacklehugRecords.databaseCreated])
 
@@ -106,11 +110,23 @@ async function logAction(guildId, senderId, affectedId, action) {
  * @param {string} checkingId
  * @param {boolean} sent - Whether we're checking the amount we sent or received
  * @param {HugAction} action 
+ * @param {boolean} [group] - Whether to count the entire group
  * @returns {Promise<number>} Number of actions sent/received
  */
-async function getTotalActions(guildId, checkingId, sent, action) {
+async function getTotalActions(guildId, checkingId, sent, action, group = false) {
     try {
-        const result = await query(COUNT_RECORD(sent), [guildId, checkingId, action.id])
+        /**@type {string|Array<string>} */
+        let actionIds = action.id
+        if (group && action.group) {
+            actionIds = []
+            for (let k in Action) {
+                /**@type {HugAction} */
+                const hugAction = Action[k]
+                if (hugAction.group == action.group)
+                    actionIds.push(hugAction.id)
+            }
+        }
+        const result = await query(COUNT_RECORD(sent), [guildId, checkingId, actionIds])
         if (result.length == 0) return 0
         return result[0].total
     } catch (e) {

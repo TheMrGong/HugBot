@@ -13,7 +13,7 @@ const DELETE_AFTER = 1000 * 10
  * @param {Discord.GuildMember} member 
  */
 async function showHugStatsFor(event, member) {
-    const hugsReceived = await hugrecords.getTotalActions(event.guild.id, member.id, false, Action.HUG)
+    const hugsReceived = await hugrecords.getTotalActions(event.guild.id, member.id, false, Action.HUG, true)
     const self = event.author.id === member.id
     if (hugsReceived == 0) {
         const message = await event.channel.send(lang(self ? "self-never" : "never-hugged", "user", event.author.toString(), "found", member.displayName))
