@@ -65,7 +65,7 @@ function findAllMembersInGuildMatching(guild, targetting) {
             member => member.user.username
         );
 
-    if (membersFound.length > 0) return membersFound
+    return membersFound
 }
 
 /**
