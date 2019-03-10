@@ -26,7 +26,7 @@ const Action = {
     },
     PAT: { // all below gonna be implemented soon(tm)
         id: "pat",
-        energy: 1
+        energy: 0
     },
     GLOMP: {
         id: "glomp",
