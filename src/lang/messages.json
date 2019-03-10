@@ -33,7 +33,9 @@
         "💙 Thank you {user}!",
         "You're the best, {user}, thanks for the hug! 💙",
         "*stares **very** intensly at lack of arms* ... Uhh, {user}?",
-        "You're awesome {user}! \n*happy bot noises*"
+        "You're awesome {user}! \n*happy bot noises*",
+        "The hugbot hugs you with the love of a mushroom",
+        "The hugbot hugs you tighter than a giant circus ape"
       ],
       "not-enough-energy": [
         "{user} tries to hug ``{attempt}`` but doesn't have enough energy to do so",
@@ -76,6 +78,11 @@
         "{user} unsuccessfully tries for a tackle hug, and does a face-plant",
         "Going for a leap, ``{user}`` instead flops to the ground, failing their tackle hug"
       ],
+      "bot-tackle": [
+        "Hugbot embraces you in the softest hug imaginable",
+        "Hugbot blushes at your affections",
+        "Hugbot expresses all of the love in the world as it returns your hug"
+      ],
       "tackling": {
         "too-long": [
           "``{tackled}`` takes too long to respond and gets slammed into the ground by ``{tackler}``'s hug!",
@@ -94,7 +101,9 @@
         "dodged": [
           "``{tackled}`` dodges with {time} left on the clock!",
           "Oooooh, too bad ``{tackler}``! ``{tackled}`` dodged with {time} left on the clock!",
-          "Oh, that sucks ``{tackler}``, dodged with {time} on the clock. Shame on you ``{tackled}``"
+          "Oh, that sucks ``{tackler}``, dodged with {time} on the clock. Shame on you ``{tackled}``",
+          "``{tackled}`` dodged but Sam appreciated the hug while he was here",
+          "``{tackled}`` dodged so well Pathfinder had to show them the way back"
         ],
         "accepted": [
           "``{tackled}`` accepts ``{tackler}``'s **tackle** hug! The best hug that has ever hugged is now hugged!",
@@ -105,34 +114,34 @@
     },
     "energy": {
       "fail": [
-        "I dunno who that is, ``{user}``",
-        "``{user}``, I can't find that person, therfore.. *they don't have energy* ~spooky~",
+        "I dunno who that is, {user}",
+        "{user}, I can't find that person, therefore.. *they don't have energy* ~spooky~",
         "Ehh, that person isn't on this guild? You alright there, ``{user}``?"
       ],
       "self": {
         "no-energy": [
-          "Ehh, ``{user}``, you're quite exhauted, since, ya know, you don't have any energy."
+          "Ehh, {user}, you're quite exhauted, since, ya know, you don't have any energy."
         ],
         "energy": [
-          "Alright, ``{user}``, you have a total of *{energy} energy*!",
+          "Alright, {user}, you have a total of *{energy} energy*!",
           "Noice, you have {energy} energy, not too shabby, ``{user}``",
-          "That's not too bad, ``{user}``. You have {energy} energy"
+          "That's not too bad, {user}. You have {energy} energy"
         ]
       },
       "bot": [
         "I always have energy, ``{user}``! Look at me go! *weeeee!*",
-        "Well, ``{user}``, if you look behind me, you will see a cord. Connected to a socket. Lots of energyyy!",
+        "Well, {user}, if you look behind me, you will see a cord. Connected to a socket. Lots of energyyy!",
         "I have quite a bit of energy ``{user}``, considering, ya know, I'm a bot",
         "Odd question to ask a bot, but I have a lot of energy, ``{user}``"
       ],
       "other": {
         "no-energy": [
-          "Le gasp! ``{finding}`` has no energy, ``{user}``! So sad :c",
+          "Le gasp! ``{finding}`` has no energy, {user}! So sad :c",
           "Oh dear, ``{finding}`` is fresh outta energy. They must be so exhausted",
-          "Dang, ``{finding}`` doesn't have any energy ``{user}``!"
+          "Dang, ``{finding}`` doesn't have any energy {user}!"
         ],
         "energy": [
-          "Mkay ``{user}``, ``{finding}`` has a total of ``{energy}`` energy!",
+          "Mkay {user}, ``{finding}`` has a total of ``{energy}`` energy!",
           "Searching... beep boop . . .\n ``{finding}`` has ``{energy}`` energy!",
           "From what I can see, ``{finding}`` has {energy} energy!"
         ]
