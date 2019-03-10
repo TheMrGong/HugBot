@@ -34,21 +34,23 @@ async function showHugStatsFor(event, member) {
 module.exports = {
     cmd: "hugs",
     /**
-     * @param {Discord.Message} event
+     * @param {Discord.Message} message
      * @param {Array<string>} args
      */
-    async call(event, args) {
-        if (event.deletable)
-            event.delete()
+    async call(message, args) {
+        if (message.deletable)
+            message.delete()
         if (args.length == 0) {
-            showHugStatsFor(event, event.member);
+            let member = message.member
+            if (!member) member = await message.guild.fetchMember(message.author)
+            showHugStatsFor(message, member);
         } else {
             const targetting = args.join(" ")
-            const member = await findMemberInEvent(event, args)
+            const member = await findMemberInEvent(message, args)
             if (member)
-                showHugStatsFor(event, member)
-            else event.channel.send(
-                lang("nofind", "user", event.author.toString(), "finding", targetting)
+                showHugStatsFor(message, member)
+            else message.channel.send(
+                lang("nofind", "user", message.author.toString(), "finding", targetting)
             );
         }
     }
