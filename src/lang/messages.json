@@ -66,7 +66,7 @@
         "Uhh, you can't tackle hug yourself... how does that even work??"
       ],
       "not-found": [
-        "You leap through the air... and fall flat on your face. I don't see anyone named {tackling}..."
+        "You leap through the air... and fall flat on your face. I don't see anyone named ``{tackling}``..."
       ],
       "already-tackling": [
         "Errrrrr, you're currently tackling someone right now..."
@@ -74,7 +74,7 @@
       "not-enough-energy": [
         "{user} goes for a tackle hug, but it's more of a weak hop into the air... then a flop",
         "{user} unsuccessfully tries for a tackle hug, and does a face-plant",
-        "Going for a leap, {user} instead flops to the ground, failing their tackle hug"
+        "Going for a leap, ``{user}`` instead flops to the ground, failing their tackle hug"
       ],
       "tackling": {
         "too-long": [
@@ -105,36 +105,36 @@
     },
     "energy": {
       "fail": [
-        "I dunno who that is, {user}",
-        "{user}, I can't find that person, therfore.. *they don't have energy* ~spooky~",
-        "Ehh, that person isn't on this guild? You alright there, {user}?"
+        "I dunno who that is, ``{user}``",
+        "``{user}``, I can't find that person, therfore.. *they don't have energy* ~spooky~",
+        "Ehh, that person isn't on this guild? You alright there, ``{user}``?"
       ],
       "self": {
         "no-energy": [
-          "Ehh, {user}, you're quite exhauted, since, ya know, you don't have any energy."
+          "Ehh, ``{user}``, you're quite exhauted, since, ya know, you don't have any energy."
         ],
         "energy": [
-          "Alright, {user}, you have a total of __{energy} energy__!",
-          "Noice, you have {energy} energy, not too shabby, {user}",
-          "That's not too bad, {user}. You have {energy} energy"
+          "Alright, ``{user}``, you have a total of *{energy} energy*!",
+          "Noice, you have {energy} energy, not too shabby, ``{user}``",
+          "That's not too bad, ``{user}``. You have {energy} energy"
         ]
       },
       "bot": [
-        "I always have energy, {user}! Look at me go! *weeeee!*",
-        "Well, {user}, if you look behind me, you will see a cord. Connected to a socket. Lots of energyyy!",
-        "I have quite a bit of energy {user}, considering, ya know, I'm a bot",
-        "Odd question to ask a bot, but I have a lot of energy, {user}"
+        "I always have energy, ``{user}``! Look at me go! *weeeee!*",
+        "Well, ``{user}``, if you look behind me, you will see a cord. Connected to a socket. Lots of energyyy!",
+        "I have quite a bit of energy ``{user}``, considering, ya know, I'm a bot",
+        "Odd question to ask a bot, but I have a lot of energy, ``{user}``"
       ],
       "other": {
         "no-energy": [
-          "Le gasp! {finding} has no energy, {user}! So sad :c",
-          "Oh dear, {finding} is fresh outta energy. They must be so exhausted",
-          "Dang, {finding} doesn't have any energy {user}!"
+          "Le gasp! ``{finding}`` has no energy, ``{user}``! So sad :c",
+          "Oh dear, ``{finding}`` is fresh outta energy. They must be so exhausted",
+          "Dang, ``{finding}`` doesn't have any energy ``{user}``!"
         ],
         "energy": [
-          "Mkay {user}, {finding} has a total of {energy} energy!",
-          "Searching... beep boop . . .\n {finding} has {energy} energy!",
-          "From what I can see, {finding} has {energy} energy!"
+          "Mkay ``{user}``, ``{finding}`` has a total of ``{energy}`` energy!",
+          "Searching... beep boop . . .\n ``{finding}`` has ``{energy}`` energy!",
+          "From what I can see, ``{finding}`` has {energy} energy!"
         ]
       }
     }
