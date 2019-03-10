@@ -53,7 +53,7 @@ function translateAndIndex(key) {
             data = data.replace(`{${key}}`, value);
         }
     }
-    return new TranslateResult(index, data)
+    return new TranslateResult(index, data.replace(/\\n/g, "\n"))
 }
 
 /**
