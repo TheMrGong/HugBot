@@ -66,7 +66,10 @@ module.exports = {
                             break; // message is too far in the past
                         }
                         if (pastMessage.author.bot) continue
-                        if (pastMessage.author.id != message.author.id) respondingTo = pastMessage
+                        if (pastMessage.author.id != message.author.id) {
+                            respondingTo = pastMessage
+                            break
+                        }
                     }
 
                     if (!respondingTo) return
