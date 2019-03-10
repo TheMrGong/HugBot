@@ -17,7 +17,7 @@ A Discord bot providing guilds with the best hugs, pats, and tackle hugs!
 
 ## :bulb: Energy
 
-Actions require energy to be performed. Users will get ``1 energy`` for every message they send in a channel. Every ``minute``, a users energy will decrease by one.
+Actions require energy to be performed. Users will get ``1 energy`` for every message they send in a channel. Every ``minute``, a user's energy will decrease by one.
 
 ### Energy Requirments
 
@@ -25,7 +25,7 @@ This is how much energy each action takes to do
 
 | Action     | Energy required  |
 | :--------- | :--------------: |
-| Hug        | 3 energy         |
+| Hug        | 0 energy         |
 | Tackle hug | 10 energy        |
 | Pat        | No energy needed |
 
