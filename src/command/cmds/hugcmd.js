@@ -1,6 +1,6 @@
 //@ts-check
 const Discord = require("discord.js")
-const findMemberInEvent = require("../util")
+const { findMemberInEvent } = require("../util")
 const lang = require("../../lang/lang.js").prefixed("cmd.hug.")
 const config = require("../../config/config.js");
 const hugrecords = require("../../records/hugrecords"),

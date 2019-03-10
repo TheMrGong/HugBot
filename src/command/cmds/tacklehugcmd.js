@@ -1,6 +1,6 @@
 //@ts-check
 const Discord = require("discord.js")
-const findMemberInEvent = require("../util")
+const { findMemberInEvent } = require("../util")
 
 const PREFIX = "cmd.tacklehug."
 const langAPI = require("../../lang/lang.js"),
