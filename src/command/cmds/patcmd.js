@@ -47,11 +47,11 @@ module.exports = {
         client.on("message", async message => {
             if (message.author.bot)
                 return;
-            const regex = /\*?pats?(?: pat)? (@?\w+)\*?/gmi
+            const regex = /\*?(?:pat(?:ter)?)s?(?: pat)? (@?\w+)\*?/gmi
             const result = regex.exec(message.cleanContent)
             if (result !== null) {
                 const emoji = client.emojis.get(PAT_EMOJI_ID)
-                if (result[1].toLowerCase() == "pat") { // they're patting the user above
+                if (result[1].toLowerCase() == "pat" || result[1].toLowerCase() == "patter") { // they're patting the user above
                     const messages = (await message.channel.fetchMessages({ limit: 20 })).array()
                     /**@type {Discord.Message} */
 
@@ -70,6 +70,8 @@ module.exports = {
                     await hugrecords.logAction(message.guild.id, message.author.id, respondingTo.author.id, Action.PAT)
                     message.react(emoji)
                     respondingTo.react(emoji)
+                    console.log(`Patting ${respondingTo.member.displayName}`)
+                    console.log(`Found message ${respondingTo.cleanContent}`)
                 } else {
                     const members = findAllMembersInGuildMatching(message.guild, result[1])
                     if (members.length == 1) {
