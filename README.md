@@ -25,7 +25,7 @@ This is how much energy each action takes to do
 
 | Action     | Energy required  |
 | :--------- | :--------------: |
-| Hug        | 0 energy         |
+| Hug        | No energy needed |
 | Tackle hug | 10 energy        |
 | Pat        | No energy needed |
 
