@@ -13,23 +13,6 @@ const DECREMENT_EVERY = 1000 * 60 * 5
 function setup(client) {
     setInterval(async () => {
         const toUpdate = await energydb.getToDecrement(DECREMENT_EVERY)
-        for (let guildId in toUpdate) {
-            const userData = toUpdate[guildId]
-            const guild = client.guilds.get(guildId)
-
-            for (let k in userData) {
-                const data = userData[k]
-                try {
-                    const user = await client.fetchUser(data.userId.toString())
-                    const member = await guild.fetchMember(user)
-                    //console.log(`[${guild.name}] Decrementing energy for ${member.displayName}, ${data.energy} => ${data.energy - 1}`)
-                    energyapi.updateCache(energyapi.cacheKey(guildId, data.userId.toString()), cache => cache.energy = data.energy - 1)
-                } catch (e) {
-                    console.log(e)
-                }
-            }
-
-        }
 
         await energydb.decrementAll(toUpdate)
     }, 1000)

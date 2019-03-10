@@ -1,35 +1,9 @@
 //@ts-check
 const db = require("./energydb")
-const NodeCache = require("node-cache")
 const Energy = require("./types")
 
 const MAX_ENERGY = 30
 
-const cache = new NodeCache({
-    stdTTL: 60
-})
-
-/**
- * 
- * @param {string} guildId 
- * @param {string} userId 
- * @returns {string}
- */
-function cacheKey(guildId, userId) {
-    return `${guildId}:${userId}`
-}
-
-/**
- * @param {string} key 
- * @param {function(Object): void} apply 
- */
-function updateCache(key, apply) {
-    const cachedValue = cache.get(key)
-    if (typeof cachedValue == "object") {
-        apply(cachedValue)
-        cache.set(key, cachedValue)
-    }
-}
 
 /**
  * @param {string} guildId 
@@ -45,7 +19,6 @@ async function addEnergy(guildId, userId, energy = 1) {
         return
     }
 
-    updateCache(cacheKey(guildId, userId), cache => cache.energy = cache.energy + energy)
     let increasing = true
     if (energy < 0) {
         energy = energy * -1
@@ -84,12 +57,7 @@ async function useEnergy(guildId, userId, energy) {
  * @returns {Promise<Energy>}
  */
 async function getEnergyData(guildId, userId) {
-    const cached = cache.get(cacheKey(guildId, userId))
-    if (typeof cached == "object") return cached
-    const energy = await db.getEnergy(guildId, userId)
-    cache.set(cacheKey(guildId, userId), energy)
-
-    return energy
+    return await db.getEnergy(guildId, userId)
 }
 
 module.exports = {
@@ -97,7 +65,5 @@ module.exports = {
     addEnergy,
     removeEnergy,
     getEnergyData,
-    useEnergy,
-    updateCache,
-    cacheKey
+    useEnergy
 }
