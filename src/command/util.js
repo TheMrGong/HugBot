@@ -38,14 +38,25 @@ function findAllMembersInGuildMatching(guild, targetting) {
         guild,
         targetting,
         member => member.displayName,
-        true
+        CheckType.Equals
     );
+
+    // find by starts-with
+    if (membersFound.length == 0) {
+        membersFound = findMembersBy(
+            guild,
+            targetting,
+            member => member.displayName,
+            CheckType.StartsWith
+        );
+    }
     // find includes match
     if (membersFound.length == 0) {
         membersFound = findMembersBy(
             guild,
             targetting,
-            member => member.displayName
+            member => member.displayName,
+            CheckType.Includes
         );
     }
     // find direct username
@@ -54,9 +65,16 @@ function findAllMembersInGuildMatching(guild, targetting) {
             guild,
             targetting,
             member => member.user.username,
-            true
+            CheckType.Equals
         );
-
+    // find starts with username
+    if (membersFound.length == 0)
+        membersFound = findMembersBy(
+            guild,
+            targetting,
+            member => member.user.username,
+            CheckType.StartsWith
+        );
     // find includes username
     if (membersFound.length == 0)
         membersFound = findMembersBy(
@@ -69,33 +87,48 @@ function findAllMembersInGuildMatching(guild, targetting) {
 }
 
 /**
+ * @enum {number}
+ */
+const CheckType = {
+    Includes: 0,
+    Equals: 1,
+    StartsWith: 2
+}
+
+/**
  * Converts a GuildMember into a string
  * @callback transform
  * @param {Discord.GuildMember} transforming
  * @returns {string}
  */
 
+
 /**
  * 
  * @param {Discord.Guild} guild 
  * @param {string} finding 
  * @param {transform} transform - How to search for the user
- * @param {boolean} direct Checks the names directly
+ * @param {CheckType} type Checks the names directly
  * @returns {Array<Discord.GuildMember>}
  */
-function findMembersBy(guild, finding, transform, direct = false) {
+function findMembersBy(guild, finding, transform, type = CheckType.Includes) {
+    finding = finding.toLowerCase()
     const entries = guild.members.entries();
     let entry = entries.next();
 
     /**@type {Array<Discord.GuildMember>} */
     let usersFound = []
     while (entry.value) {
-        const name = transform(entry.value[1]);
-        if (direct ? name.toLowerCase() == finding.toLowerCase() : name.toLowerCase().includes(finding.toLowerCase()))
+        const name = transform(entry.value[1]).toLowerCase();
+        if ((type == CheckType.Includes && name.includes(finding))
+            || (type == CheckType.Equals && name == finding)
+            || (type == CheckType.StartsWith && name.startsWith(finding))) {
             usersFound.push(entry.value[1]);
-        entry = entries.next();
+
+            entry = entries.next();
+        }
+        return usersFound
     }
-    return usersFound
 }
 
 module.exports = {
