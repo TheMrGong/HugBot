@@ -3,9 +3,9 @@ const Discord = require("discord.js")
 const { findMemberInEvent } = require("../util")
 const lang = require("../../lang/lang.js").prefixed("cmd.hug.")
 const config = require("../../config");
-const hugrecords = require("../../records/hugrecords"),
+const hugrecords = require("../../database/records/hugrecords"),
     Action = hugrecords.Action
-const energyapi = require("../../energy/energyapi")
+const energyapi = require("../../database/energy/energyapi")
 
 const SPECIAL_HUGS = {
     "263675970270003200": [

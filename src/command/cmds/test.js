@@ -1,7 +1,7 @@
 //@ts-check
 const Discord = require("discord.js")
-const hugrecords = require("../../records/hugrecords")
-const energydb = require("../../energy/energydb")
+const hugrecords = require("../../database/records/hugrecords")
+const energydb = require("../../database/energy/energydb")
 
 module.exports = {
     cmd: "test",
