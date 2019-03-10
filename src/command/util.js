@@ -124,11 +124,10 @@ function findMembersBy(guild, finding, transform, type = CheckType.Includes) {
             || (type == CheckType.Equals && name == finding)
             || (type == CheckType.StartsWith && name.startsWith(finding))) {
             usersFound.push(entry.value[1]);
-
-            entry = entries.next();
         }
-        return usersFound
+        entry = entries.next();
     }
+    return usersFound
 }
 
 module.exports = {
