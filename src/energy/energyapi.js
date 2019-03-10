@@ -40,7 +40,10 @@ function updateCache(key, apply) {
 async function addEnergy(guildId, userId, energy = 1) {
     if (energy == 0) return
     const currentEnergy = await getEnergyData(guildId, userId)
-    if (currentEnergy.energy + energy < 0 || currentEnergy.energy > MAX_ENERGY) return
+    if (currentEnergy.energy + energy < 0 || currentEnergy.energy + energy > MAX_ENERGY) {
+        console.log("Hit maximum energy.")
+        return
+    }
 
     updateCache(cacheKey(guildId, userId), cache => cache.energy = cache.energy + energy)
     let increasing = true
