@@ -6,6 +6,7 @@ const hugrecords = require("../../records/hugrecords"),
 const lang = require("../../lang/lang").prefixed("cmd.pat.")
 
 const PAT_EMOJI_ID = "554304005946212358"
+const LIMIT_ON_SELF = 1000 * 60 * 5
 
 /**
  * @param {Discord.Message} message 
@@ -51,9 +52,21 @@ module.exports = {
             if (result !== null) {
                 const emoji = client.emojis.get(PAT_EMOJI_ID)
                 if (result[1].toLowerCase() == "pat") { // they're patting the user above
-                    const messages = await message.channel.fetchMessages({ limit: 2 })
-                    const respondingTo = messages.last()
-                    if (respondingTo.author.id == message.author.id) return
+                    const messages = (await message.channel.fetchMessages({ limit: 20 })).array()
+                    /**@type {Discord.Message} */
+
+                    let respondingTo;
+
+                    for (let k in messages) {
+                        /**@type {Discord.Message} */
+                        const pastMessage = messages[k]
+                        const millisecondsPassed = new Date().getTime() - pastMessage.createdTimestamp
+                        if (pastMessage.author.id == message.author.id && millisecondsPassed > LIMIT_ON_SELF)
+                            break; // message is too far in the past
+                        if (pastMessage.author.id != message.author.id) respondingTo = pastMessage
+                    }
+
+                    if (!respondingTo) return
                     await hugrecords.logAction(message.guild.id, message.author.id, respondingTo.author.id, Action.PAT)
                     message.react(emoji)
                     respondingTo.react(emoji)
