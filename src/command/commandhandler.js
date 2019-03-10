@@ -96,5 +96,5 @@ module.exports.setup = (client) => {
         if (command) command.call(event, args)
     });
 
-    registerCommands(client, "hugcmd", "hugstatscmd", "tacklehugcmd", "energycmd", "patcmd", "test")
+    registerCommands(client, "hugcmd", "hugstatscmd", "tacklehugcmd", "energycmd", "patcmd", "hughelpcmd")
 }

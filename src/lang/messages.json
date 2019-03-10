@@ -166,6 +166,11 @@
         "You reach your hand out, and it touches air. Who are you patting?",
         "You try to pat someone, but miss. I dunno who you're patting"
       ]
+    },
+    "help": {
+      "msg": [
+        "Gots these commands: ?hug, ?hugs, ?energy, ?tacklehug, aaaand ?pat"
+      ]
     }
   }
 }

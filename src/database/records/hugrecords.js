@@ -16,7 +16,7 @@ const tacklehugRecords = require("./tacklehugrecords")
 const Action = {
     HUG: { // actually working
         id: "hug",
-        energy: 3,
+        energy: 0,
         group: "hug"
     },
     TACKLE_HUG: { // actually working
