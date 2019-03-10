@@ -52,7 +52,7 @@ module.exports = {
             if (result !== null) {
                 const emoji = client.emojis.get(PAT_EMOJI_ID)
                 if (result[1].toLowerCase() == "pat" || result[1].toLowerCase() == "patter") { // they're patting the user above
-                    const messages = (await message.channel.fetchMessages({ limit: 20 })).array()
+                    const messages = (await message.channel.fetchMessages({ limit: 20, before: message.id })).array().sort((a, b) => b.createdTimestamp - a.createdTimestamp)
                     /**@type {Discord.Message} */
 
                     let respondingTo;
@@ -61,8 +61,11 @@ module.exports = {
                         /**@type {Discord.Message} */
                         const pastMessage = messages[k]
                         const millisecondsPassed = new Date().getTime() - pastMessage.createdTimestamp
-                        if (pastMessage.author.id == message.author.id && millisecondsPassed > LIMIT_ON_SELF)
+                        if (pastMessage.author.id == message.author.id && millisecondsPassed > LIMIT_ON_SELF) {
+                            console.log("Breaking.")
                             break; // message is too far in the past
+                        }
+                        if (pastMessage.author.bot) continue
                         if (pastMessage.author.id != message.author.id) respondingTo = pastMessage
                     }
 
@@ -76,6 +79,7 @@ module.exports = {
                     const members = findAllMembersInGuildMatching(message.guild, result[1])
                     if (members.length == 1) {
                         const patting = members[0]
+                        if (patting.id == message.client.user.id) return patPerson(message, patting)
                         await hugrecords.logAction(message.guild.id, message.author.id, patting.id, Action.PAT)
                         await message.react(emoji)
                         console.log("Figured out they were patting " + patting.displayName)
