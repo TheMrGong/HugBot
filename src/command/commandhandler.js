@@ -1,7 +1,7 @@
 //@ts-check
 
 const Discord = require("discord.js")
-const config = require("../config/config.js");
+const config = require("../config");
 const lang = require("../lang/lang.js")
 
 /**

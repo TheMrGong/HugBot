@@ -2,7 +2,7 @@
 const Discord = require("discord.js")
 const { findMemberInEvent } = require("../util")
 const lang = require("../../lang/lang.js").prefixed("cmd.hug.")
-const config = require("../../config/config.js");
+const config = require("../../config");
 const hugrecords = require("../../records/hugrecords"),
     Action = hugrecords.Action
 const energyapi = require("../../energy/energyapi")
