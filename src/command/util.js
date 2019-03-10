@@ -12,11 +12,31 @@ async function findMemberInEvent(event, args) {
     const targetting = args.join(" ");
     await event.guild.fetchMembers(targetting, 1)
 
+    // find direct match
     let member = findUserBy(
         event,
         targetting,
-        member => member.displayName
+        member => member.displayName,
+        true
     );
+    // find includes match
+    if (!member) {
+        member = findUserBy(
+            event,
+            targetting,
+            member => member.displayName
+        );
+    }
+    // find direct username
+    if (!member)
+        member = findUserBy(
+            event,
+            targetting,
+            member => member.user.username,
+            true
+        );
+
+    // find includes username
     if (!member)
         member = findUserBy(
             event,
@@ -38,14 +58,15 @@ async function findMemberInEvent(event, args) {
  * @param {Discord.Message} event 
  * @param {string} finding 
  * @param {transform} transform - How to search for the user
+ * @param {boolean} direct Checks the names directly
  * @returns {Discord.GuildMember|undefined}
  */
-function findUserBy(event, finding, transform) {
+function findUserBy(event, finding, transform, direct = false) {
     const entries = event.guild.members.entries();
     let entry = entries.next();
     while (entry.value) {
         const name = transform(entry.value[1]);
-        if (name.toLowerCase().includes(finding.toLowerCase()))
+        if (direct ? name.toLowerCase() == finding.toLowerCase() : name.toLowerCase().includes(finding.toLowerCase()))
             return entry.value[1];
         entry = entries.next();
     }
