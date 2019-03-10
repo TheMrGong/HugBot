@@ -146,6 +146,26 @@
           "From what I can see, ``{finding}`` has {energy} energy!"
         ]
       }
+    },
+    "pat": {
+      "self": [
+        "You give yourself a nice pat on the back!",
+        "You go to pat yourself, but the hugbot pats you instead"
+      ],
+      "bot": [
+        "*hugbot preens under pats*",
+        "*happy bot noises* \nThank you for the pats!"
+      ],
+      "other": [
+        "{user} gives ``{patting}`` a nice pat pat on the head!",
+        "``{patting}`` gets a nice headpat from {user}",
+        "PAT PAT! ``{patting}`` enjoys a head pat from {user}",
+        "*pat pat* ``{patting}`` is patted by {user}"
+      ],
+      "fail": [
+        "You reach your hand out, and it touches air. Who are you patting?",
+        "You try to pat someone, but miss. I dunno who you're patting"
+      ]
     }
   }
 }
