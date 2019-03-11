@@ -62,7 +62,6 @@ module.exports = {
                         const pastMessage = messages[k]
                         const millisecondsPassed = new Date().getTime() - pastMessage.createdTimestamp
                         if (pastMessage.author.id == message.author.id && millisecondsPassed > LIMIT_ON_SELF) {
-                            console.log("Breaking.")
                             break; // message is too far in the past
                         }
                         if (pastMessage.author.bot) continue

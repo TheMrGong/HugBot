@@ -169,7 +169,9 @@
     },
     "help": {
       "msg": [
-        "Gots these commands: ?hug, ?hugs, ?energy, ?tacklehug, aaaand ?pat"
+        "Gots these commands: ?hug, ?hugs, ?energy, ?tacklehug, aaaand ?pat",
+        "Weell, you can run, with the prefix, ?, hug, hugs, energy, tacklehug aaand pat",
+        "The commands I gots are ?hug, ?hugs, ?tacklehug, ?pat, aaaand ?energy"
       ]
     }
   }
