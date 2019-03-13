@@ -9,17 +9,49 @@ const Easing = require("easing-functions")
 //const gifFrames = require("gif-frames")
 const upng = require("upng-js")
 const fs = require("fs")
+const Worker = require('webworker-threads').Worker;
 
+async function doProcessing(data) {
 
+    // cannot post buffer to worker?
+    return new Promise((resolve, reject) => {
+        console.log("Creating working")
+        const worker = new Worker(function() {
+            console.log("Inw orker, setting")
+            // this.onmessage = function(get) {
+            //     console.log("Decoding...")
+            //     //const thing = upng.decode(data)
+            //     //const frames = upng.toRGBA8(thing)
+            //     //console.log("Done decoding.")
+            //     //postMessage({
+            //     //    width: thing.width,
+            //     //    height: thing.height,
+            //     //    frames
+            //     //})
+            // }
+            console.log("Set on message?")
+        })
+
+        console.log("Uhhh..")
+        console.log("Posting message")
+        console.log(data)
+        worker.postMessage({
+            e: "efsef"
+        })
+        // worker.onmessage = function(get) {
+        //     console.log("woah")
+        // }
+    })
+}
 
 //@ts-ignore
 const animeFrames = new Promise((resolve, reject) => {
     fs.readFile("./res/speed.png", async (err, data) => {
         if (err) reject(err)
         else {
-            const thing = upng.decode(data)
+            
             //@ts-nocheck
-            resolve(upng.toRGBA8(thing))
+            resolve(await doProcessing(data))
         }
     })
 })
@@ -113,10 +145,8 @@ async function createAnimation(imageBuffer) {
 
     let animeDelay = 0
     let animeFrame = 0
-    const animeImageFrame = new canvas.Image()
-    console.log(animeGif[1])
-    animeImageFrame.src = new Buffer(animeGif[0])
-    console.log(animeImageFrame.src)
+
+    const animeImageFrame = canvas.createImageData(new Uint16Array(animeGif.frames[0]), animeGif.width, animeGif.height)
 
     let lastAnimeUpdate = beginTime
 
@@ -186,7 +216,9 @@ async function createAnimation(imageBuffer) {
         ctx.drawImage(userProfileImage, interpolated.x, interpolated.y, rectWidth, rectHeight)
 
         ctx.restore()
-        ctx.drawImage(animeImageFrame, 0, 0)
+
+        //ctx.putImageData(imageData, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
+        ctx.putImageData(animeImageFrame, 0, 0, 0, 0, 40, 40)
         ctx.fillStyle = "#ff0000"
 
         ctx.fillRect(interpolated.x - 2, interpolated.y - 2, 4, 4)

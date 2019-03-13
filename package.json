@@ -17,7 +17,8 @@
     "node-cache": "^4.2.0",
     "semver": "5.6.0",
     "snekfetch": "^4.0.4",
-    "upng-js": "^2.1.0"
+    "upng-js": "^2.1.0",
+    "webworker-threads": "^0.7.17"
   },
   "devDependencies": {
     "nodemon": "1.18.4"
