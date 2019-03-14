@@ -14,11 +14,11 @@ client.on("ready", () => {
   });
 });
 
-function begin() {
-  client.login(config.token)
+async function begin() {
+  console.log("Logging in...")
+  await client.login(config.token)
   commandhandler.setup(client)
   energyhandler.begin(client)
-  console.log("Logging in...")
 }
 
 module.exports = {
