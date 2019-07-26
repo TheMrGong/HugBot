@@ -1,18 +1,18 @@
 //@ts-check
 const Discord = require("discord.js")
-const { findMemberInEvent } = require("../util")
+const { findMemberInEvent } = require("../../util/discordutil")
 
 const PREFIX = "cmd.tacklehug."
 const langAPI = require("../../lang/lang.js"),
     lang = langAPI.prefixed(PREFIX)
 
-const hugrecords = require("../../database/records/hugrecords"),
-    Action = hugrecords.Action
-const tacklehugRecords = require("../../database/records/tacklehugrecords"),
+const hugrecords = require("../../hug/records/hugrecords")
+const { HugActions } = require("../../hug/action/hugaction")
+const tacklehugRecords = require("../../hug/records/tacklehugrecords"),
     TackleResult = tacklehugRecords.TackleResult
 
 //TODO dodge fail
-const energyapi = require("../../database/energy/energyapi")
+const energyapi = require("../../hug/energy/energyapi")
 
 // interception tackle hugs
 
@@ -105,7 +105,7 @@ module.exports = {
         if (member.id == event.client.user.id) return event.channel.send(lang("bot-tackle", "user", event.author.toString()))
 
         if (event.deletable) event.delete()
-        const energyUsed = await energyapi.useEnergy(event.guild.id, event.author.id, Action.TACKLE_HUG.energy)
+        const energyUsed = await energyapi.useEnergy(event.guild.id, event.author.id, HugActions.TACKLE_HUG.energy)
         if (!energyUsed)
             return event.channel.send(
                 lang("not-enough-energy", "user", event.author.toString(), "attempt", member.displayName)
@@ -181,7 +181,7 @@ function generateMessage(tackler, tackled, state, timeLeft, countdownIndex = -1)
  * @param {Discord.GuildMember} tackling 
  */
 async function beginTackleHandling(event, tackling) {
-    const result = await hugrecords.logAction(event.guild.id, event.member.id, tackling.id, Action.TACKLE_HUG)
+    const result = await hugrecords.logAction(event.guild.id, event.member.id, tackling.id, HugActions.TACKLE_HUG)
     if (!result) {
         event.channel.send("Ahh, wasn't able to track that tackle.. ;-;")
         return

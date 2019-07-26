@@ -7,16 +7,16 @@
     "start": "nodemon src/index.js"
   },
   "dependencies": {
-    "@types/node": "^11.11.0",
-    "canvas": "git+https://github.com/Automattic/node-canvas.git",
+    "@types/node": "^12.0.8",
+    "cannon": "^0.6.2",
+    "canvas": "^2.5.0",
     "discord.js": "11.4.2",
     "easing-functions": "^1.0.1",
     "gif-frames": "^1.0.1",
-    "gifencoder": "^2.0.1",
     "mysql": "^2.16.0",
-    "node-cache": "^4.2.0",
-    "semver": "5.6.0",
+    "sharp": "^0.21.3",
     "snekfetch": "^4.0.4",
+    "three": "^0.102.1",
     "upng-js": "^2.1.0",
     "webworker-threads": "^0.7.17"
   },

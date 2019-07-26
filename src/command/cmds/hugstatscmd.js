@@ -1,9 +1,9 @@
 //@ts-check
 const Discord = require("discord.js")
-const { findMemberInEvent } = require("../util")
+const { findMemberInEvent } = require("../../util/discordutil")
 const lang = require("../../lang/lang.js").prefixed("cmd.stats.")
-const hugrecords = require("../../database/records/hugrecords"),
-    Action = hugrecords.Action
+const hugrecords = require("../../hug/records/hugrecords")
+const { HugActions } = require("../../hug/action/hugaction")
 
 const DELETE_AFTER = 1000 * 10
 
@@ -13,7 +13,7 @@ const DELETE_AFTER = 1000 * 10
  * @param {Discord.GuildMember} member 
  */
 async function showHugStatsFor(event, member) {
-    const hugsReceived = await hugrecords.getTotalActions(event.guild.id, member.id, false, Action.HUG, true)
+    const hugsReceived = await hugrecords.getTotalActions(event.guild.id, member.id, false, HugActions.HUG, true)
     const self = event.author.id === member.id
     if (hugsReceived == 0) {
         const message = await event.channel.send(lang(self ? "self-never" : "never-hugged", "user", event.author.toString(), "found", member.displayName))

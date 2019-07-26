@@ -1,8 +1,8 @@
 //@ts-check
-// TODO preferences
+//TODO preferences
 
-const hugrecords = require("./database/records/hugrecords")
-const energyapi = require("./database/energy/energyapi")
+const hugrecords = require("./hug/records/hugrecords")
+const energyapi = require("./hug/energy/energyapi")
 const bot = require("./bot")
 
 async function begin() {
@@ -20,7 +20,6 @@ process.on('uncaughtException', function (err) {
   console.log(err)
   console.log(err.message)
   console.error((new Date).toUTCString() + ' uncaughtException:', err.message)
-  process.exit(1)
 })
 
 process.on('exit', function () {
