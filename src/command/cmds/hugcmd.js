@@ -1,11 +1,12 @@
 //@ts-check
 const Discord = require("discord.js")
-const { findMemberInEvent } = require("../util")
+const { findMemberInEvent } = require("../../util/discordutil")
 const lang = require("../../lang/lang.js").prefixed("cmd.hug.")
 const config = require("../../config");
-const hugrecords = require("../../database/records/hugrecords"),
-    Action = hugrecords.Action
-const energyapi = require("../../database/energy/energyapi")
+const hugrecords = require("../../hug/records/hugrecords")
+const { HugActions } = require("../../hug/action/hugaction")
+const energyapi = require("../../hug/energy/energyapi")
+const discordUtil = require("../../util/discordutil")
 
 const SPECIAL_HUGS = {
     "263675970270003200": [
@@ -18,7 +19,7 @@ const SPECIAL_HUGS = {
  * 
  * @param {Discord.Message} event 
  */
-function hugTheBot(event) {
+async function hugTheBot(event) {
 
     let specialHugs;
     for (let userId in SPECIAL_HUGS) {
@@ -29,16 +30,19 @@ function hugTheBot(event) {
         console.log("Using a special hug!")
         return
     }
+    const userEmoji = await discordUtil.profileToEmoji(event.author)
     const replyingWith = lang(
         "bot-hugs",
         "user",
-        event.author.toString()
+        event.author.toString(),
+        "userFace",
+        userEmoji.toString()
     );
     console.log(
         event.member.displayName + " hugged me! Replying with " + replyingWith
     );
     event.channel.send(replyingWith)
-    hugrecords.logAction(event.guild.id, event.author.id, event.client.user.id, Action.HUG)
+    hugrecords.logAction(event.guild.id, event.author.id, event.client.user.id, HugActions.HUG)
 }
 
 /**
@@ -49,45 +53,48 @@ function hugTheBot(event) {
 async function hugUser(event, user) {
     const member = await event.guild.fetchMember(user)
 
-    const energyUsed = await energyapi.useEnergy(event.guild.id, event.author.id, Action.HUG.energy)
+    const energyUsed = await energyapi.useEnergy(event.guild.id, event.author.id, HugActions.HUG.energy)
+    const huggerEmoji = await discordUtil.profileToEmoji(event.author)
     if (!energyUsed) {
         if (event.deletable) event.delete()
         return event.channel.send(
-            lang("not-enough-energy", "user", event.author.toString(), "attempt", member.displayName)
+            lang("not-enough-energy", "user", event.author.toString(), "userFace", huggerEmoji.toString(), "attempt", member.displayName)
         )
     }
     if (event.author.id === user.id) { // if they're hugging themselves
         if (event.deletable) event.delete()
         event.channel.send(
-            lang("hug-self", "user", event.author.toString())
+            lang("hug-self", "user", event.author.toString(), "userFace", huggerEmoji.toString())
         );
         return;
         // if they're hugging us
     } else if (user.id === event.client.user.id) return hugTheBot(event);
     if (event.deletable) event.delete()
+    const huggedEmoji = await discordUtil.profileToEmoji(user)
 
     // put in the database this happened
-    hugrecords.logAction(event.guild.id, event.author.id, user.id, Action.HUG)
+    hugrecords.logAction(event.guild.id, event.author.id, user.id, HugActions.HUG)
 
     event.channel.send(
-        lang("hug-other", "hugger", event.author.toString(), "hugged", `\`\`${member.displayName}\`\``)
+        lang("hug-other", "hugger", event.author.toString(), "huggerFace", huggerEmoji.toString(), "hugged", `\`\`${member.displayName}\`\``, "huggedFace", huggedEmoji.toString())
     );
 
-    console.log(event.member.displayName + " has hugged " + user.username);
+    console.log(event.guild.name + " - " + event.member.displayName + " has hugged " + user.username);
 }
 
 /**
  * 
  * @param {Discord.Message} event 
  */
-function processHugsInMessage(event) {
-    const mentioned = event.mentions.members.first()
+async function processHugsInMessage(event) {
+    const mentioned = event.mentions.users.first()
 
     const lower = event.content.toLowerCase()
-    const regex = /(?: ?<@!\d+> ?)?\bhug\b(?: ?<@!\d+> ?)?/gm
+    const regexLeft = /^(?: ?<@!?\d+> ?) ?hug$/gm
+    const regexRight = /^hug(?: ?<@!?\d+> ?)$/gm
 
-    if (regex.exec(lower) !== null && mentioned)
-        hugUser(event, mentioned.user)
+    if ((regexLeft.exec(lower) !== null || regexRight.exec(lower) !== null) && mentioned)
+        hugUser(event, mentioned)
 }
 
 module.exports = {
@@ -102,9 +109,12 @@ module.exports = {
         const targetting = args.join(" ")
         const member = await findMemberInEvent(event, args)
         if (member) hugUser(event, member.user)
-        else event.channel.send(
-            lang("fail", "user", event.author.toString(), "hugging", targetting)
-        );
+        else {
+            const userEmoji = await discordUtil.profileToEmoji(event.author)
+            event.channel.send(
+                lang("fail", "user", event.author.toString(), "userFace", userEmoji.toString(), "hugging", targetting)
+            );
+        }
     },
     /**
      * @param {Discord.Client} client

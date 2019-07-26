@@ -1,13 +1,13 @@
 //@ts-check
 
 const Discord = require("discord.js")
-const { findMemberInEvent } = require("../util")
+const { findMemberInEvent } = require("../../util/discordutil")
 const lang = require("../../lang/lang.js").prefixed("cmd.energy.")
 
-const energyapi = require("../../database/energy/energyapi")
+const energyapi = require("../../hug/energy/energyapi")
 
 const DELETE_AFTER = 1000 * 30
-
+// gif 40 height
 
 
 /**

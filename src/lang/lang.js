@@ -30,7 +30,7 @@ function translateAndIndex(key) {
     })
     const string = typeof availableMessages == "string"
 
-    if (!string && (!availableMessages || availableMessages.length === 0))
+    if (!string && (!availableMessages || availableMessages.length === 0 || availableMessages.length === undefined))
         return new TranslateResult(0, "{i dunno about " + key + "}");
     let index = string ? 0 : Math.floor(Math.random() * availableMessages.length)
 
@@ -49,7 +49,7 @@ function translateAndIndex(key) {
         if ((k - 1) % 2 === 0) { //if i'm a key
             const key = arguments[k];
             const value = arguments[parseInt(k) + 1];
-            if (!value) continue; // no value for the key
+            if (value == undefined) continue; // no value for the key
             data = data.replace(`{${key}}`, value);
         }
     }
