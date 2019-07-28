@@ -9,7 +9,7 @@ const request = require("snekfetch")
 const canvasAPI = require("canvas")
 const { wrapImage } = require("./graphics/gifutil")
 
-const EMOJI_GUILD = "583089793206845440"
+const EMOJI_GUILD = "457601288113487897"
 const EMOJI_SIZE = 64
 
 /**
@@ -18,7 +18,7 @@ const EMOJI_SIZE = 64
  * @param {number} skipTime - How many milliseconds until the message above can be considered the user's own
  * @returns {Promise<Discord.Message>}
  */
-async function getMessageAbove (message, skipTime) {
+async function getMessageAbove(message, skipTime) {
     const messages = (await message.channel.fetchMessages({ limit: 10, before: message.id })).array().sort((a, b) => b.createdTimestamp - a.createdTimestamp)
     /**@type {Discord.Message} */
 
@@ -43,7 +43,7 @@ async function getMessageAbove (message, skipTime) {
 /**
  * @param {string} id 
  */
-function generateEmojiName (id) {
+function generateEmojiName(id) {
     const t = new Date().getTime().toString()
     return id + t.substring(t.length - 5, t.length)
 }
@@ -52,7 +52,7 @@ function generateEmojiName (id) {
  * @param {Discord.User} user 
  * @returns {Promise<Discord.Emoji|string>}
  */
-async function profileToEmoji (user) {
+async function profileToEmoji(user) {
     const guild = user.client.guilds.get(EMOJI_GUILD)
     const emojiName = generateEmojiName(user.id)
     const url = user.displayAvatarURL
@@ -100,14 +100,14 @@ async function profileToEmoji (user) {
  * @param {Array<string>} args 
  * @returns {Promise<Array<Discord.GuildMember>>}
  */
-async function findAllMembersInEvent (event, args) {
+async function findAllMembersInEvent(event, args) {
     const mentioned = event.mentions.users.first();
 
     if (mentioned) return [await event.guild.fetchMember(mentioned)]
     const targetting = args.join(" ");
 
     return new Promise(async (resolve, reject) => {
-        const promise = event.guild.fetchMembers(targetting, 1)
+        const promise = event.guild.fetchMembers()
         promise.then(() => {
             resolve(findAllMembersInGuildMatching(event.guild, targetting))
         }).catch(it => { }) // timeout
@@ -120,7 +120,7 @@ async function findAllMembersInEvent (event, args) {
  * @param {Array<string>} args 
  * @returns {Promise<Discord.GuildMember|undefined>}
  */
-async function findMemberInEvent (event, args) {
+async function findMemberInEvent(event, args) {
     const members = await findAllMembersInEvent(event, args)
     if (members.length > 0) return members[0]
 }
@@ -131,7 +131,7 @@ async function findMemberInEvent (event, args) {
  * @param {string} targetting 
  * @returns {Array<Discord.GuildMember|undefined>}
  */
-function findAllMembersInGuildMatching (guild, targetting) {
+function findAllMembersInGuildMatching(guild, targetting) {
     // find direct match
     let membersFound = findMembersBy(
         guild,
@@ -141,6 +141,7 @@ function findAllMembersInGuildMatching (guild, targetting) {
     );
 
     const checkOrder = [CheckType.StartsWith, CheckType.Equals, CheckType.Includes]
+    /**@type {Array<function(Discord.GuildMember): string>} */
     const transformOrder = [(member) => member.displayName, (member) => member.user.username]
 
     for (let k in transformOrder) {
@@ -189,7 +190,7 @@ const CheckType = {
  * @param {CheckType} type Checks the names directly
  * @returns {Array<Discord.GuildMember>}
  */
-function findMembersBy (guild, finding, transform, type = CheckType.Includes) {
+function findMembersBy(guild, finding, transform, type = CheckType.Includes) {
     finding = finding.toLowerCase()
 
     return guild.members.filter(v => type(transform(v).toLowerCase(), finding)).array()
