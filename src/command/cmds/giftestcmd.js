@@ -12,13 +12,13 @@ const sharp = require('sharp');
 const { findMemberInEvent } = require("../../util/discordutil")
 const { readImage } = require("../../util/graphics/gifutil")
 
-async function loadKeyFrames (path) {
+async function loadKeyFrames(path) {
     return new Promise((resolve, reject) => {
         fs.readFile("res/" + path, (err, data) => {
             if (err) return reject(err)
             resolve({
                 data: JSON.parse(data.toString()).motion,
-                getFrame (frame) {
+                getFrame(frame) {
                     if (frame < 0) frame = 0
                     else if (frame >= this.data.length) frame = this.data.length - 1
                     return this.data[frame]
@@ -33,7 +33,7 @@ async function loadKeyFrames (path) {
  * @param {Buffer} dodgingBuffer
  * @returns {Promise<Discord.Attachment>}
  */
-async function createHugDodge (huggingBuffer, dodgingBuffer) {
+async function createHugDodge(huggingBuffer, dodgingBuffer) {
     //@ts-ignore
     const frameData = await gifFrames({ url: "res/hugdodge/dodge.gif", outputType: "png", frames: "all", cumulative: true })
     const dodgingTracking = await loadKeyFrames("hugdodge/dodgerMotion.json")
@@ -110,7 +110,7 @@ async function createHugDodge (huggingBuffer, dodgingBuffer) {
  * @param {Buffer} tackledBuffer
  * @returns {Promise<Discord.Attachment>}
  */
-async function createTackleAccept (tacklingBuffer, tackledBuffer) {
+async function createTackleAccept(tacklingBuffer, tackledBuffer) {
     //@ts-ignore
     const frameData = await gifFrames({ url: "res/tackleaccept/tacklehugaccept.gif", outputType: "png", frames: "all", cumulative: true })
     const tackledTracking = await loadKeyFrames("tackleaccept/tackledMotion.json")
@@ -183,7 +183,7 @@ async function createTackleAccept (tacklingBuffer, tackledBuffer) {
  * @param {Buffer} tacklingBuffer
  * @returns {Promise<Discord.Attachment>}
  */
-async function createTackleDodge (profileBuffer, tacklingBuffer) {
+async function createTackleDodge(profileBuffer, tacklingBuffer) {
     //@ts-ignore
     const frameData = await gifFrames({ url: "res/tackledodge/dodge.gif", outputType: "png", frames: "all", cumulative: true })
     const tackledTracking = await loadKeyFrames("tackledodge/tackledMotion.json")
@@ -258,12 +258,12 @@ async function createTackleDodge (profileBuffer, tacklingBuffer) {
  * @param {Buffer} tacklingBuffer
  * @returns {Promise<Discord.Attachment>}
  */
-async function createTackleHugTooLong (tackledBuffer, tacklingBuffer) {
+async function createTackleHugTooLong(tackledBuffer, tacklingBuffer) {
     //@ts-ignore
     const frameData = await gifFrames({ url: "res/tacklesuprise/rwby-tackle.gif", outputType: "png", frames: "all", cumulative: true })
     const tackledTracking = {
         data: JSON.parse(fs.readFileSync("res/tacklesuprise/tackledTracking.json").toString()).motion,
-        getFrame (frame) {
+        getFrame(frame) {
             if (frame < 0) frame = 0
             else if (frame >= this.data.length) frame = this.data.length - 1
             return this.data[frame]
@@ -271,7 +271,7 @@ async function createTackleHugTooLong (tackledBuffer, tacklingBuffer) {
     }
     const tacklerTracking = {
         data: JSON.parse(fs.readFileSync("res/tacklesuprise/tacklerTracking.json").toString()).motion,
-        getFrame (frame) {
+        getFrame(frame) {
             if (frame < 0) frame = 0
             else if (frame >= this.data.length) frame = this.data.length - 1
             return this.data[frame]
@@ -326,7 +326,7 @@ module.exports = {
      * @param {Discord.Message} message
      * @param {Array<string>} args
      */
-    async call (message, args) {
+    async call(message, args) {
         /** @type {Discord.Permissions}*/
         //@ts-ignore
         const perms = message.channel.memberPermissions(await message.guild.fetchMember(message.client.user))
@@ -357,7 +357,7 @@ module.exports = {
             console.log("Starting typing")
             message.channel.startTyping(20)
             const begin = new Date().getTime()
-            const attachement = await createTackleDodge(th.body, flameyProfilePicture.body)
+            const attachement = await createTackleAccept(th.body, flameyProfilePicture.body)
             if (newMessage instanceof Discord.Message) await newMessage.edit("Uploading...")
             await message.channel.send("HUGS GENERATED IN " + ((new Date().getTime() - begin) / 1000) + " second(s)!", attachement)
             if (newMessage instanceof Discord.Message && newMessage.deletable) newMessage.delete()
