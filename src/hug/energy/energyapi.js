@@ -16,7 +16,7 @@ const MAX_ENERGY = 30
  * @param {number} [energy]
  * @returns {Promise<any>} mysql result packet
  */
-async function addEnergy (guildId, userId, energy = 1) {
+async function addEnergy(guildId, userId, energy = 1) {
     if (energy == 0) return
     const currentEnergy = await getEnergyData(guildId, userId)
     if (currentEnergy.energy + energy < 0 || currentEnergy.energy + energy >= MAX_ENERGY)
@@ -35,7 +35,7 @@ async function addEnergy (guildId, userId, energy = 1) {
  * @param {string} userId 
  * @param {number} [energy]
  */
-async function removeEnergy (guildId, userId, energy = 1) {
+async function removeEnergy(guildId, userId, energy = 1) {
     if (energy == 0) return
     return await addEnergy(guildId, userId, energy * -1)
 }
@@ -46,7 +46,7 @@ async function removeEnergy (guildId, userId, energy = 1) {
  * @param {number} energy 
  * @returns {Promise<boolean>} Whether the energy could be used
  */
-async function useEnergy (guildId, userId, energy) {
+async function useEnergy(guildId, userId, energy) {
     const energyData = await getEnergyData(guildId, userId)
     if (energyData.energy - energy < 0) return false
     await removeEnergy(guildId, userId, energy)
@@ -58,7 +58,7 @@ async function useEnergy (guildId, userId, energy) {
  * @param {string} userId 
  * @returns {Promise<Energy>}
  */
-async function getEnergyData (guildId, userId) {
+async function getEnergyData(guildId, userId) {
     return await db.getEnergy(guildId, userId)
 }
 

@@ -8,6 +8,8 @@ const actionsRegistry = require("./hug/action/actionsregistry")
 
 const energyhandler = require("./hug/energy/energyhandler")
 
+const preferences = require("./preference/prefenceapi")
+
 const hal = require("./hal")
 
 client.on("ready", () => {
@@ -30,6 +32,7 @@ async function begin() {
     console.log(g.name + " - " + g.id)
   })
 
+  await preferences.ready
   hal.begin(client)
   commandhandler.setup(client)
   energyhandler.begin(client)
