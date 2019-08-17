@@ -334,7 +334,7 @@ class HugAction {
 
                         if (this.data.emojiId || this.data.emojiString) try {
                             const emoji = this.data.emojiId ? message.client.emojis.get(this.data.emojiId) : this.data.emojiString
-                            await message.react(emoji)
+                            //await message.react(emoji) // no longer need to react to the main message
                             if (!member) await above.react(emoji)
                         } catch (e) {
                             console.log("Unable to show reaction emojis")

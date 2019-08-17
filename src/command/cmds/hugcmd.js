@@ -101,18 +101,18 @@ module.exports = {
     cmd: "hug",
     /**
      * 
-     * @param {Discord.Message} event 
+     * @param {Discord.Message} message 
      * @param {Array<string>} args 
      */
-    async call(event, args) {
-        if (args.length == 0) return hugUser(event, event.client.user)
+    async call(message, args) {
+        if (args.length == 0) return hugUser(message, message.client.user)
         const targetting = args.join(" ")
-        const member = await findMemberInEvent(event, args)
-        if (member) hugUser(event, member.user)
+        const member = await findMemberInEvent(message, args)
+        if (member) hugUser(message, member.user)
         else {
-            const userEmoji = await discordUtil.profileToEmoji(event.author)
-            event.channel.send(
-                lang("fail", "user", event.author.toString(), "userFace", userEmoji.toString(), "hugging", targetting)
+            const userEmoji = await discordUtil.profileToEmoji(message.author)
+            message.channel.send(
+                lang("fail", "user", message.author.toString(), "userFace", userEmoji.toString(), "hugging", targetting)
             );
         }
     },

@@ -96,32 +96,33 @@ async function profileToEmoji(user) {
 }
 
 /**
- * @param {Discord.Message} event 
+ * @param {Discord.Message} message 
  * @param {Array<string>} args 
  * @returns {Promise<Array<Discord.GuildMember>>}
  */
-async function findAllMembersInEvent(event, args) {
-    const mentioned = event.mentions.users.first();
+async function findAllMembersInEvent(message, args) {
+    if (!message || !message.guild) return []
+    const mentioned = message.mentions.users.first();
 
-    if (mentioned) return [await event.guild.fetchMember(mentioned)]
+    if (mentioned) return [await message.guild.fetchMember(mentioned)]
     const targetting = args.join(" ");
 
     return new Promise(async (resolve, reject) => {
-        const promise = event.guild.fetchMembers()
+        const promise = message.guild.fetchMembers()
         promise.then(() => {
-            resolve(findAllMembersInGuildMatching(event.guild, targetting))
+            resolve(findAllMembersInGuildMatching(message.guild, targetting))
         }).catch(it => { }) // timeout
         setTimeout(() => resolve([]), 1000 * 2)
     })
 }
 
 /**
- * @param {Discord.Message} event 
+ * @param {Discord.Message} message 
  * @param {Array<string>} args 
  * @returns {Promise<Discord.GuildMember|undefined>}
  */
-async function findMemberInEvent(event, args) {
-    const members = await findAllMembersInEvent(event, args)
+async function findMemberInEvent(message, args) {
+    const members = await findAllMembersInEvent(message, args)
     if (members.length > 0) return members[0]
 }
 
