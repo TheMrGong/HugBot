@@ -9,7 +9,7 @@ const request = require("snekfetch")
 const canvasAPI = require("canvas")
 const { wrapImage } = require("./graphics/gifutil")
 
-const EMOJI_GUILD = "457601288113487897"
+const EMOJI_GUILD = "193360575747719168"
 const EMOJI_SIZE = 64
 
 /**
@@ -188,7 +188,7 @@ const CheckType = {
  * @param {Discord.Guild} guild 
  * @param {string} finding 
  * @param {transform} transform - How to search for the user
- * @param {CheckType} type Checks the names directly
+ * @param {Checker} type Checks the names directly
  * @returns {Array<Discord.GuildMember>}
  */
 function findMembersBy(guild, finding, transform, type = CheckType.Includes) {
