@@ -3,6 +3,9 @@
 const Discord = require("discord.js")
 const config = require("../config");
 
+const rootLang = require("../lang/lang")
+const isBanned = require("../banned")
+
 /**
  * @callback call
  * @param {Discord.Message} event
@@ -30,7 +33,7 @@ const commands = []
  * @param {Discord.Client} client
  * @param {Command} command 
  */
-function addCommand (client, command) {
+function addCommand(client, command) {
     if (command.setup) command.setup(client)
     commands.push(command)
 }
@@ -39,7 +42,7 @@ function addCommand (client, command) {
  * @param {Discord.Client} client
  * @param {string} name 
  */
-function registerCommand (client, name) {
+function registerCommand(client, name) {
     addCommand(client, require("./cmds/" + name))
 }
 
@@ -47,7 +50,7 @@ function registerCommand (client, name) {
  * @param {Discord.Client} client 
  * @param  {...string} cmds 
  */
-function registerCommands (client, ...cmds) {
+function registerCommands(client, ...cmds) {
     cmds.forEach(c => registerCommand(client, c))
 }
 
@@ -56,7 +59,7 @@ function registerCommands (client, ...cmds) {
  * @param {string} cmd 
  * @returns {Command|undefined}
  */
-function findCommand (cmd) {
+function findCommand(cmd) {
     cmd = cmd.toLowerCase()
     for (let k in commands) {
         const command = commands[k]
@@ -74,7 +77,7 @@ module.exports = {
     /**
      * @param {Discord.Client} client
      */
-    setup (client) {
+    setup(client) {
         client.on("message", message => {
             const possibleText = []
             commands.forEach(cmd => possibleText.push(config.prefix + cmd.cmd))
@@ -99,10 +102,14 @@ module.exports = {
                 if (parseInt(k) > 0) args.push(spaces[k]);
             }
             const command = findCommand(cmd)
-            if (command) command.call(message, args)
+            if (command) {
+                if (isBanned(message.author.id)) {
+                    message.channel.send(rootLang("banned", "userTag", message.author.toString()))
+                } else command.call(message, args)
+            }
         });
 
-        registerCommands(client, "hugcmd", "hugstatscmd", "tacklehugcmd", "energycmd", "patcmd", "hughelpcmd", "giftestcmd", "flirtcmd", "gnomepointcmd", "heartcmd", "adultcmd")
+        registerCommands(client, "tacklehugcmd", "energycmd", "patcmd", "hughelpcmd", "giftestcmd", "flirtcmd", "gnomepointcmd", "heartcmd", "adultcmd")
     },
     addCommand
 }

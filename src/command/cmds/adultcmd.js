@@ -1,5 +1,6 @@
 //@ts-check
 const Discord = require("discord.js")
+
 const lang = require("../../lang/lang").prefixed("cmd.adult.")
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
      * @param {Discord.Message} event
      * @param {Array<string>} args
      */
-    async call (event, args) {
+    async call(event, args) {
         const originalNick = event.guild.me.nickname
 
         const changeNick = async (isAdult) => {

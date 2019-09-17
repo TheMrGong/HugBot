@@ -11,6 +11,7 @@ const DISCORD_FONT = "19px Whitney-Medium"
 const DISCORD_HEIGHT = 19 // higher than this causes discord to make gif look like gif and not text
 
 const SPACE_MULTIPLIER = 1.3
+const profileToEmoji = require("../../util/discordutil").profileToEmoji
 
 
 class Renderable {

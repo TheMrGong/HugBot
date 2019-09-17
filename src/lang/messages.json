@@ -1,4 +1,5 @@
 {
+  "banned": "🚫 {userTag} You have been banned from using this bot. To be unbanned, contact __``me@themrgong.xyz``__",
   "cmd": {
     "adult": {
       "responses": [
@@ -247,6 +248,70 @@
       }
     },
     "glomp": {
+      "fail": [
+        "Who are you glomping exactly.."
+      ],
+      "other": [
+        "{userFace} ``{user}`` glomps {affectedFace} ``{affected}``!!"
+      ],
+      "bot": [
+        "The hugbot happily glomps you back! Yay {userFace} ``{user}``!"
+      ],
+      "self": [
+        "{userFace} ``{user}``, you somehow manage to glomp yourself.. *how?*"
+      ],
+      "energy": {
+        "other": [
+          "{userFace} ``{user}`` stumbles over to {affectedFace} ``{affected}`` but is too tired to do anything"
+        ],
+        "self": [
+          "{userFace} ``{user}`` tries to glomp themselves.. but somehow can't even manage that"
+        ]
+      },
+      "stats": {
+        "fail": [
+          "Ahhh, {userFace} ``{user}``, I couldn't find anyone... ._.",
+          "*looks around* .. dunno who's glomps you're finding {userFace} ``{user}``"
+        ],
+        "self": {
+          "never-sent": [
+            "Soo, {userFace} ``{user}``, you've never sent a glomp buuuut you have gotten {actions} glomp{s}!"
+          ],
+          "never-received": [
+            "Sheesh, {userFace} ``{user}``, you've sent {actions} glomp{s} but nobody felt like giving any back!"
+          ],
+          "never": [
+            "Daaang {userFace} ``{user}``, you've never gotten or sent a glomp! I think you should get on that."
+          ],
+          "has": [
+            "Mmm, {userFace} ``{user}``, you've sent {sentActions} glomp{sS} and have GOTTEN {receivedActions} glomp{rS}!!"
+          ]
+        },
+        "other": {
+          "never-sent": [
+            "Welll, {userFace} ``{user}``, it appears {otherFace} ``{other}`` has never sent a glomp but has gotten {actions} glomp{s}"
+          ],
+          "never-received": [
+            "{userFace} ``{user}``, it appears that, the good soul {otherFace} ``{other}`` is has sent {actions} glomp{s} but has NEVER gotten a glomp!!!"
+          ],
+          "never": [
+            "Wellp, {userFace} ``{user}``, seems {otherFace} ``{other}`` has never had nor given a glomp! Think you could fix that?"
+          ],
+          "has": [
+            "Here are ya glomp stats, {userFace} ``{user}``: {otherFace} ``{other}`` has gotten {receivedActions} glomp{rS} and GIVEN {sentActions} glomp{sS}!"
+          ]
+        },
+        "bot": {
+          "never-received": [
+            "Uhh.. I've never been glomped, {userFace} ``{user}``.. *sad face*"
+          ],
+          "has": [
+            "Hi {userFace} ``{user}``!! I have gotten a total of {actions} glomp{s}!!"
+          ]
+        }
+      }
+    },
+    "tickle": {
       "fail": [
         "Who are you glomping exactly.."
       ],
