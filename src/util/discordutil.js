@@ -74,6 +74,7 @@ async function profileToEmoji(user) {
             emoji = await guild.createEmoji(gifBuffer, emojiName)
             setTimeout(() => guild.deleteEmoji(emoji), 10000)
         } catch (e) {
+            console.log(e)
             emoji = ""
             console.log("Emoji was too large for user " + user.username)
         }
@@ -89,8 +90,15 @@ async function profileToEmoji(user) {
         ctx.drawImage(wrapImage(profileImageBuffer), 0, 0)
 
         //@ts-ignore
-        const emoji = await guild.createEmoji(canvas.toBuffer(), emojiName)
-        setTimeout(() => guild.deleteEmoji(emoji), 10000)
+        let emoji = ""
+        try {
+            //@ts-ignore
+            emoji = await guild.createEmoji(canvas.toBuffer(), emojiName)
+            setTimeout(() => guild.deleteEmoji(emoji), 10000)
+        } catch (e) {
+            console.log("Failed to create emoji")
+            console.log(e)
+        }
         return emoji
     }
 }
