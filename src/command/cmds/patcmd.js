@@ -8,9 +8,12 @@ const { findAllMembersInGuildMatching, findMemberInEvent } = require("../../util
 const hugrecords = require("../../hug/records/hugrecords")
 const { HugActions } = require("../../hug/action/hugaction")
 
-const lang = require("../../lang/lang").prefixed("cmd.pat.")
+const rootLang = require("../../lang/lang")
+const lang = rootLang.prefixed("cmd.pat.")
 const config = require("../../config")
 const discordUtil = require("../../util/discordutil")
+
+const isBanned = require("../../banned")
 
 /**
  * @param {Discord.Message} message 
@@ -60,6 +63,7 @@ module.exports = {
             const regex = /\*?(?:pat)s?(?: pat)? (@?\w+)\*?/gmi
             const result = regex.exec(message.cleanContent)
             if (result !== null) {
+                if (isBanned(message.author.id)) return
                 const emoji = client.emojis.get(PAT_EMOJI_ID)
                 if (result[1].toLowerCase() == "pat" || result[1].toLowerCase() == "patter") { // they're patting the user above
 

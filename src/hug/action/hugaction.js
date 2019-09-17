@@ -10,6 +10,8 @@ const discordUtils = require("../../util/discordutil")
 const energyApi = () => require("../energy/energyapi")
 const hugRecords = () => require("../records/hugrecords")
 
+const isBanned = require("../../banned")
+
 const LIMIT_ON_SELF = 1000 * 60 * 5
 
 const generateDirect = (name) => new RegExp(`^(?:${name}s? ?(?:<@(!?\\d+)>)) ?$|(?:(?:<@!?\\d+>) ${name}s?) ?$`, "gi")
@@ -129,7 +131,7 @@ class HugActionBuilder {
             hugRecords().logAction(message.guild.id, message.author.id, affected.id, this.action)
             sendMessage("other")
 
-            console.log(`${message.guild.name} - ${userMember.displayName} did ${this.action.id} against ${affected.displayName}`)
+            console.log(`{${message.guild.name}} "${userMember.displayName}"[${userMember.id}] did ${this.action.id} against ${affected.displayName}`)
         }
     }
 
@@ -304,8 +306,10 @@ class HugAction {
             const contextFound = this.data.contextRegex.exec(message.cleanContent)
 
             if (directFound !== null && mentioned) { // @person hug
-                this.data.handler(message, await message.guild.fetchMember(mentioned))
-            } else if (contextFound !== null) {
+                if (isBanned(message.author.id)) {
+                    message.channel.send(lang("banned", "userTag", message.author.toString()))
+                } else this.data.handler(message, await message.guild.fetchMember(mentioned))
+            } else if (contextFound !== null && !isBanned(message.author.id)) {
                 const groups = []
                 for (let k in contextFound) {
                     if (!isNaN(parseInt(k)) && contextFound[k] !== undefined) groups.push(contextFound[k])
@@ -330,14 +334,14 @@ class HugAction {
                             hugRecords().logAction(message.guild.id, message.author.id, member ? member.id : above.author.id, this.data.action)
                         }
 
-                        console.log("Detected action " + this.data.action.id + " from " + message.author.username + " -> " + (member ? member.user.username : above.author.username) + " from context")
+                        console.log("{" + message.guild.name + "} Detected action " + this.data.action.id + " from " + message.author.username + "[" + message.author.id + "] -> " + (member ? member.user.username : above.author.username) + " from context")
 
                         if (this.data.emojiId || this.data.emojiString) try {
                             const emoji = this.data.emojiId ? message.client.emojis.get(this.data.emojiId) : this.data.emojiString
-                            //await message.react(emoji) // no longer need to react to the main message
+                            if (member) await message.react(emoji)
                             if (!member) await above.react(emoji)
                         } catch (e) {
-                            console.log("Unable to show reaction emojis")
+                            console.log("Unable to show reaction emojis - " + e)
                         }
                     }
                 }

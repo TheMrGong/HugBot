@@ -3,8 +3,8 @@ const Discord = require("discord.js")
 const { findMemberInEvent } = require("../../util/discordutil")
 
 const PREFIX = "cmd.tacklehug."
-const langAPI = require("../../lang/lang.js"),
-    lang = langAPI.prefixed(PREFIX)
+const rootLang = require("../../lang/lang.js"),
+    lang = rootLang.prefixed(PREFIX)
 
 const hugrecords = require("../../hug/records/hugrecords")
 const { HugActions } = require("../../hug/action/hugaction")
@@ -42,7 +42,7 @@ const TACKLING_KEY = "tackling."
  * @typedef {Object} TackleData
  * @property {string} tacklerId
  * @property {string} tackledId
- * @property {HUG_STATE} state
+ * @property {number} state
  * @property {number} begin
  * @property {number} solidified
  * @property {number} countdownIndex
@@ -155,16 +155,16 @@ module.exports = {
  * 
  * @param {string} tackler 
  * @param {string} tackled 
- * @param {HUG_STATE} state 
+ * @param {number} state 
  * @param {number} timeLeft 
  * @param {number} [countdownIndex]
- * @returns {(string|langAPI.TranslateResult)}
+ * @returns {(string|rootLang.TranslateResult)}
  */
 function generateMessage(tackler, tackled, state, timeLeft, countdownIndex = -1) {
     const time = timeLeft + " second" + (timeLeft == 1 ? "" : "s")
     switch (state) {
         case HUG_STATE.WAITING:
-            return langAPI.withIndex(PREFIX + TACKLING_KEY + "time-left", "tackled", tackled, "tackler", tackler, "time", time, "$$index", countdownIndex)
+            return rootLang.withIndex(PREFIX + TACKLING_KEY + "time-left", "tackled", tackled, "tackler", tackler, "time", time, "$$index", countdownIndex)
         case HUG_STATE.DODGED:
             return lang(TACKLING_KEY + "dodged", "tackled", tackled, "tackler", tackler, "time", time)
         case HUG_STATE.ACCEPTED:
@@ -207,7 +207,7 @@ async function beginTackleHandling(event, tackling) {
         state: HUG_STATE.WAITING,
         begin: new Date().getTime(),
         solidified: 0,
-        countdownIndex: theMessageData instanceof langAPI.TranslateResult ? theMessageData.usedIndex : 0,
+        countdownIndex: theMessageData instanceof rootLang.TranslateResult ? theMessageData.usedIndex : 0,
         updating: false,
         doneUpdating: false,
         /**@type {number} */
