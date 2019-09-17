@@ -10,6 +10,7 @@
 /**
  * @typedef {Object} HugConfig
  * @property {string} token
+ * @property {string} chatbot_token
  * @property {DatabaseConfig} mysql
  * @property {string} prefix
  */
