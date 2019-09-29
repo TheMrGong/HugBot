@@ -302,6 +302,8 @@ class HugAction {
 
             const mentioned = message.mentions.users.first()
 
+            const us = await message.guild.fetchMember(message.client.user)
+
             const directFound = this.data.directRegex.exec(message.content)
             const contextFound = this.data.contextRegex.exec(message.cleanContent)
 
@@ -335,8 +337,11 @@ class HugAction {
                         }
 
                         console.log("{" + message.guild.name + "} Detected action " + this.data.action.id + " from " + message.author.username + "[" + message.author.id + "] -> " + (member ? member.user.username : above.author.username) + " from context")
+                        const channel = message.channel
 
-                        if (this.data.emojiId || this.data.emojiString) try {
+                        const hasPermission = !(channel instanceof Discord.TextChannel) || channel.permissionsFor(us).has("ADD_REACTIONS")
+
+                        if ((this.data.emojiId || this.data.emojiString) && hasPermission) try {
                             const emoji = this.data.emojiId ? message.client.emojis.get(this.data.emojiId) : this.data.emojiString
                             if (member) await message.react(emoji)
                             if (!member) await above.react(emoji)
