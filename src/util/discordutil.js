@@ -9,7 +9,7 @@ const request = require("snekfetch")
 const canvasAPI = require("canvas")
 const { wrapImage } = require("./graphics/gifutil")
 
-const EMOJI_GUILD = "193360575747719168"
+const EMOJI_GUILD = "583089793206845440"
 const EMOJI_SIZE = 64
 
 /**
