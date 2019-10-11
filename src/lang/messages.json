@@ -247,71 +247,89 @@
         }
       }
     },
-    "glomp": {
+    "tickle": {
       "fail": [
-        "Who are you glomping exactly.."
+        "{userFace} ``{user}``, your hug failed! Who are you hugging?",
+        "They go for the hug aaaand...\n*looks around nervously*\n... uhh, who are you hugging?",
+        "Ehh... I can't find that person, {userFace} ``{user}``.. :c",
+        "I dunno who you're tickling, {userFace} ``{user}``",
+        "Reaching out through the rift, {userFace} ``{user}``'s hand doesn't find purchase"
       ],
       "other": [
-        "{userFace} ``{user}`` glomps {affectedFace} ``{affected}``!!"
+        "{userFace} ``{user}`` tickles {affectedFace} ``{affected}`` with **[Thousand Feather Technique]**, may heavans have mercy on your soul",
+        "{userFace} ``{user}`` slams open the door and lunges forward, tickling {affectedFace} ``{affected}``",
+        "{userFace} ``{user}`` uses **[Tickle]** on  {affectedFace} ``{affected}``! It's super effective!",
+        "{userFace} ``{user}`` has tickled {affectedFace} ``{affected}``. *tickle tickle tickle*"
       ],
       "bot": [
-        "The hugbot happily glomps you back! Yay {userFace} ``{user}``!"
+        "Hmm, {userFace} ``{user}`` you realize I'm only 1 year old right? __***FBI OPEN UP***__",
+        "This feels weird...",
+        "Hahaha... uh h-hey, why did you stop?",
+        "Self-destruct sequence initiated, tickling detected!",
+        "... ticklevert"
       ],
       "self": [
-        "{userFace} ``{user}``, you somehow manage to glomp yourself.. *how?*"
+        "You suffer uncontrollable giggles as you tickle yourself",
+        "You must equip an item (Ex:Feather) to tickle yourself"
       ],
       "energy": {
         "other": [
-          "{userFace} ``{user}`` stumbles over to {affectedFace} ``{affected}`` but is too tired to do anything"
+          "{userFace} ``{user}`` tries to tickle {affectedFace} ``{affected}`` but doesn't have enough energy to do so",
+          "{userFace} ``{user}``, you're too tired to tickle {affectedFace} ``{affected}``",
+          "{affectedFace} ``{affected}`` feels uncomfortable with your tickles for some reason and runs off, you are too tired to give chase",
+          "Attempting to wiggle their fingers {userFace} ``{user}``'s hands fall limp. Run {affectedFace} ``{affected}``!",
+          "{userFace} ``{user}`` gasps for air before falling down, arms outstretched and tired. {affectedFace} ``{affected}`` is safe for another day"
         ],
         "self": [
-          "{userFace} ``{user}`` tries to glomp themselves.. but somehow can't even manage that"
+          "{userFace} ``{user}`` tries to tickle themselves.. but somehow can't even manage that",
+          "Ummm.. I'll tickle you if you want..\n*tickle tickle*",
+          "It's okay {userFace} ``{user}``, you can have as many tickles as you want from me"
         ]
       },
       "stats": {
         "fail": [
           "Ahhh, {userFace} ``{user}``, I couldn't find anyone... ._.",
-          "*looks around* .. dunno who's glomps you're finding {userFace} ``{user}``"
+          "*looks around* .. dunno who's tickles you're lookin' up {userFace} ``{user}``"
         ],
         "self": {
           "never-sent": [
-            "Soo, {userFace} ``{user}``, you've never sent a glomp buuuut you have gotten {actions} glomp{s}!"
+            "Soo, {userFace} ``{user}``, you've never tickled buuuut you have been tickled {actions} time{s}!"
           ],
           "never-received": [
-            "Sheesh, {userFace} ``{user}``, you've sent {actions} glomp{s} but nobody felt like giving any back!"
+            "{userFace} ``{user}``, you've sent {actions} tickle{s} and lucklily nobody has tickled you back"
           ],
           "never": [
-            "Daaang {userFace} ``{user}``, you've never gotten or sent a glomp! I think you should get on that."
+            "{userFace} ``{user}``, you've never been tickled but you've never tickled either. Good thing, bad thing, I'm not sure"
           ],
           "has": [
-            "Mmm, {userFace} ``{user}``, you've sent {sentActions} glomp{sS} and have GOTTEN {receivedActions} glomp{rS}!!"
+            "Mmm, {userFace} ``{user}``, you've sent {sentActions} tickle{sS} and have BEEN tickled {receivedActions} time{rS}!!"
           ]
         },
         "other": {
           "never-sent": [
-            "Welll, {userFace} ``{user}``, it appears {otherFace} ``{other}`` has never sent a glomp but has gotten {actions} glomp{s}"
+            "Welll, {userFace} ``{user}``, it appears {otherFace} ``{other}`` has never tickled someone but has been tickled {actions} time{s}"
           ],
           "never-received": [
-            "{userFace} ``{user}``, it appears that, the good soul {otherFace} ``{other}`` is has sent {actions} glomp{s} but has NEVER gotten a glomp!!!"
+            "{userFace} ``{user}``, it appears that  {otherFace} ``{other}`` is has tickled {actions} time{s} and has never had a retribution tickle"
           ],
           "never": [
-            "Wellp, {userFace} ``{user}``, seems {otherFace} ``{other}`` has never had nor given a glomp! Think you could fix that?"
+            "Wellp, {userFace} ``{user}``, seems {otherFace} ``{other}`` has never tickled nor been tickled! You could be the first to tickle them!"
           ],
           "has": [
-            "Here are ya glomp stats, {userFace} ``{user}``: {otherFace} ``{other}`` has gotten {receivedActions} glomp{rS} and GIVEN {sentActions} glomp{sS}!"
+            "Here are ya tickle stats, {userFace} ``{user}``: {otherFace} ``{other}`` has tickled {receivedActions} times{rS} and BEEN tickled {sentActions} time{sS}!"
           ]
         },
         "bot": {
           "never-received": [
-            "Uhh.. I've never been glomped, {userFace} ``{user}``.. *sad face*"
+            "Uhh.. I've never been tickled, {userFace} ``{user}``.. *sad face*"
           ],
           "has": [
-            "Hi {userFace} ``{user}``!! I have gotten a total of {actions} glomp{s}!!"
+            "Hi {userFace} ``{user}``!! I have been tickled a total of {actions} time{s}!!"
           ]
         }
       }
     },
-    "tickle": {
+    "glomp": {
       "fail": [
         "Who are you glomping exactly.."
       ],
