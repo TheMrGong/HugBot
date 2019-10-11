@@ -7,7 +7,8 @@ const { HugActionBuilder, HugActions } = require("./hugaction")
 const actions = [
     new HugActionBuilder(HugActions.GLOMP).detect("single").emoji("562080200633090052").build(),
     new HugActionBuilder(HugActions.POKE).detect("single").emoji("562451954001772552").build(),
-    new HugActionBuilder(HugActions.HUG).detect("single").emoji("537999431266467870").build()
+    new HugActionBuilder(HugActions.HUG).detect("single").emoji("537999431266467870").build(),
+    new HugActionBuilder(HugActions.TICKLE).detect("single").emoji("623611936176865330").build()
 ]
 
 const preference = require("../../preference/prefenceapi")

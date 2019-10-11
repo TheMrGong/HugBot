@@ -15,7 +15,7 @@ const isBanned = require("../../banned")
 const LIMIT_ON_SELF = 1000 * 60 * 5
 
 const generateDirect = (name) => new RegExp(`^(?:${name}s? ?(?:<@(!?\\d+)>)) ?$|(?:(?:<@!?\\d+>) ${name}s?) ?$`, "gi")
-const generateContext = (name) => new RegExp(`(?:\\*.*(${name})s? (.*)\\*)|(?:(${name})s? (.*))|^(?:\\*(${name})s?\\*)$|^(?:(${name})s?)$`, "gi")
+const generateContext = (name) => new RegExp(`(?:\\_.*(${name})s? (.*)\\_)|(?:\\*.*(${name})s? (.*)\\*)|(?:(${name})s? (.*))|^(?:\\*(${name})s?\\*)$|^(?:(${name})s?)$`, "gi")
 /*
 HugAction.create(HugActions.HUG)
 */
@@ -69,6 +69,10 @@ const HugActions = {
     BOOP: {
         id: "boop",
         energy: 0
+    },
+    TICKLE: {
+        id: "tickle",
+        energy: 2
     }
 }
 
