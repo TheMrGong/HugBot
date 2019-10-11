@@ -60,7 +60,7 @@ module.exports = {
                 return;
             if (message.cleanContent.startsWith(config.prefix)) return
 
-            const regex = /\*?(?:pat)s?(?: pat)? (@?\w+)\*?/gmi
+            const regex = /\*?(?:pat)s?(?: pat)? (@?[a-zA-Z0-9]+)\*?/gmi
             const result = regex.exec(message.cleanContent)
             if (result !== null) {
                 if (isBanned(message.author.id)) return

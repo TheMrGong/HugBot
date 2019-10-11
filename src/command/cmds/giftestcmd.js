@@ -357,7 +357,7 @@ module.exports = {
             console.log("Starting typing")
             message.channel.startTyping(20)
             const begin = new Date().getTime()
-            const attachement = await createHugDodge(th.body, flameyProfilePicture.body)
+            const attachement = await createTackleDodge(th.body, flameyProfilePicture.body)
             if (newMessage instanceof Discord.Message) await newMessage.edit("Uploading...")
             await message.channel.send("HUGS GENERATED IN " + ((new Date().getTime() - begin) / 1000) + " second(s)!", attachement)
             if (newMessage instanceof Discord.Message && newMessage.deletable) newMessage.delete()
