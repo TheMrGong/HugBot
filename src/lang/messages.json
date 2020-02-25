@@ -1,5 +1,6 @@
 {
   "banned": "🚫 {userTag} You have been banned from using this bot. To be unbanned, contact __``me@themrgong.xyz``__",
+  "warned": ":warning: {userTag} You have been issued a warning for spamming the bot in the past. You will be banned if you spam.",
   "cmd": {
     "adult": {
       "responses": [
