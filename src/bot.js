@@ -9,16 +9,25 @@ const actionsRegistry = require("./hug/action/actionsregistry")
 const energyhandler = require("./hug/energy/energyhandler")
 
 const preferences = require("./preference/prefenceapi")
+const setupStatistics = require("./discordbots")
 //const chatbot = require("./hug/chatbot")
 
 const hal = require("./hal")
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
+  setupStatistics(client)
   client.user.setActivity("out for hugs.", {
     type: "WATCHING"
   });
 });
+
+client.on("message", (message) => {
+  if (!message.guild && !message.author.bot) {
+    console.log("We got a message from " + message.author.username + "#" + message.author.discriminator + ": " + message.content)
+    message.channel.send("*stares blankly*\ni don't do stuff outside of servers, chief\nIf ya want to invite me to a server, here's the link\nhttps://discordapp.com/oauth2/authorize?client_id=458035645395238936&permissions=337984&scope=bot")
+  }
+})
 
 client.on("error", err => {
   console.error("Discord got an error")

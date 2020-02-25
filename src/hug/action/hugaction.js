@@ -10,6 +10,7 @@ const discordUtils = require("../../util/discordutil")
 const energyApi = () => require("../energy/energyapi")
 const hugRecords = () => require("../records/hugrecords")
 
+const warned = require("../../warned")
 const isBanned = require("../../banned")
 
 const LIMIT_ON_SELF = 1000 * 60 * 5
@@ -303,6 +304,8 @@ class HugAction {
 
         client.on("message", async message => {
             if (message.cleanContent.startsWith(config.prefix)) return
+            if (!message.guild)
+                return
 
             const mentioned = message.mentions.users.first()
 
@@ -314,7 +317,12 @@ class HugAction {
             if (directFound !== null && mentioned) { // @person hug
                 if (isBanned(message.author.id)) {
                     message.channel.send(lang("banned", "userTag", message.author.toString()))
-                } else this.data.handler(message, await message.guild.fetchMember(mentioned))
+                } else {
+                    this.data.handler(message, await message.guild.fetchMember(mentioned))
+
+                    // should be always true, just for typescript being dumb
+                    if (message.channel instanceof Discord.TextChannel && warned.toWarn.find(it => it == message.author.id)) warned.doWarning(message.author, message.channel)
+                }
             } else if (contextFound !== null && !isBanned(message.author.id)) {
                 const groups = []
                 for (let k in contextFound) {

@@ -5,6 +5,7 @@ const config = require("../config");
 
 const rootLang = require("../lang/lang")
 const isBanned = require("../banned")
+const warned = require("../warned")
 
 /**
  * @callback call
@@ -105,7 +106,14 @@ module.exports = {
             if (command) {
                 if (isBanned(message.author.id)) {
                     message.channel.send(rootLang("banned", "userTag", message.author.toString()))
-                } else command.call(message, args)
+                } else {
+                    command.call(message, args).catch(e => console.warn("Error handling command " + cmd, e)).then(() => {
+                        if (warned.toWarn.find(it => it == message.author.id) && message.channel instanceof Discord.TextChannel) {
+                            warned.doWarning(message.author, message.channel)
+                        }
+                    })
+
+                }
             }
         });
 
