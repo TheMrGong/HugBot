@@ -126,6 +126,7 @@ async function animateGnomePoint(profileUrl, member) {
 
 module.exports = {
     cmd: "gnomepoint",
+    s: true,
     /**
      * @param {Discord.Message} message
      * @param {Array<string>} args

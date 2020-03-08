@@ -2,6 +2,7 @@
 const Discord = require("discord.js")
 const { AnimationContext, FrameInfo } = require("../../util/graphics/animatorutil")
 const { maskImageWith } = require("../../util/graphics/canvasutils")
+const { arrayToKeys } = require("../../util/jsutils")
 const gifUtil = require("../../util/graphics/gifutil")
 const sharp = require("sharp")
 const canvasAPI = require("canvas")
@@ -153,6 +154,7 @@ function parseToElements(input, ...components) {
 
 module.exports = {
     cmd: "heart",
+    s: true,
     /**
      * @param {Discord.Message} message
      * @param {Array<string>} args
