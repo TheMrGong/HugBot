@@ -322,6 +322,7 @@ async function createTackleHugTooLong(tackledBuffer, tacklingBuffer) {
 
 module.exports = {
     cmd: "giftest",
+    s: true,
     /**
      * @param {Discord.Message} message
      * @param {Array<string>} args

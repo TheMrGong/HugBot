@@ -75,6 +75,7 @@ function findCommand(cmd) {
 }
 
 module.exports = {
+    commands,
     /**
      * @param {Discord.Client} client
      */

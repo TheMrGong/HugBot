@@ -150,9 +150,9 @@
     },
     "help": {
       "msg": [
-        "Gots these commands: ?hug, ?hugs, ?energy, ?tacklehug, ?flirt, ?glomp, ?poke, aaaand ?pat",
-        "Weell, you can run, with the prefix, ?, hug, hugs, energy, flirt, glomp, poke, tacklehug aaand pat",
-        "The commands I gots are ?hug, ?hugs, ?tacklehug, ?pat, ?flirt, ?glomp, ?poke, aaaand ?energy"
+        "Gots these commands: {listWithPrefix}, aaaand {lastWithPrefix}",
+        "Weell, you can run, with the prefix, {prefix}, {listWithoutLast} aaand {lastOfList}}",
+        "The commands I gots are {listWithPrefix}, aaaand {lastWithPrefix}"
       ]
     }
   },
