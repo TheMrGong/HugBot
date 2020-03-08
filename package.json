@@ -20,10 +20,5 @@
     "snekfetch": "^4.0.4",
     "three": "^0.102.1",
     "upng-js": "^2.1.0"
-  },
-  "devDependencies": {
-    "forever": "^2.0.0",
-    "nodemon": "^2.0.2",
-    "pm2": "^4.2.3"
   }
 }
