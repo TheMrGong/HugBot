@@ -28,7 +28,7 @@ const GET_ENERGY = `SELECT energy, lastDecrement FROM ${TABLE_NAME} WHERE guildI
 
 /**@param {number} minimum */
 const GET_TO_DECREMENT = (minimum) => `SELECT guildId, userId, energy FROM ${TABLE_NAME} WHERE ${new Date().getTime()} - lastDecrement >= ? AND energy > ${minimum};`
-const DECREMENT_FOR_GUILD = `UPDATE ${TABLE_NAME} SET energy = energy - 1, lastDecrement = ? WHERE guildId = ? AND userId IN (?)`
+const DECREMENT_FOR_GUILD = `UPDATE ${TABLE_NAME} SET energy = energy - 1, lastDecrement = ? WHERE guildId = ? AND userId IN (?) AND energy > ${MINIMUM_ENERGY}`
 
 const ready = query(CREATE_TABLE, [])
 
