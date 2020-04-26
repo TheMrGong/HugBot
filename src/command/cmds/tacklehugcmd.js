@@ -50,6 +50,7 @@ const TACKLING_KEY = "tackling."
  * @property {boolean} doneUpdating
  * @property {number} timeLeft
  * @property {boolean} shouldRemove
+ * @property {boolean} deleted
  * @property {function(): void} delete
  * @property {function(): void} updateMessage
  * @property {number} insertId
@@ -74,10 +75,10 @@ function findTackledData(tackledId) {
 setInterval(() => {
     for (let k in tacklehugs) {
         const tacklehug = tacklehugs[k]
-        if (!tacklehug.shouldRemove) tacklehug.updateMessage()
+        if (!tacklehug.shouldRemove && !tacklehug.deleted) tacklehug.updateMessage()
     }
     tacklehugs = tacklehugs.filter(async data => {
-        if (data.shouldRemove) {
+        if (data.shouldRemove && !data.deleted) {
             if (data.state == HUG_STATE.TOO_LONG)
                 tacklehugRecords.insertTackleHugInfo(data.insertId, TackleResult.TOO_LONG, -1)
             if (DELETING) data.delete()
@@ -201,6 +202,8 @@ async function beginTackleHandling(event, tackling) {
         return
     }
 
+    let deleted = false
+
     const data = {
         tacklerId: event.author.id,
         tackledId: tackling.id,
@@ -210,6 +213,7 @@ async function beginTackleHandling(event, tackling) {
         countdownIndex: theMessageData instanceof rootLang.TranslateResult ? theMessageData.usedIndex : 0,
         updating: false,
         doneUpdating: false,
+        deleted,
         /**@type {number} */
         insertId: result.insertId,
         get timeLeft() {
@@ -219,6 +223,8 @@ async function beginTackleHandling(event, tackling) {
             return (new Date().getTime() - this.begin > MESSAGE_EXIST_FOR)
         },
         delete() {
+            if (deleted) return
+            deleted = true
             message.delete().catch(err => {
                 // shrug
             })
