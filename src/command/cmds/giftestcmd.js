@@ -336,19 +336,33 @@ module.exports = {
             return
         }
         const pazia = message.guild.id == "264714814172037120"
-        const flameyUser = await message.client.fetchUser(pazia ? "166335747501195264" : "253987768999346178")
-        const flameyProfilePicture = await request.get(flameyUser.displayAvatarURL)
+        let flameyUser
+        let flameyProfilePicture
 
-        let usingMember = await message.guild.fetchMember(message.author)
+        let usingUser = message.author
         if (args.length > 0) {
             const member = await findMemberInEvent(message, args)
-            if (member) usingMember = member
+            if (member) usingUser = member.user
             else {
-                return message.channel.send("Couldn't find anyone called that..")
+                const id = args[0]
+                const user = await message.client.fetchUser(id)
+                if (!user) return message.channel.sendMessage("Couldn't find anyone called that")
+                usingUser = user
             }
+
+            if (args.length > 1) {
+                const id = args[1]
+                const targetUser = await message.client.fetchUser(id)
+                if (!targetUser) return message.channel.sendMessage("Couldn't find target")
+                flameyUser = targetUser
+                flameyProfilePicture = await request.get(targetUser.displayAvatarURL)
+            }
+        } else {
+            flameyUser = await message.client.fetchUser(pazia ? "166335747501195264" : "253987768999346178")
+            flameyProfilePicture = await request.get(flameyUser.displayAvatarURL)
         }
         console.log("Getting user display...")
-        const th = await request.get(usingMember.user.displayAvatarURL)
+        const th = await request.get(usingUser.displayAvatarURL)
 
         const canDelete = perms.has("MANAGE_MESSAGES")
         if (canDelete) message.delete()
