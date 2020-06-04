@@ -1,5 +1,7 @@
 # :hugs: HugBot
 A Discord bot providing guilds with the best hugs, pats, and tackle hugs!
+Góngo#5039 712789814839083020 is my Discord account
+
 
 ## :rocket: Features
 
