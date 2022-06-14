@@ -11,7 +11,7 @@ const connect = new sapcai.connect(config.chatbot_token)
 const request = new sapcai.request(config.chatbot_token)
 
 const preferenceApi = require("../../preference/prefenceapi")
-const GONGO = "192813299409223682"
+const GONGO = "712789814839083020"
 
 const client = require("../../bot").client
 const discordUtils = require("../../util/discordutil")

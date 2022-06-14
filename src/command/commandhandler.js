@@ -74,15 +74,29 @@ function findCommand(cmd) {
     }
 }
 
+/**@type {Object.<string, number>} */
+const lastNagged = {}
+const NAG_EVERY = 1000 * 60 * 5
+
+const chalk = require("chalk")
+
 module.exports = {
     commands,
     /**
      * @param {Discord.Client} client
      */
     setup(client) {
-        client.on("message", message => {
+        /**
+         * 
+         * @param {Discord.Message} message 
+         */
+        const cmdHandler = message => {
+            if(!message.guild) {
+                return
+            }
+            const prefix = config.customPrefixes[message.guild.id] || config.prefix
             const possibleText = []
-            commands.forEach(cmd => possibleText.push(config.prefix + cmd.cmd))
+            commands.forEach(cmd => possibleText.push(prefix + cmd.cmd))
             if (message.author.bot
                 && message.embeds[0]
                 && message.embeds[0].description
@@ -93,12 +107,12 @@ module.exports = {
             if (message.author.bot)
                 return;
 
-            if (!message.content.toLowerCase().startsWith(config.prefix)) {
+            if (!message.content.toLowerCase().startsWith(prefix)) {
                 return;
             }
 
             const spaces = message.content.split(" ");
-            const cmd = spaces[0].toLowerCase().substring(1, spaces[0].length).replace(/[^\w]/gm, "")
+            const cmd = spaces[0].toLowerCase().substring(prefix.length, spaces[0].length).replace(/[^\w]/gm, "")
             const args = [];
             for (let k in spaces) {
                 if (parseInt(k) > 0) args.push(spaces[k]);
@@ -116,7 +130,8 @@ module.exports = {
 
                 }
             }
-        });
+        }
+        client.on("message", cmdHandler)
 
         registerCommands(client, "tacklehugcmd", "energycmd", "patcmd", "hughelpcmd", "giftestcmd", "flirtcmd", "gnomepointcmd", "heartcmd", "adultcmd")
     },

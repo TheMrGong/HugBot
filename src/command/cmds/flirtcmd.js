@@ -41,7 +41,7 @@ const FLIRT_GENERATING_MESSAGES = [
     "Making sure there's lots of love...",
     "Looking for the best ways to flirt...",
     "Getting cupid for assistance...",
-    "Looking at ``Flirting for Dummys``..."
+    "Looking at `Flirting for Dummys..."
 ]
 
 /**

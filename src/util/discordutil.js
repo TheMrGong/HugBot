@@ -48,11 +48,44 @@ function generateEmojiName(id) {
     return id + t.substring(t.length - 5, t.length)
 }
 
+function fetchEmojiLocally(emojiId) {
+    const cachedEmoji = this.emojis.get(emojiId)
+    if (!cachedEmoji) {
+        return null
+    }
+    const emoji = Object.assign({}, cachedEmoji)
+
+    if (emoji.guild) {
+        emoji.guild = emoji.guild.id
+    }
+
+    emoji.require_colons = emoji.requiresColons
+
+    return emoji
+}
+
+/**
+ * @param {Discord.Client} client 
+ * @param {string} emojiId 
+ * @returns {Promise<Discord.Emoji | null>}
+ */
+async function findEmojiGlobally(client, emojiId) {
+    const emojiArray = await client.shard.broadcastEval(`(${fetchEmojiLocally}).call(this, '${emojiId}')`)
+    const foundEmoji = emojiArray.find(emoji => emoji)
+    if(!foundEmoji) {
+        return null
+    }
+    // version 11 of discord.js doesn't offer a way to fetch a guild via REST
+    //@ts-ignore
+    return new Discord.Emoji({client}, foundEmoji)
+}
+
 /**
  * @param {Discord.User} user 
  * @returns {Promise<Discord.Emoji|string>}
  */
 async function profileToEmoji(user) {
+    return "" // disable emoji generation
     const guild = user.client.guilds.get(EMOJI_GUILD)
     const emojiName = generateEmojiName(user.id)
     const url = user.displayAvatarURL
@@ -211,5 +244,6 @@ module.exports = {
     findAllMembersInEvent,
     findMemberInEvent,
     findMembersBy,
-    findAllMembersInGuildMatching
+    findAllMembersInGuildMatching,
+    findEmojiGlobally,
 }

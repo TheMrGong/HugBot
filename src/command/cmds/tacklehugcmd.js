@@ -118,7 +118,7 @@ module.exports = {
      * @param {Discord.Client} client
      */
     setup(client) {
-        client.on("messageReactionAdd", async (reaction, user) => {
+        const handler = async (reaction, user) => {
             if (user.bot) return
             const tackledData = findTackledData(user.id)
             if (!tackledData) return
@@ -148,7 +148,8 @@ module.exports = {
 
                 }
             }
-        })
+        }
+        client.on("messageReactionAdd", handler)
     }
 }
 

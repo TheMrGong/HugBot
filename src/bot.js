@@ -1,6 +1,7 @@
 //@ts-check
 const Discord = require("discord.js");
 const config = require("./config");
+const chalk = require("chalk")
 
 const client = new Discord.Client();
 const commandhandler = require("./command/commandhandler")
@@ -16,7 +17,6 @@ const hal = require("./hal")
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  setupStatistics(client)
   client.user.setActivity("out for hugs.", {
     type: "WATCHING"
   });
@@ -25,13 +25,25 @@ client.on("ready", () => {
 client.on("message", (message) => {
   if (!message.guild && !message.author.bot) {
     console.log("We got a message from " + message.author.username + "#" + message.author.discriminator + ": " + message.content)
-    message.channel.send("*stares blankly*\ni don't do stuff outside of servers, chief\nIf ya want to invite me to a server, here's the link\nhttps://discordapp.com/oauth2/authorize?client_id=458035645395238936&permissions=337984&scope=bot")
+    message.channel.send("*stares blankly*\ni don't do stuff outside of servers, chief\nIf ya want to invite me to a server, here's the link\nhttps://discord.com/api/oauth2/authorize?client_id=715694595073114193&permissions=67430464&scope=bot%20applications.commands")
   }
 })
 
 client.on("error", err => {
   console.error("Discord got an error")
   console.error(err)
+  if(err.message.includes("RSV2 and RSV3")) {
+    console.error(`Restarting due to bullshit`)
+    process.exit(-1)
+  }
+})
+
+client.on("guildCreate", g => {
+  console.info(chalk.yellow("THE BOT HAS JOINED A NEW GUILD: " + g.name + ", total guilds: " + g.client.guilds.size))
+})
+
+client.on("guildDelete", g => {
+  console.info(chalk.bgRedBright("THE BOT LEFT A GUILD!? " + g.name + ", total guilds: " + g.client.guilds.size))
 })
 
 async function begin() {

@@ -1,29 +1,7 @@
-//@ts-check
-//TODO preferences
+const {ShardingManager} = require("discord.js")
+const config = require("./config")
 
-const hugrecords = require("./hug/records/hugrecords")
-const energyapi = require("./hug/energy/energyapi")
-const bot = require("./bot")
+const manager = new ShardingManager(`./src/begin.js`, { token: config.token })
 
-async function begin() {
-  try {
-    await Promise.all([hugrecords.ready, energyapi.ready])
-
-    bot.begin()
-  } catch (e) {
-    console.log(e)
-    return
-  }
-}
-
-process.on('uncaughtException', function (err) {
-  console.log(err)
-  console.log(err.message)
-  console.error((new Date).toUTCString() + ' uncaughtException:', err.message)
-})
-
-process.on('exit', function () {
-  console.log('Process terminating.')
-});
-
-begin()
+manager.on(`launch`, (shard) => console.log(`Launched shard ${shard.id}`))
+manager.spawn()

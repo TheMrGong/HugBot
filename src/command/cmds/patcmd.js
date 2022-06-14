@@ -1,7 +1,7 @@
 //@ts-check
 const Discord = require("discord.js")
 
-const PAT_EMOJI_ID = "554662467352002589"
+const PAT_EMOJI_ID = "715790345706930247"
 const LIMIT_ON_SELF = 1000 * 60 * 5
 
 const { findAllMembersInGuildMatching, findMemberInEvent } = require("../../util/discordutil")
@@ -55,16 +55,25 @@ module.exports = {
      * @param {Discord.Client} client
      */
     setup(client) {
-        client.on("message", async message => {
+        /**
+         * 
+         * @param {Discord.Message} message 
+         */
+        const handler = async message => {
             if (message.author.bot)
                 return;
-            if (message.cleanContent.startsWith(config.prefix)) return
+            if(!message.guild) {
+                return
+            }
+
+            const prefix = config.customPrefixes[message.guild.id] || config.prefix
+            if (message.cleanContent.startsWith(prefix)) return
 
             const regex = /\*?(?:pat)s?(?: pat)? (@?[a-zA-Z0-9]+)\*?/gmi
             const result = regex.exec(message.cleanContent)
             if (result !== null) {
                 if (isBanned(message.author.id)) return
-                const emoji = client.emojis.get(PAT_EMOJI_ID)
+                const emoji = await discordUtil.findEmojiGlobally(client, PAT_EMOJI_ID)
                 if (result[1].toLowerCase() == "pat" || result[1].toLowerCase() == "patter") { // they're patting the user above
 
                     let messageAbove = await discordUtil.getMessageAbove(message, LIMIT_ON_SELF)
@@ -98,6 +107,7 @@ module.exports = {
                     }
                 }
             }
-        })
+        }
+        client.on("message", handler)
     }
 }
