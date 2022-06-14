@@ -1,5 +1,5 @@
 {
-  "banned": "🚫 {userTag} You have been banned from using this bot. To be unbanned, contact __``me@themrgong.xyz``__",
+  "banned": "🚫 {userTag} You have been banned from using this bot. To be unbanned, contact __`me@themrgong.xyz`__",
   "warned": ":warning: {userTag} You have been issued a warning for spamming the bot in the past. You will be banned if you spam.",
   "cmd": {
     "adult": {
@@ -32,7 +32,7 @@
         "Uhh, you can't tackle hug yourself... how does that even work??"
       ],
       "not-found": [
-        "You leap through the air... and fall flat on your face. I don't see anyone named ``{tackling}``..."
+        "You leap through the air... and fall flat on your face. I don't see anyone named `{tackling}`..."
       ],
       "already-tackling": [
         "Errrrrr, you're currently tackling someone right now..."
@@ -49,30 +49,30 @@
       ],
       "tackling": {
         "too-long": [
-          "``{tackled}`` takes too long to respond and gets slammed into the ground by ``{tackler}``'s hug!",
-          "SMASH! ``{tackler}`` slams into ``{tackled}`` for an awesome tackle hug. Hello!",
-          "A *very* enthusiastic ``{tackler}`` runs into ``{tackled}`` mid-air for a great tackle hug!",
-          "Unable to decide, ``{tackled}`` gets slammed into the ground by ``{tackler}``'s HUG! 💙",
-          "``{tackler}`` is just too quick! They run right into ``{tackled}``, giving them a great tackle hug!",
-          "*slammed into the ground*\n``{tackled}`` fails to dodge in time and gets the best hug from ``{tackler}``!"
+          "`{tackled}` takes too long to respond and gets slammed into the ground by `{tackler}`'s hug!",
+          "SMASH! `{tackler}` slams into `{tackled}` for an awesome tackle hug. Hello!",
+          "A *very* enthusiastic `{tackler}` runs into `{tackled}` mid-air for a great tackle hug!",
+          "Unable to decide, `{tackled}` gets slammed into the ground by `{tackler}`'s HUG! 💙",
+          "`{tackler}` is just too quick! They run right into `{tackled}`, giving them a great tackle hug!",
+          "*slammed into the ground*\n`{tackled}` fails to dodge in time and gets the best hug from `{tackler}`!"
         ],
         "time-left": [
-          "A leaping ``{tackler}`` comes outta nowhere, flying through the air towards ``{tackled}``\n{time} left to (A)ccept or (D)odge the tackle hug",
-          "``{tackler}`` __jumps__ into the air towards ``{tackled}!!``\n{time} left to (A)ccept or (D)odge the tackle hug!!",
-          "TACKLE HUG!! Quick, ``{tackled}``, you have {time} seconds left to (A)ccept of (D)odge ``{tackler}``'s hug!",
-          "``{tackler}`` leaps towards ``{tackled}``, a tackle hug on their mind. \n{time} left to (A)ccept or (D)odge!"
+          "A leaping `{tackler}` comes outta nowhere, flying through the air towards `{tackled}`\n{time} left to (A)ccept or (D)odge the tackle hug",
+          "`{tackler}` __jumps__ into the air towards `{tackled}!!`\n{time} left to (A)ccept or (D)odge the tackle hug!!",
+          "TACKLE HUG!! Quick, `{tackled}`, you have {time} seconds left to (A)ccept of (D)odge `{tackler}`'s hug!",
+          "`{tackler}` leaps towards `{tackled}`, a tackle hug on their mind. \n{time} left to (A)ccept or (D)odge!"
         ],
         "dodged": [
-          "``{tackled}`` dodges with {time} left on the clock!",
-          "Oooooh, too bad ``{tackler}``! ``{tackled}`` dodged with {time} left on the clock!",
-          "Oh, that sucks ``{tackler}``, dodged with {time} on the clock. Shame on you ``{tackled}``",
-          "``{tackled}`` dodged but Sam appreciated the hug while he was here",
-          "``{tackled}`` dodged so well Pathfinder had to show them the way back"
+          "`{tackled}` dodges with {time} left on the clock!",
+          "Oooooh, too bad `{tackler}`! `{tackled}` dodged with {time} left on the clock!",
+          "Oh, that sucks `{tackler}`, dodged with {time} on the clock. Shame on you `{tackled}`",
+          "`{tackled}` dodged but Sam appreciated the hug while he was here",
+          "`{tackled}` dodged so well Pathfinder had to show them the way back"
         ],
         "accepted": [
-          "``{tackled}`` accepts ``{tackler}``'s **tackle** hug! The best hug that has ever hugged is now hugged!",
-          "Yaaay! ``{tackled}`` grabs ``{tackler}`` outta the air and gives them the best hug! 💙",
-          "``{tackler}``'s tackle hug is caught by ``{tackled}``, best hug EVER! 💙"
+          "`{tackled}` accepts `{tackler}`'s **tackle** hug! The best hug that has ever hugged is now hugged!",
+          "Yaaay! `{tackled}` grabs `{tackler}` outta the air and gives them the best hug! 💙",
+          "`{tackler}`'s tackle hug is caught by `{tackled}`, best hug EVER! 💙"
         ]
       }
     },
@@ -100,14 +100,14 @@
       ],
       "other": {
         "no-energy": [
-          "Le gasp! ``{finding}`` has no energy, {user}! So sad :c",
-          "Oh dear, ``{finding}`` is fresh outta energy. They must be so exhausted",
-          "Dang, ``{finding}`` doesn't have any energy {user}!"
+          "Le gasp! `{finding}` has no energy, {user}! So sad :c",
+          "Oh dear, `{finding}` is fresh outta energy. They must be so exhausted",
+          "Dang, `{finding}` doesn't have any energy {user}!"
         ],
         "energy": [
-          "Mkay {user}, ``{finding}`` has a total of ``{energy}`` energy!",
-          "Searching... beep boop . . .\n ``{finding}`` has ``{energy}`` energy!",
-          "From what I can see, ``{finding}`` has {energy} energy!"
+          "Mkay {user}, `{finding}` has a total of `{energy}` energy!",
+          "Searching... beep boop . . .\n `{finding}` has `{energy}` energy!",
+          "From what I can see, `{finding}` has {energy} energy!"
         ]
       }
     },
@@ -121,10 +121,10 @@
         "*happy bot noises* \nThank you for the pats!"
       ],
       "other": [
-        "{user} gives ``{patting}`` a nice pat pat on the head!",
-        "``{patting}`` gets a nice headpat from {user}",
-        "PAT PAT! ``{patting}`` enjoys a head pat from {user}",
-        "*pat pat* ``{patting}`` is patted by {user}"
+        "{user} gives `{patting}` a nice pat pat on the head!",
+        "`{patting}` gets a nice headpat from {user}",
+        "PAT PAT! `{patting}` enjoys a head pat from {user}",
+        "*pat pat* `{patting}` is patted by {user}"
       ],
       "fail": [
         "You reach your hand out, and it touches air. Who are you patting?",
@@ -151,119 +151,120 @@
     "help": {
       "msg": [
         "Gots these commands: {listWithPrefix}, aaaand {lastWithPrefix}",
-        "Weell, you can run, with the prefix, {prefix}, {listWithoutLast} aaand {lastOfList}}",
+        "Weell, you can run, with the prefix, {prefix}, {listWithoutLast} aaand {lastOfList}",
         "The commands I gots are {listWithPrefix}, aaaand {lastWithPrefix}"
       ]
     }
   },
   "actions": {
-    "hug": {
-      "fail": [
-        "{userFace} ``{user}``, your hug failed! Who are you hugging?",
-        "They go for the hug aaaand...\n*looks around nervously*\n... uhh, who are you hugging?",
-        "Ehh... I can't find that person, {userFace} ``{user}``.. :c",
-        "I dunno who you're hugging, {userFace} ``{user}``"
+"hug": {
+  "fail": [
+    "{userFace} `{user}`, your hug failed! Who are you hugging?",
+    "They go for the hug aaaand...\n*looks around nervously*\n... uhh, who are you hugging?",
+    "Ehh... I can't find that person, {userFace} `{user}`.. :c",
+    "I dunno who you're hugging, {userFace} `{user}`"
+  ],
+  "other": [
+    "{userFace} `{user}` has hugged {affectedFace} {affected}!!",
+    "{userFace} `{user}` gives {affectedFace} `{affected}` a strong hug!",
+    "{affectedFace} {affected}, you just got the best hug from {userFace} `{user}`!!",
+    "{userFace} `{user}` HUGS {affectedFace} `{affected}`!!!",
+    "HUGS FOR {affectedFace} `{affected}`! Thank {userFace} `{user}`!",
+    "{affectedFace} `{affected}`, hug! You may thank {userFace} `{user}` 💙!",
+    "{userFace} `{user}` gives {affectedFace} `{affected}` a HAZMAT HUG!!"
+  ],
+  "bot": [
+    "Uhh, {userFace} `{user}`, you can have a hug.. as much as that's worth from a bot",
+    "..Okay? HUG {userFace} `{user}`!",
+    "*stares intently* .. (hug)",
+    "*stares at lack of arms* \n...\n what do you want me to do?",
+    "Thank you very much, {userFace} `{user}`, HUG!",
+    "You may have a hug, {userFace} `{user}`. [hug]",
+    "The best hug of all the hugs has been granted to {userFace} `{user}`!",
+    "You get a hug, I get a hug, it's a win win! Thanks for the hug {userFace} `{user}`!",
+    "💙 Thank you {userFace} `{user}`!",
+    "You're the best, {userFace} `{user}`, thanks for the hug! 💙",
+    "*stares **very** intensly at lack of arms* ... Uhh, {userFace} `{user}`?",
+    "You're awesome {userFace} `{user}`! \n*happy bot noises*",
+    "The hugbot hugs you with the love of a mushroom",
+    "The hugbot hugs you tighter than a giant circus ape"
+  ],
+  "self": [
+    "You strongly hug yourself, increasing your happiness",
+    "No, I'm hugging you, {userFace} `{user}`.\n*hug*",
+    "Self-hug! [hug]!",
+    "No judgements, I don't mind you hugging yourself."
+  ],
+  "energy": {
+    "other": [
+      "{userFace} `{user}` tries to hug {affectedFace} `{affected}` but doesn't have enough energy to do so",
+      "{userFace} `{user}` stumbles over to {affectedFace} `{affected}` but is too tired to hug them",
+      "{userFace} `{user}` goes over to {affectedFace} `{affected}` for a hug but is too tired",
+      "{userFace} `{user}` stumbles over to {affectedFace} `{affected}` but is too tired to do anything"
+    ],
+    "self": [
+      "{userFace} `{user}` tries to hug themselves.. but somehow can't even manage that"
+    ]
+  },
+  "stats": {
+    "fail": [
+      "Ahhh, {userFace} `{user}`, I couldn't find anyone... ._.",
+      "*looks around* .. dunno who's hugs you're lookin' up {userFace} `{user}`"
+    ],
+    "self": {
+      "never-sent": [
+        "Soo, {userFace} `{user}`, you've never hugged buuuut you have gotten {actions} hug{s}!"
       ],
-      "other": [
-        "{userFace} ``{user}`` has hugged {affectedFace} {affected}!!",
-        "{userFace} ``{user}`` gives {affectedFace} ``{affected}`` a strong hug!",
-        "{affectedFace} {affected}, you just got the best hug from {userFace} ``{user}``!!",
-        "{userFace} ``{user}`` HUGS {affectedFace} ``{affected}``!!!",
-        "HUGS FOR {affectedFace} ``{affected}``! Thank {userFace} ``{user}``!",
-        "{affectedFace} ``{affected}``, hug! You may thank {userFace} ``{user}`` 💙!"
+      "never-received": [
+        "Sheesh, {userFace} `{user}`, you've sent {actions} hug{s} but nobody felt like giving any back!"
       ],
-      "bot": [
-        "Uhh, {userFace} ``{user}``, you can have a hug.. as much as that's worth from a bot",
-        "..Okay? HUG {userFace} ``{user}``!",
-        "*stares intently* .. (hug)",
-        "*stares at lack of arms* \n...\n what do you want me to do?",
-        "Thank you very much, {userFace} ``{user}``, HUG!",
-        "You may have a hug, {userFace} ``{user}``. [hug]",
-        "The best hug of all the hugs has been granted to {userFace} ``{user}``!",
-        "You get a hug, I get a hug, it's a win win! Thanks for the hug {userFace} ``{user}``!",
-        "💙 Thank you {userFace} ``{user}``!",
-        "You're the best, {userFace} ``{user}``, thanks for the hug! 💙",
-        "*stares **very** intensly at lack of arms* ... Uhh, {userFace} ``{user}``?",
-        "You're awesome {userFace} ``{user}``! \n*happy bot noises*",
-        "The hugbot hugs you with the love of a mushroom",
-        "The hugbot hugs you tighter than a giant circus ape"
+      "never": [
+        "Daaang {userFace} `{user}`, you've never gotten or sent a hug! I think you should get on that."
       ],
-      "self": [
-        "You strongly hug yourself, increasing your happiness",
-        "No, I'm hugging you, {userFace} ``{user}``.\n*hug*",
-        "Self-hug! [hug]!",
-        "No judgements, I don't mind you hugging yourself."
-      ],
-      "energy": {
-        "other": [
-          "{userFace} ``{user}`` tries to hug {affectedFace} ``{affected}`` but doesn't have enough energy to do so",
-          "{userFace} ``{user}`` stumbles over to {affectedFace} ``{affected}`` but is too tired to hug them",
-          "{userFace} ``{user}`` goes over to {affectedFace} ``{affected}`` for a hug but is too tired",
-          "{userFace} ``{user}`` stumbles over to {affectedFace} ``{affected}`` but is too tired to do anything"
-        ],
-        "self": [
-          "{userFace} ``{user}`` tries to hug themselves.. but somehow can't even manage that"
-        ]
-      },
-      "stats": {
-        "fail": [
-          "Ahhh, {userFace} ``{user}``, I couldn't find anyone... ._.",
-          "*looks around* .. dunno who's hugs you're lookin' up {userFace} ``{user}``"
-        ],
-        "self": {
-          "never-sent": [
-            "Soo, {userFace} ``{user}``, you've never hugged buuuut you have gotten {actions} hug{s}!"
-          ],
-          "never-received": [
-            "Sheesh, {userFace} ``{user}``, you've sent {actions} hug{s} but nobody felt like giving any back!"
-          ],
-          "never": [
-            "Daaang {userFace} ``{user}``, you've never gotten or sent a hug! I think you should get on that."
-          ],
-          "has": [
-            "Mmm, {userFace} ``{user}``, you've sent {sentActions} hug{sS} and have GOTTEN {receivedActions} hug{rS}!!"
-          ]
-        },
-        "other": {
-          "never-sent": [
-            "Welll, {userFace} ``{user}``, it appears {otherFace} ``{other}`` has never hugged but has gotten {actions} hug{s}"
-          ],
-          "never-received": [
-            "{userFace} ``{user}``, it appears that, the good soul {otherFace} ``{other}`` is has sent {actions} hug{s} but has NEVER gotten a hug!!!"
-          ],
-          "never": [
-            "Wellp, {userFace} ``{user}``, seems {otherFace} ``{other}`` has never had nor given a hug! Think you could fix that?"
-          ],
-          "has": [
-            "Here are ya hug stats, {userFace} ``{user}``: {otherFace} ``{other}`` has gotten {receivedActions} hug{rS} and GIVEN {sentActions} hug{sS}!"
-          ]
-        },
-        "bot": {
-          "never-received": [
-            "Uhh.. I've never been hugged, {userFace} ``{user}``.. *sad face*"
-          ],
-          "has": [
-            "Hi {userFace} ``{user}``!! I have gotten a total of {actions} hug{s}!!"
-          ]
-        }
-      }
+      "has": [
+        "Mmm, {userFace} `{user}`, you've sent {sentActions} hug{sS} and have GOTTEN {receivedActions} hug{rS}!!"
+      ]
     },
+    "other": {
+      "never-sent": [
+        "Welll, {userFace} `{user}`, it appears {otherFace} `{other}` has never hugged but has gotten {actions} hug{s}"
+      ],
+      "never-received": [
+        "{userFace} `{user}`, it appears that, the good soul {otherFace} `{other}` is has sent {actions} hug{s} but has NEVER gotten a hug!!!"
+      ],
+      "never": [
+        "Wellp, {userFace} `{user}`, seems {otherFace} `{other}` has never had nor given a hug! Think you could fix that?"
+      ],
+      "has": [
+        "Here are ya hug stats, {userFace} `{user}`: {otherFace} `{other}` has gotten {receivedActions} hug{rS} and GIVEN {sentActions} hug{sS}!"
+      ]
+    },
+    "bot": {
+      "never-received": [
+        "Uhh.. I've never been hugged, {userFace} `{user}`.. *sad face*"
+      ],
+      "has": [
+        "Hi {userFace} `{user}`!! I have gotten a total of {actions} hug{s}!!"
+      ]
+    }
+  }
+},
     "tickle": {
       "fail": [
-        "{userFace} ``{user}``, your hug failed! Who are you hugging?",
+        "{userFace} `{user}`, your hug failed! Who are you hugging?",
         "They go for the hug aaaand...\n*looks around nervously*\n... uhh, who are you hugging?",
-        "Ehh... I can't find that person, {userFace} ``{user}``.. :c",
-        "I dunno who you're tickling, {userFace} ``{user}``",
-        "Reaching out through the rift, {userFace} ``{user}``'s hand doesn't find purchase"
+        "Ehh... I can't find that person, {userFace} `{user}`.. :c",
+        "I dunno who you're tickling, {userFace} `{user}`",
+        "Reaching out through the rift, {userFace} `{user}`'s hand doesn't find purchase"
       ],
       "other": [
-        "{userFace} ``{user}`` tickles {affectedFace} ``{affected}`` with **[Thousand Feather Technique]**, may heavans have mercy on your soul",
-        "{userFace} ``{user}`` slams open the door and lunges forward, tickling {affectedFace} ``{affected}``",
-        "{userFace} ``{user}`` uses **[Tickle]** on  {affectedFace} ``{affected}``! It's super effective!",
-        "{userFace} ``{user}`` has tickled {affectedFace} ``{affected}``. *tickle tickle tickle*"
+        "{userFace} `{user}` tickles {affectedFace} `{affected}` with **[Thousand Feather Technique]**, may heavans have mercy on your soul",
+        "{userFace} `{user}` slams open the door and lunges forward, tickling {affectedFace} `{affected}`",
+        "{userFace} `{user}` uses **[Tickle]** on  {affectedFace} `{affected}`! It's super effective!",
+        "{userFace} `{user}` has tickled {affectedFace} `{affected}`. *tickle tickle tickle*"
       ],
       "bot": [
-        "Hmm, {userFace} ``{user}`` you realize I'm only 1 year old right? __***FBI OPEN UP***__",
+        "Hmm, {userFace} `{user}` you realize I'm only 1 year old right? __***FBI OPEN UP***__",
         "This feels weird...",
         "Hahaha... uh h-hey, why did you stop?",
         "Self-destruct sequence initiated, tickling detected!",
@@ -275,57 +276,57 @@
       ],
       "energy": {
         "other": [
-          "{userFace} ``{user}`` tries to tickle {affectedFace} ``{affected}`` but doesn't have enough energy to do so",
-          "{userFace} ``{user}``, you're too tired to tickle {affectedFace} ``{affected}``",
-          "{affectedFace} ``{affected}`` feels uncomfortable with your tickles for some reason and runs off, you are too tired to give chase",
-          "Attempting to wiggle their fingers {userFace} ``{user}``'s hands fall limp. Run {affectedFace} ``{affected}``!",
-          "{userFace} ``{user}`` gasps for air before falling down, arms outstretched and tired. {affectedFace} ``{affected}`` is safe for another day"
+          "{userFace} `{user}` tries to tickle {affectedFace} `{affected}` but doesn't have enough energy to do so",
+          "{userFace} `{user}`, you're too tired to tickle {affectedFace} `{affected}`",
+          "{affectedFace} `{affected}` feels uncomfortable with your tickles for some reason and runs off, you are too tired to give chase",
+          "Attempting to wiggle their fingers {userFace} `{user}`'s hands fall limp. Run {affectedFace} `{affected}`!",
+          "{userFace} `{user}` gasps for air before falling down, arms outstretched and tired. {affectedFace} `{affected}` is safe for another day"
         ],
         "self": [
-          "{userFace} ``{user}`` tries to tickle themselves.. but somehow can't even manage that",
+          "{userFace} `{user}` tries to tickle themselves.. but somehow can't even manage that",
           "Ummm.. I'll tickle you if you want..\n*tickle tickle*",
-          "It's okay {userFace} ``{user}``, you can have as many tickles as you want from me"
+          "It's okay {userFace} `{user}`, you can have as many tickles as you want from me"
         ]
       },
       "stats": {
         "fail": [
-          "Ahhh, {userFace} ``{user}``, I couldn't find anyone... ._.",
-          "*looks around* .. dunno who's tickles you're lookin' up {userFace} ``{user}``"
+          "Ahhh, {userFace} `{user}`, I couldn't find anyone... ._.",
+          "*looks around* .. dunno who's tickles you're lookin' up {userFace} `{user}`"
         ],
         "self": {
           "never-sent": [
-            "Soo, {userFace} ``{user}``, you've never tickled buuuut you have been tickled {actions} time{s}!"
+            "Soo, {userFace} `{user}`, you've never tickled buuuut you have been tickled {actions} time{s}!"
           ],
           "never-received": [
-            "{userFace} ``{user}``, you've sent {actions} tickle{s} and lucklily nobody has tickled you back"
+            "{userFace} `{user}`, you've sent {actions} tickle{s} and lucklily nobody has tickled you back"
           ],
           "never": [
-            "{userFace} ``{user}``, you've never been tickled but you've never tickled either. Good thing, bad thing, I'm not sure"
+            "{userFace} `{user}`, you've never been tickled but you've never tickled either. Good thing, bad thing, I'm not sure"
           ],
           "has": [
-            "Mmm, {userFace} ``{user}``, you've sent {sentActions} tickle{sS} and have BEEN tickled {receivedActions} time{rS}!!"
+            "Mmm, {userFace} `{user}`, you've sent {sentActions} tickle{sS} and have BEEN tickled {receivedActions} time{rS}!!"
           ]
         },
         "other": {
           "never-sent": [
-            "Welll, {userFace} ``{user}``, it appears {otherFace} ``{other}`` has never tickled someone but has been tickled {actions} time{s}"
+            "Welll, {userFace} `{user}`, it appears {otherFace} `{other}` has never tickled someone but has been tickled {actions} time{s}"
           ],
           "never-received": [
-            "{userFace} ``{user}``, it appears that  {otherFace} ``{other}`` is has tickled {actions} time{s} and has never had a retribution tickle"
+            "{userFace} `{user}`, it appears that  {otherFace} `{other}` is has tickled {actions} time{s} and has never had a retribution tickle"
           ],
           "never": [
-            "Wellp, {userFace} ``{user}``, seems {otherFace} ``{other}`` has never tickled nor been tickled! You could be the first to tickle them!"
+            "Wellp, {userFace} `{user}`, seems {otherFace} `{other}` has never tickled nor been tickled! You could be the first to tickle them!"
           ],
           "has": [
-            "Here are ya tickle stats, {userFace} ``{user}``: {otherFace} ``{other}`` has tickled {receivedActions} times{rS} and BEEN tickled {sentActions} time{sS}!"
+            "Here are ya tickle stats, {userFace} `{user}`: {otherFace} `{other}` has tickled {receivedActions} times{rS} and BEEN tickled {sentActions} time{sS}!"
           ]
         },
         "bot": {
           "never-received": [
-            "Uhh.. I've never been tickled, {userFace} ``{user}``.. *sad face*"
+            "Uhh.. I've never been tickled, {userFace} `{user}`.. *sad face*"
           ],
           "has": [
-            "Hi {userFace} ``{user}``!! I have been tickled a total of {actions} time{s}!!"
+            "Hi {userFace} `{user}`!! I have been tickled a total of {actions} time{s}!!"
           ]
         }
       }
@@ -335,61 +336,61 @@
         "Who are you glomping exactly.."
       ],
       "other": [
-        "{userFace} ``{user}`` glomps {affectedFace} ``{affected}``!!"
+        "{userFace} `{user}` glomps {affectedFace} `{affected}`!!"
       ],
       "bot": [
-        "The hugbot happily glomps you back! Yay {userFace} ``{user}``!"
+        "The hugbot happily glomps you back! Yay {userFace} `{user}`!"
       ],
       "self": [
-        "{userFace} ``{user}``, you somehow manage to glomp yourself.. *how?*"
+        "{userFace} `{user}`, you somehow manage to glomp yourself.. *how?*"
       ],
       "energy": {
         "other": [
-          "{userFace} ``{user}`` stumbles over to {affectedFace} ``{affected}`` but is too tired to do anything"
+          "{userFace} `{user}` stumbles over to {affectedFace} `{affected}` but is too tired to do anything"
         ],
         "self": [
-          "{userFace} ``{user}`` tries to glomp themselves.. but somehow can't even manage that"
+          "{userFace} `{user}` tries to glomp themselves.. but somehow can't even manage that"
         ]
       },
       "stats": {
         "fail": [
-          "Ahhh, {userFace} ``{user}``, I couldn't find anyone... ._.",
-          "*looks around* .. dunno who's glomps you're finding {userFace} ``{user}``"
+          "Ahhh, {userFace} `{user}`, I couldn't find anyone... ._.",
+          "*looks around* .. dunno who's glomps you're finding {userFace} `{user}`"
         ],
         "self": {
           "never-sent": [
-            "Soo, {userFace} ``{user}``, you've never sent a glomp buuuut you have gotten {actions} glomp{s}!"
+            "Soo, {userFace} `{user}`, you've never sent a glomp buuuut you have gotten {actions} glomp{s}!"
           ],
           "never-received": [
-            "Sheesh, {userFace} ``{user}``, you've sent {actions} glomp{s} but nobody felt like giving any back!"
+            "Sheesh, {userFace} `{user}`, you've sent {actions} glomp{s} but nobody felt like giving any back!"
           ],
           "never": [
-            "Daaang {userFace} ``{user}``, you've never gotten or sent a glomp! I think you should get on that."
+            "Daaang {userFace} `{user}`, you've never gotten or sent a glomp! I think you should get on that."
           ],
           "has": [
-            "Mmm, {userFace} ``{user}``, you've sent {sentActions} glomp{sS} and have GOTTEN {receivedActions} glomp{rS}!!"
+            "Mmm, {userFace} `{user}`, you've sent {sentActions} glomp{sS} and have GOTTEN {receivedActions} glomp{rS}!!"
           ]
         },
         "other": {
           "never-sent": [
-            "Welll, {userFace} ``{user}``, it appears {otherFace} ``{other}`` has never sent a glomp but has gotten {actions} glomp{s}"
+            "Welll, {userFace} `{user}`, it appears {otherFace} `{other}` has never sent a glomp but has gotten {actions} glomp{s}"
           ],
           "never-received": [
-            "{userFace} ``{user}``, it appears that, the good soul {otherFace} ``{other}`` is has sent {actions} glomp{s} but has NEVER gotten a glomp!!!"
+            "{userFace} `{user}`, it appears that, the good soul {otherFace} `{other}` is has sent {actions} glomp{s} but has NEVER gotten a glomp!!!"
           ],
           "never": [
-            "Wellp, {userFace} ``{user}``, seems {otherFace} ``{other}`` has never had nor given a glomp! Think you could fix that?"
+            "Wellp, {userFace} `{user}`, seems {otherFace} `{other}` has never had nor given a glomp! Think you could fix that?"
           ],
           "has": [
-            "Here are ya glomp stats, {userFace} ``{user}``: {otherFace} ``{other}`` has gotten {receivedActions} glomp{rS} and GIVEN {sentActions} glomp{sS}!"
+            "Here are ya glomp stats, {userFace} `{user}`: {otherFace} `{other}` has gotten {receivedActions} glomp{rS} and GIVEN {sentActions} glomp{sS}!"
           ]
         },
         "bot": {
           "never-received": [
-            "Uhh.. I've never been glomped, {userFace} ``{user}``.. *sad face*"
+            "Uhh.. I've never been glomped, {userFace} `{user}`.. *sad face*"
           ],
           "has": [
-            "Hi {userFace} ``{user}``!! I have gotten a total of {actions} glomp{s}!!"
+            "Hi {userFace} `{user}`!! I have gotten a total of {actions} glomp{s}!!"
           ]
         }
       }
@@ -399,61 +400,152 @@
         "I don't .. really know who you're poking, could ya be more specific?"
       ],
       "other": [
-        "{userFace} ``{user}`` POKES {affectedFace} ``{affected}``!!"
+        "{userFace} `{user}` POKES {affectedFace} `{affected}`!!"
       ],
       "bot": [
-        "The hugbot stares at you... AND POKES! hehehe {userFace} ``{user}``"
+        "The hugbot stares at you... AND POKES! hehehe {userFace} `{user}`"
       ],
       "self": [
-        "{userFace} ``{user}``, you poke yourself on the nose.. SELF POKE!"
+        "{userFace} `{user}`, you poke yourself on the nose.. SELF POKE!"
       ],
       "energy": {
         "other": [
-          "{userFace} ``{user}`` raises their hand for a poke but the hand falls short of {affectedFace} ``{affected}``"
+          "{userFace} `{user}` raises their hand for a poke but the hand falls short of {affectedFace} `{affected}`"
         ],
         "self": [
-          "{userFace} ``{user}`` tries to poke themselves but can't even raise their hand.."
+          "{userFace} `{user}` tries to poke themselves but can't even raise their hand.."
         ]
       },
       "stats": {
         "fail": [
-          "I uh, couldn't find anyone's pokes by that name, {userFace} ``{user}``",
-          "Who's pokes are you exactly looking for, {userFace} ``{user}``?"
+          "I uh, couldn't find anyone's pokes by that name, {userFace} `{user}`",
+          "Who's pokes are you exactly looking for, {userFace} `{user}`?"
         ],
         "self": {
           "never-sent": [
-            "Wellp, {userFace} ``{user}``, you have never poked anyone, but others have been mean and poked you {actions} time{s}!"
+            "Wellp, {userFace} `{user}`, you have never poked anyone, but others have been mean and poked you {actions} time{s}!"
           ],
           "never-received": [
-            "{userFace} ``{user}``, you've poked {actions} people but nobody thought to retaliate and poke you back!"
+            "{userFace} `{user}`, you've poked {actions} people but nobody thought to retaliate and poke you back!"
           ],
           "never": [
             "Wow, you've had no interaction so far! Nobody has poked you nor have you poked anyone!"
           ],
           "has": [
-            "Here are yo pokes {userFace} ``{user}``: You have poked {sentActions} people and been poked {receivedActions} time{rS}!"
+            "Here are yo pokes {userFace} `{user}`: You have poked {sentActions} people and been poked {receivedActions} time{rS}!"
           ]
         },
         "other": {
           "never-sent": [
-            "{userFace} ``{user}``, {otherFace} ``{other}`` has never poked anyone but has been meanly poked {actions} time{s}..."
+            "{userFace} `{user}`, {otherFace} `{other}` has never poked anyone but has been meanly poked {actions} time{s}..."
           ],
           "never-received": [
-            "Well, {userFace} ``{user}``, {otherFace} ``{other}`` has poked {actions} people but never been retaliated against.. wanna try?"
+            "Well, {userFace} `{user}`, {otherFace} `{other}` has poked {actions} people but never been retaliated against.. wanna try?"
           ],
           "never": [
-            "It seems, {userFace} ``{user}`` that {otherFace} ``{other}`` hasn't been poked nor poked anyone! Let's be the first!"
+            "It seems, {userFace} `{user}` that {otherFace} `{other}` hasn't been poked nor poked anyone! Let's be the first!"
           ],
           "has": [
-            "Alright {userFace} ``{user}``, the pokes for {otherFace} ``{other}`` areeeee: {receivedActions} time{rS} poked and has poked {sentActions} people!"
+            "Alright {userFace} `{user}`, the pokes for {otherFace} `{other}` areeeee: {receivedActions} time{rS} poked and has poked {sentActions} people!"
           ]
         },
         "bot": {
           "never-received": [
-            "hehehe, {userFace} ``{user}``, I've never been poked.. AND DON'T YOU DARE!"
+            "hehehe, {userFace} `{user}`, I've never been poked.. AND DON'T YOU DARE!"
           ],
           "has": [
-            "Hallo {userFace} ``{user}``!! I've been poked {actions} time{s}!"
+            "Hallo {userFace} `{user}`!! I've been poked {actions} time{s}!"
+          ]
+        }
+      }
+    },
+    "boop": {
+      "fail": [
+        "{userFace} `{user}`, your boop flopped! Who are you boopelling?",
+        "They go for the sneak boop aaaand...\n*looks around nervously*\n... uhh, who are you boopelling?",
+        "Ehh... I can't find that person, {userFace} `{user}`.. :c",
+        "I dunno who you're boopelling, {userFace} `{user}`"
+      ],
+      "other": [
+        "{userFace} `{user}` has boopelled {affectedFace} {affected}!!",
+        "{userFace} `{user}` gives {affectedFace} `{affected}` a strong boop!",
+        "{affectedFace} {affected}, you just got sneak bopped by {userFace} `{user}`!!",
+        "{userFace} `{user}` boopS {affectedFace} `{affected}`!!!",
+        "BOOPS FOR {affectedFace} `{affected}`! Thank {userFace} `{user}`!",
+        "{affectedFace} `{affected}`, boop! You may thank {userFace} `{user}` 💙!"
+      ],
+      "bot": [
+        "Uhh, {userFace} `{user}`, I bestow upon you a bop.. as much as that's worth from a bot.. EY A BOT BOP",
+        "..Okay? boop {userFace} `{user}`!",
+        "*stares intently* .. (bop)",
+        "*stares at lack of arms* \n...\n what do you want me to do?",
+        "Thank you very much, {userFace} `{user}`, snootle booples!",
+        "You may have a boop, {userFace} `{user}`. [bop]",
+        "The best bop of all the bops has been granted to {userFace} `{user}`!",
+        "You get a boop, I get a boop, it's a win win! Thanks for the boop {userFace} `{user}`!",
+        " Thank you {userFace} `{user}`!",
+        "You're the best, {userFace} `{user}`, thanks for the boop! 💙",
+        "*stares **very** intensly at lack of arms* ... Uhh, {userFace} `{user}`?",
+        "You're awesome {userFace} `{user}`! \n*happy bopped bot noises*",
+        "The newly renamed bopbot boops you with the love of a snootle boople",
+        "The newly renamed bopbot boops you with the strength of a tiger!"
+      ],
+      "self": [
+        "You strongly selfbop , increasing your happiness",
+        "No, I'm bopping you, {userFace} `{user}`.\n*bop*",
+        "Self-boop! [boop]!",
+        "No judgements, I don't mind you booping yourself."
+      ],
+      "energy": {
+        "other": [
+          "{userFace} `{user}` tries to boop {affectedFace} `{affected}` but doesn't have enough energy to do so",
+          "{userFace} `{user}` sneaks over to {affectedFace} `{affected}` but is caught boop-handed",
+          "{userFace} `{user}` goes over to {affectedFace} `{affected}` for a boop but is too tired",
+          "{userFace} `{user}` stumbles over to {affectedFace} `{affected}` but is too tired to do anything"
+        ],
+        "self": [
+          "{userFace} `{user}` tries to boop themselves.. but somehow can't even manage that"
+        ]
+      },
+      "stats": {
+        "fail": [
+          "Ahhh, {userFace} `{user}`, I couldn't find anyone... ._.",
+          "*looks around* .. dunno who's boops you're lookin' up {userFace} `{user}`"
+        ],
+        "self": {
+          "never-sent": [
+            "Soo, {userFace} `{user}`, you've never booped buuuut you have gotten {actions} boop{s}!"
+          ],
+          "never-received": [
+            "Sheesh, {userFace} `{user}`, you've sent {actions} boop{s} but nobody felt like giving any back!"
+          ],
+          "never": [
+            "Daaang {userFace} `{user}`, you've never gotten or sent a boop! I think you should get on that."
+          ],
+          "has": [
+            "Mmm, {userFace} `{user}`, you've sent {sentActions} boop{sS} and have GOTTEN {receivedActions} boop{rS}!!"
+          ]
+        },
+        "other": {
+          "never-sent": [
+            "Welll, {userFace} `{user}`, it appears {otherFace} `{other}` has never booped but has gotten {actions} boop{s}"
+          ],
+          "never-received": [
+            "{userFace} `{user}`, it appears that, the good soul {otherFace} `{other}` is has sent {actions} boop{s} but has NEVER gotten a boop!!!"
+          ],
+          "never": [
+            "Wellp, {userFace} `{user}`, seems {otherFace} `{other}` has never had nor given a boop! Think you could fix that?"
+          ],
+          "has": [
+            "Here are ya boop stats, {userFace} `{user}`: {otherFace} `{other}` has gotten {receivedActions} boop{rS} and GIVEN {sentActions} boop{sS}!"
+          ]
+        },
+        "bot": {
+          "never-received": [
+            "Uhh.. I've never been boopled, {userFace} `{user}`.. *sad face*"
+          ],
+          "has": [
+            "Hi {userFace} `{user}`!! I have gotten a total of {actions} boop{s}!!"
           ]
         }
       }

@@ -7,6 +7,7 @@ const db = require("./preferencedb")
  * @type {Object.<string, ServerInfo>}
  */
 const data = {}
+
 /**
  * user id to preferences
  * @typedef {Object.<string, Preference[]>} ServerInfo

@@ -9,20 +9,9 @@ const warned = require("./warned")
  * @param {Discord.Client} client 
  */
 function begin(client) {
-    process.stdout.write("\x1Bc")
-    console.log(Array(process.stdout.rows + 1).join('\n'));
+    //process.stdout.write("\x1Bc")
+    //console.log(Array(process.stdout.rows + 1).join('\n'));
     readline.init()
-
-    const stewie = {
-        guild: "457601288113487897",
-        channels: {
-            general: "481910869282783235"
-        }
-    }
-    const id = stewie.guild
-    const channelId = stewie.channels.general
-    const guild = client.guilds.get(id)
-    const channel = guild.channels.get(channelId)
     readline.getRL().question("> ", createOnResponse(client))
 }
 

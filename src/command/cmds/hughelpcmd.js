@@ -13,7 +13,8 @@ module.exports = {
      */
     async call(event, args) {
         const shownCommands = commandHandler().commands.filter(e => e["s"] !== true)
-        const prefix = `\`${config.prefix}\``
+        const configPrefix = config.customPrefixes[event.guild.id] || config.prefix
+        const prefix = `\`${configPrefix}\``
 
         const lastOfList = shownCommands.pop().cmd
         const listWithoutLast = shownCommands.map(cmd => cmd.cmd).join(", ")

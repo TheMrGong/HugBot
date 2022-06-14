@@ -335,6 +335,15 @@ module.exports = {
             console.log("CANT SEND!!")
             return
         }
+
+        let func = createTackleDodge
+
+        const funcs = {
+            "dodge": createTackleDodge,
+            "accept": createTackleAccept,
+            "too-long": createTackleHugTooLong,
+            "super-dodge": createHugDodge
+        }
         const pazia = message.guild.id == "264714814172037120"
         let flameyUser
         let flameyProfilePicture
@@ -356,6 +365,13 @@ module.exports = {
                 if (!targetUser) return message.channel.sendMessage("Couldn't find target")
                 flameyUser = targetUser
                 flameyProfilePicture = await request.get(targetUser.displayAvatarURL)
+
+                if (args.length > 2) {
+                    const type = args[2].toLowerCase()
+                    const foundFunc = funcs[type]
+                    if (!foundFunc) return message.channel.sendMessage("Unknown function type - valid: " + Object.keys(funcs).join(", "))
+                    func = foundFunc
+                }
             }
         } else {
             flameyUser = await message.client.fetchUser(pazia ? "166335747501195264" : "253987768999346178")
@@ -372,7 +388,7 @@ module.exports = {
             console.log("Starting typing")
             message.channel.startTyping(20)
             const begin = new Date().getTime()
-            const attachement = await createTackleDodge(th.body, flameyProfilePicture.body)
+            const attachement = await func(th.body, flameyProfilePicture.body)
             if (newMessage instanceof Discord.Message) await newMessage.edit("Uploading...")
             await message.channel.send("HUGS GENERATED IN " + ((new Date().getTime() - begin) / 1000) + " second(s)!", attachement)
             if (newMessage instanceof Discord.Message && newMessage.deletable) newMessage.delete()

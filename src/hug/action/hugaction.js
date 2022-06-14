@@ -109,7 +109,7 @@ class HugActionBuilder {
             if (!affected) {
                 const msg = await message.channel.send(this.lang("fail", ...langBase("")))
                 //@ts-ignore
-                return msg.edit(this.lang("fail", ...langBase(await userFaceP)))
+                return// msg.edit(this.lang("fail", ...langBase(await userFaceP)))
             }
 
             const affectedFaceP = affected.id == message.author.id ? userFaceP : discordUtils.profileToEmoji(affected.user)
@@ -121,7 +121,7 @@ class HugActionBuilder {
             const sendMessage = async (type) => {
                 const msg = await message.channel.send(this.lang(...[type, ...langArguments("", "")]))
                 //@ts-ignore
-                msg.edit(this.lang(...[type, ...langArguments(await userFaceP, await affectedFaceP)]))
+                //msg.edit(this.lang(...[type, ...langArguments(await userFaceP, await affectedFaceP)]))
             }
             if (!energy) {
                 if (message.deletable) message.delete()
@@ -238,7 +238,7 @@ class HugAction {
                     const findFail = (userFace) => data.lang("fail", "user", userMember.displayName, "userFace", userFace)
                     const msg = await message.channel.send(findFail(""))
                     //@ts-ignore
-                    return msg.edit(findFail(await userFaceP))
+                    return //msg.edit(findFail(await userFaceP))
                 }
 
                 const stats = {
@@ -259,7 +259,7 @@ class HugAction {
                     const generate = (userFace) => statsLang(...["bot." + key, ...lang(userFace), ...additional])
                     const msg = await message.channel.send(generate(""))
                     //@ts-ignore
-                    msg.edit(generate(await userFaceP))
+                    //msg.edit(generate(await userFaceP))
                 } else {
                     /**@type {"never-sent"|"never-received"|"never"|"has"} */
                     let type;
@@ -290,22 +290,27 @@ class HugAction {
 
                         const msg = await message.channel.send(statsLang("self." + type, ...lang("")))
                         //@ts-ignore
-                        msg.edit(statsLang("self." + type, ...lang(await userFaceP)))
+                        //msg.edit(statsLang("self." + type, ...lang(await userFaceP)))
                     } else { // other
                         const otherFaceP = discordUtils.profileToEmoji(finding.user)
                         let lang = (userFace, otherFace) => ["user", userMember.displayName, "userFace", userFace, "other", finding.displayName, "otherFace", otherFace, ...statLang]
                         const msg = await message.channel.send(statsLang("other." + type, ...lang("", "")))
                         //@ts-ignore
-                        msg.edit(statsLang("other." + type, ...lang(await userFaceP, await otherFaceP)))
+                        //msg.edit(statsLang("other." + type, ...lang(await userFaceP, await otherFaceP)))
                     }
                 }
             }
         }
 
-        client.on("message", async message => {
-            if (message.cleanContent.startsWith(config.prefix)) return
+        /**
+         * 
+         * @param {Discord.Message} message 
+         */
+        const handler = async message => {
             if (!message.guild)
                 return
+            const prefix = config.customPrefixes[message.guild.id] || config.prefix
+            if (message.cleanContent.startsWith(prefix)) return
 
             const mentioned = message.mentions.users.first()
 
@@ -354,11 +359,11 @@ class HugAction {
                         const hasPermission = !(channel instanceof Discord.TextChannel) || channel.permissionsFor(us).has("ADD_REACTIONS")
 
                         if ((this.data.emojiId || this.data.emojiString) && hasPermission) try {
-                            const emoji = this.data.emojiId ? message.client.emojis.get(this.data.emojiId) : this.data.emojiString
+                            const emoji = this.data.emojiId ? await discordUtils.findEmojiGlobally(client, this.data.emojiId) : this.data.emojiString
                             if (member) await message.react(emoji)
                             if (!member) await above.react(emoji)
                         } catch (e) {
-                            console.log("Unable to show reaction emojis - " + e)
+                            console.log("Unable to show reaction emojis for " + this.data.action.id + " emoji " + this.data.emojiId + " - " + e)
                         }
                     }
                 }
@@ -376,13 +381,14 @@ class HugAction {
                     }
                 }
             }
-        })
+        }
+        client.on("message", handler)
         commandHandler.addCommand(client, command)
         commandHandler.addCommand(client, statsCommand)
     }
 }
 
 module.exports = {
-    HugActionBuilder,
-    HugActions
+    HugActions,
+    HugActionBuilder
 }

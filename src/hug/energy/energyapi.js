@@ -19,7 +19,8 @@ const MAX_ENERGY = 30
 async function addEnergy(guildId, userId, energy = 1) {
     if (energy == 0) return
     const currentEnergy = await getEnergyData(guildId, userId)
-    if (currentEnergy.energy + energy < 0 || currentEnergy.energy + energy >= MAX_ENERGY)
+
+    if (((energy < 0 && currentEnergy.energy + energy < 0) || currentEnergy.energy + energy >= MAX_ENERGY))
         return
     let increasing = true
     if (energy < 0) {

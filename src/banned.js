@@ -1,5 +1,5 @@
 const banned = [
-
+    "572603417432817685"
 ]
 
 const dontUnban = [
